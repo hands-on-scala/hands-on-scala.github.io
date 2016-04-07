@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Setup on Hands-on Scala Blog</title>
-    <link>http://github.com/hands-on-scala/hands-on-scala.github.io/categories/setup/</link>
+    <link>http://hands-on-scala.github.io/categories/setup/</link>
     <description>Recent content in Setup on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0200</lastBuildDate>
-    <atom:link href="http://github.com/hands-on-scala/hands-on-scala.github.io/categories/setup/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://hands-on-scala.github.io/categories/setup/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Setup</title>
-      <link>http://github.com/hands-on-scala/hands-on-scala.github.io/post/setup/</link>
+      <link>http://hands-on-scala.github.io/post/setup/</link>
       <pubDate>Thu, 07 Apr 2016 10:30:57 +0200</pubDate>
       
-      <guid>http://github.com/hands-on-scala/hands-on-scala.github.io/post/setup/</guid>
+      <guid>http://hands-on-scala.github.io/post/setup/</guid>
       <description>
 
 &lt;h1 id=&#34;setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Setting up a Scala project with SBT&lt;/h1&gt;
