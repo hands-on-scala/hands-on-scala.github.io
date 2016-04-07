@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Hands-on Scala Blog</title>
+    <link>http://github.com/hands-on-scala/hands-on-scala.github.io/post/</link>
+    <description>Recent content in Posts on Hands-on Scala Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0200</lastBuildDate>
+    <atom:link href="http://github.com/hands-on-scala/hands-on-scala.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Setup</title>
+      <link>http://github.com/hands-on-scala/hands-on-scala.github.io/post/setup/</link>
+      <pubDate>Thu, 07 Apr 2016 10:30:57 +0200</pubDate>
+      
+      <guid>http://github.com/hands-on-scala/hands-on-scala.github.io/post/setup/</guid>
+      <description>
+
+&lt;h1 id=&#34;setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Setting up a Scala project with SBT&lt;/h1&gt;
+
+&lt;h2 id=&#34;install-sbt-the-scala-build-tool:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Install SBT, the Scala Build Tool&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.scala-sbt.org/release/docs/Setup.html&#34;&gt;http://www.scala-sbt.org/release/docs/Setup.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;create-a-toy-project:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Create a toy project&lt;/h2&gt;
+
+&lt;p&gt;Todo&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

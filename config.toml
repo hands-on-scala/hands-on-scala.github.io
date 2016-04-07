@@ -3,3 +3,4 @@ languageCode = "en-us"
 title = "Hands-on Scala Blog"
 canonifyurls = true
 theme = "hugo-base16-theme"
+publishdir = "/home/adri/hands-on-scala.github.io/"
