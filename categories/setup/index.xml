@@ -6,26 +6,68 @@
     <description>Recent content in Setup on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Apr 2016 10:30:57 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 15 Apr 2016 16:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/categories/setup/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Setup</title>
+      <title>Short intro to Scala</title>
       <link>http://hands-on-scala.github.io/post/setup/</link>
-      <pubDate>Thu, 07 Apr 2016 10:30:57 +0200</pubDate>
+      <pubDate>Fri, 15 Apr 2016 16:30:00 +0200</pubDate>
       
       <guid>http://hands-on-scala.github.io/post/setup/</guid>
       <description>
 
-&lt;h1 id=&#34;setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Setting up a Scala project with SBT&lt;/h1&gt;
+&lt;h1 id=&#34;welcome:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Welcome!&lt;/h1&gt;
 
-&lt;h2 id=&#34;install-sbt-the-scala-build-tool:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Install SBT, the Scala Build Tool&lt;/h2&gt;
+&lt;!-- You&#39;re probably here because you&#39;ve heard that scala is a cool language
+that you&#39;d like to learn. Object oriented and functional at the same time! --&gt;
 
-&lt;p&gt;&lt;a href=&#34;http://www.scala-sbt.org/release/docs/Setup.html&#34;&gt;http://www.scala-sbt.org/release/docs/Setup.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll show you something very basic at first: a bit more personal version of the
+famous &lt;a href=&#34;https://en.wikipedia.org/wiki/%22Hello,_World!%22_program&#34;&gt;&amp;ldquo;Hello World&amp;rdquo; program&lt;/a&gt; in Scala.
+The following little Scala program asks for your name and then prints &amp;ldquo;Hello, &lt;You&gt;!&amp;rdquo; to the console.
+(Of course you need to substitute &amp;ldquo;&lt;You&gt;&amp;rdquo; with your name.)&lt;/p&gt;
 
-&lt;h2 id=&#34;create-a-toy-project:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Create a toy project&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;object&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;WordApp&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;App&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;scala&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;io&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;StdIn&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;readLine&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;What&amp;#39;s your name?\n&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hello &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;!&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Todo&lt;/p&gt;
+
+&lt;p&gt;You might ask: how do I make the above example App come alive?
+Well, you have more than one option. (Btw, you&amp;rsquo;ll have to get used to this in the world of Scala &amp;ndash; usually there is more than one way to do things). At first let&amp;rsquo;s not complicate things with IDEs and GUIs, let&amp;rsquo;s just use the
+console tools available. Another post will show you how to use Eclipse or IntelliJ IDEA for
+Scala development.&lt;/p&gt;
+
+&lt;h2 id=&#34;setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Setting up a Scala project with SBT&lt;/h2&gt;
+
+&lt;p&gt;SBT stands for the &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;&amp;ldquo;Scala Build Tool&amp;rdquo;&lt;/a&gt;. It&amp;rsquo;s like &amp;lsquo;gradle&amp;rsquo; or &amp;lsquo;maven&amp;rsquo; for Java.
+If you are not familiar with build tools, consult the Internet :)&lt;/p&gt;
+
+&lt;h3 id=&#34;installing-sbt:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Installing SBT&lt;/h3&gt;
+
+&lt;p&gt;Check the latest documentation here:
+&lt;a href=&#34;http://www.scala-sbt.org/release/docs/Setup.html&#34;&gt;http://www.scala-sbt.org/release/docs/Setup.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;!-- ### Creating a &#34;Hello&#34; project
+
+(WIP)
+[http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/](http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/)
+
+Start SBT in the console with the &#34;sbt&#34; command
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;$ sbt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+--&gt;
+
+&lt;h2 id=&#34;more-things-to-read:2cc0b07f42930e4520820be1fe66f913&#34;&gt;More things to read&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The official Scala site: &lt;a href=&#34;http://www.scala-lang.org/&#34;&gt;www.scala-lang.org&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;SBT: &lt;a href=&#34;http://www.scala-sbt.org/&#34;&gt;www.scala-sbt.org&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

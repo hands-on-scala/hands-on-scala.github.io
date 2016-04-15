@@ -7,6 +7,8 @@ title = "Short intro to Scala"
 
 # Welcome!
 
+<!-- You're probably here because you've heard that scala is a cool language
+that you'd like to learn. Object oriented and functional at the same time! -->
 I'll show you something very basic at first: a bit more personal version of the 
 famous ["Hello World" program](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program) in Scala.
 The following little Scala program asks for your name and then prints "Hello, <You>!" to the console.
@@ -32,7 +34,7 @@ If you are not familiar with build tools, consult the Internet :)
 Check the latest documentation here:
 [http://www.scala-sbt.org/release/docs/Setup.html](http://www.scala-sbt.org/release/docs/Setup.html)
 
-### Creating a "Hello" project
+<!-- ### Creating a "Hello" project
 
 (WIP)
 [http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/](http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/)
@@ -43,6 +45,7 @@ Start SBT in the console with the "sbt" command
 $ sbt
 {{< / highlight >}}
 
+-->
 ## More things to read
  - The official Scala site: [www.scala-lang.org](http://www.scala-lang.org/)
  - SBT: [www.scala-sbt.org](http://www.scala-sbt.org/)

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
 <link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
-<title>Setup - Hands-on Scala Blog</title>
+<title>Short intro to Scala - Hands-on Scala Blog</title>
 </head>
 <body>
 
@@ -30,11 +30,13 @@
   <div class="meta">
 
     <span class="key">published on</span>
-    <span class="val"><time itemprop="datePublished" datetime="2016-04-07">April 07, 2016</time></span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-04-15">April 15, 2016</time></span>
 
 
     <span class="key">in</span>
     <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
 
         <a href="http://hands-on-scala.github.io/categories/setup">setup</a>
 
@@ -42,19 +44,61 @@
 
 
   </div>
-  <h1 class="headline" itemprop="headline">Setup</h1>
+  <h1 class="headline" itemprop="headline">Short intro to Scala</h1>
   <section class="body" itemprop="articleBody">
     
 
-<h1 id="setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913">Setting up a Scala project with SBT</h1>
+<h1 id="welcome:2cc0b07f42930e4520820be1fe66f913">Welcome!</h1>
 
-<h2 id="install-sbt-the-scala-build-tool:2cc0b07f42930e4520820be1fe66f913">Install SBT, the Scala Build Tool</h2>
+<!-- You're probably here because you've heard that scala is a cool language
+that you'd like to learn. Object oriented and functional at the same time! -->
 
-<p><a href="http://www.scala-sbt.org/release/docs/Setup.html">http://www.scala-sbt.org/release/docs/Setup.html</a></p>
+<p>I&rsquo;ll show you something very basic at first: a bit more personal version of the
+famous <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">&ldquo;Hello World&rdquo; program</a> in Scala.
+The following little Scala program asks for your name and then prints &ldquo;Hello, <You>!&rdquo; to the console.
+(Of course you need to substitute &ldquo;<You>&rdquo; with your name.)</p>
 
-<h2 id="create-a-toy-project:2cc0b07f42930e4520820be1fe66f913">Create a toy project</h2>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">WordApp</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name?\n&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;!&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
 
-<p>Todo</p>
+
+<p>You might ask: how do I make the above example App come alive?
+Well, you have more than one option. (Btw, you&rsquo;ll have to get used to this in the world of Scala &ndash; usually there is more than one way to do things). At first let&rsquo;s not complicate things with IDEs and GUIs, let&rsquo;s just use the
+console tools available. Another post will show you how to use Eclipse or IntelliJ IDEA for
+Scala development.</p>
+
+<h2 id="setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913">Setting up a Scala project with SBT</h2>
+
+<p>SBT stands for the <a href="http://www.scala-sbt.org/">&ldquo;Scala Build Tool&rdquo;</a>. It&rsquo;s like &lsquo;gradle&rsquo; or &lsquo;maven&rsquo; for Java.
+If you are not familiar with build tools, consult the Internet :)</p>
+
+<h3 id="installing-sbt:2cc0b07f42930e4520820be1fe66f913">Installing SBT</h3>
+
+<p>Check the latest documentation here:
+<a href="http://www.scala-sbt.org/release/docs/Setup.html">http://www.scala-sbt.org/release/docs/Setup.html</a></p>
+
+<!-- ### Creating a "Hello" project
+
+(WIP)
+[http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/](http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/)
+
+Start SBT in the console with the "sbt" command
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ sbt
+</pre></div>
+
+
+-->
+
+<h2 id="more-things-to-read:2cc0b07f42930e4520820be1fe66f913">More things to read</h2>
+
+<ul>
+<li>The official Scala site: <a href="http://www.scala-lang.org/">www.scala-lang.org</a></li>
+<li>SBT: <a href="http://www.scala-sbt.org/">www.scala-sbt.org</a></li>
+</ul>
 
   </section>
 </article>
