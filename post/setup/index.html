@@ -30,7 +30,7 @@
   <div class="meta">
 
     <span class="key">published on</span>
-    <span class="val"><time itemprop="datePublished" datetime="2016-04-15">April 15, 2016</time></span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-04-21">April 21, 2016</time></span>
 
 
     <span class="key">in</span>
@@ -50,50 +50,116 @@
 
 <h1 id="welcome:2cc0b07f42930e4520820be1fe66f913">Welcome!</h1>
 
-<!-- You're probably here because you've heard that scala is a cool language
-that you'd like to learn. Object oriented and functional at the same time! -->
+<p>You&rsquo;re probably here because you&rsquo;ve heard that Scala is a cool programming language
+that you&rsquo;d like to learn. Because, hey, it&rsquo;s object-oriented and functional at the same time!</p>
 
-<p>I&rsquo;ll show you something very basic at first: a bit more personal version of the
-famous <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">&ldquo;Hello World&rdquo; program</a> in Scala.
-The following little Scala program asks for your name and then prints &ldquo;Hello, <You>!&rdquo; to the console.
-(Of course you need to substitute &ldquo;<You>&rdquo; with your name.)</p>
+<p>I&rsquo;ll show you something very basic at first: a bit more &ldquo;personal&rdquo; version
+of the famous
+<a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">&ldquo;Hello World&rdquo; program</a>.
+The following little Scala program will ask for your name and then it&rsquo;ll print &ldquo;Hello, <You>!&rdquo; to the console.</p>
 
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">WordApp</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
-  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name?\n&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name? \n&quot;</span><span style="color: #f92672">)</span>
   <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;!&quot;</span><span style="color: #f92672">)</span>
 <span style="color: #f92672">}</span>
 </pre></div>
 
 
-<p>You might ask: how do I make the above example App come alive?
-Well, you have more than one option. (Btw, you&rsquo;ll have to get used to this in the world of Scala &ndash; usually there is more than one way to do things). At first let&rsquo;s not complicate things with IDEs and GUIs, let&rsquo;s just use the
+<p>In case this is really your very first Scala program,
+you might ask: how do I make the above example <em>App</em> come alive?
+Well, you have more than one option. (Btw, you&rsquo;ll have to get used to this in the world of Scala &ndash; usually there is more than one way to do things. I admit that this fact is not very
+beginner-friendly, but later it will come handy.)</p>
+
+<p>At first let&rsquo;s not complicate things with IDEs and GUIs, let&rsquo;s just use the
 console tools available. Another post will show you how to use Eclipse or IntelliJ IDEA for
 Scala development.</p>
 
-<h2 id="setting-up-a-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913">Setting up a Scala project with SBT</h2>
+<h2 id="setting-up-our-first-scala-project-with-sbt:2cc0b07f42930e4520820be1fe66f913">Setting up our first Scala project with SBT</h2>
 
 <p>SBT stands for the <a href="http://www.scala-sbt.org/">&ldquo;Scala Build Tool&rdquo;</a>. It&rsquo;s like &lsquo;gradle&rsquo; or &lsquo;maven&rsquo; for Java.
-If you are not familiar with build tools, consult the Internet :)</p>
+If you are not familiar with build tools, then consult the Internet :)</p>
 
 <h3 id="installing-sbt:2cc0b07f42930e4520820be1fe66f913">Installing SBT</h3>
 
-<p>Check the latest documentation here:
+<p>Check the latest install documentation here:
 <a href="http://www.scala-sbt.org/release/docs/Setup.html">http://www.scala-sbt.org/release/docs/Setup.html</a></p>
 
-<!-- ### Creating a "Hello" project
+<h3 id="creating-the-hello-project:2cc0b07f42930e4520820be1fe66f913">Creating the &ldquo;Hello&rdquo; project</h3>
 
-(WIP)
-[http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/](http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/)
+<p>It won&rsquo;t be as painful as it might seem at first :)</p>
 
-Start SBT in the console with the "sbt" command
+<p>It&rsquo;s really just two steps writing the source files to an appropriate location,
+and give some hints to SBT about how it should do its work.</p>
 
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>$ sbt
+<h4 id="the-source-tree:2cc0b07f42930e4520820be1fe66f913">The source tree</h4>
+
+<p>SBT expects the source Scala files (and tests, but we won&rsquo;t have any for now) to be
+in a specific folder. So, let&rsquo;s go ahead and create them (I&rsquo;m assuming you have
+soma basic experience with the Linux command line):</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>mkdir -p src/main/scala
+mkdir -p src/test/scala
 </pre></div>
 
 
--->
+<p>Within these two directories we&rsquo;ll usually have somewhat parallel sub-directories
+with packages for our main source files and tests. Now we won&rsquo;t have any packages or tests,
+for simplicity.</p>
 
-<h2 id="more-things-to-read:2cc0b07f42930e4520820be1fe66f913">More things to read</h2>
+<p>The source file we&rsquo;ll edit must be in the &ldquo;src/main/scala/&rdquo; folder. Let&rsquo;s name it
+&ldquo;App.scala&rdquo;. (You can use another name, but it wouldn&rsquo;t be a good idea to change
+the &ldquo;.scala&rdquo; extension.)
+And its contents, as above:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">WordApp</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name? \n&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;!&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+
+So, just save this into a file &ldquo;src/main/scala/App.scala&rdquo;.</p>
+
+<h4 id="the-build-sbt-file:2cc0b07f42930e4520820be1fe66f913">The &ldquo;build.sbt&rdquo; file</h4>
+
+<p>This little confg-like file will set some useful settings for your project,
+and also contains a list of dependencies.</p>
+
+<p>It should be saved to the top-level directory of your project, next to the &ldquo;src&rdquo; folder.</p>
+
+<p>And its contents:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">name</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;01_grader_app&quot;</span>
+
+<span style="color: #f8f8f2">version</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;0.1&quot;</span>
+
+<span style="color: #f8f8f2">exportJars</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">true</span>
+
+<span style="color: #f8f8f2">scalaVersion</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;2.11.8&quot;</span>
+</pre></div>
+</p>
+
+<p>Note the empty lines! Looks stupid, but they are actually necessary, if you are
+using an older SBT version, prior to 0.13.7.
+(<a href="http://stackoverflow.com/questions/21780787/why-does-sbt-version-%E2%89%A4-0-13-6-require-blank-lines-between-settings-in-sbt-fil">Here</a> is an explanation.)</p>
+
+<p>To check which version you have, run:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sbt <span style="color: #e6db74">&#39;inspect sbtVersion&#39;</span>
+</pre></div>
+</p>
+
+<p>With newer versions (from 0.13.7 up) you don&rsquo;t need the empty lines.</p>
+
+<p><a href="http://scalatutorials.com/beginner/2013/07/18/getting-started-with-sbt/">More help with SBT</a></p>
+
+<h3 id="let-s-run-it-already:2cc0b07f42930e4520820be1fe66f913">Let&rsquo;s run it already!</h3>
+
+<p>Standing in the root of your project, just say:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sbt run
+</pre></div>
+</p>
+
+<p>I hope it works for all of you now! :)</p>
+
+<h3 id="more-things-to-read:2cc0b07f42930e4520820be1fe66f913">More things to read</h3>
 
 <ul>
 <li>The official Scala site: <a href="http://www.scala-lang.org/">www.scala-lang.org</a></li>
