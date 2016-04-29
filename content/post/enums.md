@@ -8,20 +8,17 @@ title = "Enums in Scala"
 # Enumerations - what are they for?
 
 Generally in programming, enumerations, or for short, enums,
-are a simple means to create a little model within our code.
-Enums are very simple and therefore limited in their modeling 
-capabilities: they can only model things that can have a fixed, limited
-number of different values. And under the hood, an enum type
-is just something that can have any integer value out of a pre-defined 
-set of integers, that were given readable names.
-This description might sound a bit too abstarct, so 
-let's see two examples instead in Scala.
+are a easy means to create a very simple model within our code, for .
+representing a type with a limited set of possible values with readable 
+names.
+This description might sound a bit too abstract, so 
+let's see two examples instead.
 
-## First example: days of week ? or second ex.?
+## Enums in scala: first example
 
 {{< highlight scala >}}
 object DayOfWeek extends Enumeration {
-  val Sunday, Monday, Wednesday, Thursday, Friday, Saturday = Value
+  val Sun, Mon, Wed, Thu, Fri, Sat = Value
 }
 {{< / highlight >}}
 
