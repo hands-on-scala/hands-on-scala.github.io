@@ -7,19 +7,19 @@ title = "Enums in Scala"
 
 # Enumerations - what are they for?
 
-Generally in programming, enumerations, or for short, enums,
-are a easy means to create a very simple model within our code, for .
-representing a type with a limited set of possible values with readable 
+Generally in programming, enumerations (a.k.a. enums)
+are light-weight means to create a very simple model within our code, for
+representing a custom type with a limited set of possible values with readable 
 names.
 This description might sound a bit too abstract, so 
-let's see two examples instead.
+let's see an example instead.
 
 ## Example: days of week
 
-Let's introduce an enum for tha days of week.
-In Scala, you have to create an "object" for this, which 
-needs to extend Scala's Enumeration trait (more about objects 
-and traits later...).
+Let's introduce an enum for representing the days of week.
+In Scala, you have to create an _object_ for this, which 
+needs to extend Scala's _Enumeration_ trait (we'll learn more about objects 
+and traits later).
 
 {{< highlight scala >}}
 object DayOfWeek extends Enumeration {
@@ -27,8 +27,14 @@ object DayOfWeek extends Enumeration {
 }
 {{< / highlight >}}
 
+As you can see, it's almost as easy as listing the possible values,
+separated by commas. But don't forget the "val" from the beginning and 
+the " = Value" part from the end of the value list, because without them, 
+your shiny new enum will not work.
+
 After defining this new enum in our code
-we can start using days of week (after importing it!) as here, for example:
+we can start using days of week (after importing them!) as in the
+following example:
 {{< highlight scala >}}
 import DayOfWeek._
 
@@ -37,7 +43,7 @@ override def main(args: Array[String]): Unit = {
 }
 {{< / highlight >}}
 
-And this tiny program will print the string "Mon" to the screen.
+And this tiny program will print the string "Mon" to the screen. Try it!
 
 It's also easy to loop over all possible values of an enum:
 
@@ -45,19 +51,10 @@ It's also easy to loop over all possible values of an enum:
 override def main(args: Array[String]): Unit = {
   DayOfWeek.values.foreach { day => println(day) }
 }
-DayOfWeek.values.foreach { day -> println(day) }
 {{< / highlight >}}
 
 That's it!
 
 In the next post, we'll see how to use enum values when using pattern matching in Scala.
 
-// TODO: add some links for more reading
 
-//## Improved enum of days of week
-
-//## Second example: Favourite colors
-
-
-//[Beware...](http://underscore.io/blog/posts/2014/09/03/enumerations.html)
-// is it still the case??
