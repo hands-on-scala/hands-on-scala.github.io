@@ -6,13 +6,75 @@
     <description>Recent content in Posts on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 21 Apr 2016 17:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 29 Apr 2016 17:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Enums in Scala</title>
+      <link>http://hands-on-scala.github.io/post/enums/</link>
+      <pubDate>Fri, 29 Apr 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/enums/</guid>
+      <description>
+
+&lt;h1 id=&#34;enumerations-what-are-they-for:1ef00569cd8c4dbcb2b9bfd22661e936&#34;&gt;Enumerations - what are they for?&lt;/h1&gt;
+
+&lt;p&gt;Generally in programming, enumerations (a.k.a. enums)
+are light-weight means to create a very simple model within our code, for
+representing a custom type with a limited set of possible values with readable
+names.
+This description might sound a bit too abstract, so
+let&amp;rsquo;s see an example instead.&lt;/p&gt;
+
+&lt;h2 id=&#34;example-days-of-week:1ef00569cd8c4dbcb2b9bfd22661e936&#34;&gt;Example: days of week&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s introduce an enum for representing the days of week.
+In Scala, you have to create an &lt;em&gt;object&lt;/em&gt; for this, which
+needs to extend Scala&amp;rsquo;s &lt;em&gt;Enumeration&lt;/em&gt; trait (we&amp;rsquo;ll learn more about objects
+and traits later).&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;object&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;DayOfWeek&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Enumeration&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Sun&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Mon&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Wed&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Thu&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Fri&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Sat&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Value&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see, it&amp;rsquo;s almost as easy as listing the possible values,
+separated by commas. But don&amp;rsquo;t forget the &amp;ldquo;val&amp;rdquo; from the beginning and
+the &amp;ldquo; = Value&amp;rdquo; part from the end of the value list, because without them,
+your shiny new enum will not work.&lt;/p&gt;
+
+&lt;p&gt;After defining this new enum in our code
+we can start using days of week (after importing them!) as in the
+following example:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;DayOfWeek._&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;override&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;args&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Array&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;])&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Unit&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;Mon&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And this tiny program will print the string &amp;ldquo;Mon&amp;rdquo; to the screen. Try it!&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s also easy to loop over all possible values of an enum:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;override&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;args&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Array&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;])&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Unit&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #a6e22e&#34;&gt;DayOfWeek&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;values&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;foreach&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;day&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;day&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s it!&lt;/p&gt;
+
+&lt;p&gt;In the next post, we&amp;rsquo;ll see how to use enum values when using pattern matching in Scala.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Short intro to Scala</title>
       <link>http://hands-on-scala.github.io/post/setup/</link>
-      <pubDate>Thu, 21 Apr 2016 17:30:00 +0200</pubDate>
+      <pubDate>Fri, 22 Apr 2016 17:30:00 +0200</pubDate>
       
       <guid>http://hands-on-scala.github.io/post/setup/</guid>
       <description>
