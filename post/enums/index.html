@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>Enums in Scala - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-04-29">April 29, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+        <a href="http://hands-on-scala.github.io/categories/enums">enums</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">Enums in Scala</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="enumerations-what-are-they-for:1ef00569cd8c4dbcb2b9bfd22661e936">Enumerations - what are they for?</h1>
+
+<p>Generally in programming, enumerations (a.k.a. enums)
+are light-weight means to create a very simple model within our code, for
+representing a custom type with a limited set of possible values with readable
+names.
+This description might sound a bit too abstract, so
+let&rsquo;s see an example instead.</p>
+
+<h2 id="example-days-of-week:1ef00569cd8c4dbcb2b9bfd22661e936">Example: days of week</h2>
+
+<p>Let&rsquo;s introduce an enum for representing the days of week.
+In Scala, you have to create an <em>object</em> for this, which
+needs to extend Scala&rsquo;s <em>Enumeration</em> trait (we&rsquo;ll learn more about objects
+and traits later).</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">DayOfWeek</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">Enumeration</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #a6e22e">Sun</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Mon</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Wed</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Thu</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Fri</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Sat</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">Value</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+
+
+<p>As you can see, it&rsquo;s almost as easy as listing the possible values,
+separated by commas. But don&rsquo;t forget the &ldquo;val&rdquo; from the beginning and
+the &ldquo; = Value&rdquo; part from the end of the value list, because without them,
+your shiny new enum will not work.</p>
+
+<p>After defining this new enum in our code
+we can start using days of week (after importing them!) as in the
+following example:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2">DayOfWeek._</span>
+
+<span style="color: #66d9ef">override</span> <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">main</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">args</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Array</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">])</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Unit</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #a6e22e">Mon</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
+
+<p>And this tiny program will print the string &ldquo;Mon&rdquo; to the screen. Try it!</p>
+
+<p>It&rsquo;s also easy to loop over all possible values of an enum:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">override</span> <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">main</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">args</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Array</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">])</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Unit</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #a6e22e">DayOfWeek</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">values</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">foreach</span> <span style="color: #f92672">{</span> <span style="color: #f8f8f2">day</span> <span style="color: #66d9ef">=&gt;</span> <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">day</span><span style="color: #f92672">)</span> <span style="color: #f92672">}</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
+
+<p>That&rsquo;s it!</p>
+
+<p>In the next post, we&rsquo;ll see how to use enum values when using pattern matching in Scala.</p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+
