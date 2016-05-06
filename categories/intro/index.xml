@@ -6,8 +6,109 @@
     <description>Recent content in Intro on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 Apr 2016 17:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 06 May 2016 17:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/categories/intro/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basic pattern matching in Scala</title>
+      <link>http://hands-on-scala.github.io/post/patternmatch1/</link>
+      <pubDate>Fri, 06 May 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/patternmatch1/</guid>
+      <description>
+
+&lt;h1 id=&#34;why-should-we-care-about-pattern-matching:709c56cceaa353d481f380974d67f3c0&#34;&gt;Why should we care about pattern matching?&lt;/h1&gt;
+
+&lt;p&gt;Pattern matching is a quite commonly used &amp;ldquo;programming pattern&amp;rdquo; in functional languages.
+It&amp;rsquo;s somewhat similar to a sequence of &lt;em&gt;if / else&lt;/em&gt; statements or to the &lt;em&gt;switch&lt;/em&gt; statement of Java, but it is
+much more powerful, because it lets you &lt;em&gt;decompose&lt;/em&gt; the object to be matched on the fly. This means
+that you can apply rules based on the matched object&amp;rsquo;s type or inner structure without having
+to manually disassemble the object into its parts.&lt;/p&gt;
+
+&lt;p&gt;But, before going too deep, let&amp;rsquo;s see two very basic examples.&lt;/p&gt;
+
+&lt;h2 id=&#34;example-1-matching-value:709c56cceaa353d481f380974d67f3c0&#34;&gt;Example 1: matching value&lt;/h2&gt;
+
+&lt;p&gt;Here the object what we match against is &lt;em&gt;x&lt;/em&gt;, an integer. (But of course it could be something else, a String, or anything really.)
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;object&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;MatchTest1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;App&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;matchTest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;match&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;many&amp;quot;&lt;/span&gt;
+  &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;matchTest&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+Fairly simple, isn&amp;rsquo;t it? Just use the &lt;em&gt;match&lt;/em&gt; keyword after the name of the
+thing you&amp;rsquo;ll want to match, and list your cases within curly braces.
+The match expression in our case will return the value that appears on the right side of the &amp;lsquo;=&amp;gt;&amp;rsquo; arrow, corresponding
+to the first matching case. So the order of the _case_s will matter if there is some overlap among the left sides of the arrows!&lt;/p&gt;
+
+&lt;p&gt;One importatnt  thing to note is the last case where an underscore is used: this is Scala&amp;rsquo;s notation
+for &amp;ldquo;match anything&amp;rdquo;. Without this line, we would get a &amp;ldquo;scala.MatchError&amp;rdquo; because we called
+the &lt;em&gt;matchTest()&lt;/em&gt; function with the value 3, which is not covered by the other &lt;em&gt;case&lt;/em&gt; branches.&lt;/p&gt;
+
+&lt;p&gt;So the main point to remember from here is that you should be sure to cover all
+possible options when using a &lt;em&gt;match&lt;/em&gt; expression if you want to avoid ugly errors.
+The fail-safe option usually is to use the underscore as the last &lt;em&gt;case&lt;/em&gt;.
+It will define a default path for the program flow for &amp;ldquo;all other cases&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;(Note: I just copied this example from the
+&lt;a href=&#34;http://docs.scala-lang.org/tutorials/tour/pattern-matching.html&#34;&gt;official documentation&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;example-2-matching-type:709c56cceaa353d481f380974d67f3c0&#34;&gt;Example 2: matching type&lt;/h2&gt;
+
+&lt;p&gt;If we want to write a function that behaves differently for different input types, we can write something like:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getType&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Any&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;match&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;String&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Integer&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Int&amp;quot;&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;I don&amp;#39;t know&amp;quot;&lt;/span&gt;
+  &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+Tha main difference from the previous example is that now we used &amp;ldquo;x: Type&amp;rdquo; instead of a specified value on the left side
+of the arrow, after the &lt;em&gt;case&lt;/em&gt; keyword. It&amp;rsquo;s still simple :)&lt;/p&gt;
+
+&lt;p&gt;Note: &lt;em&gt;Any&lt;/em&gt; is a general type in Scala, similar to the &amp;ldquo;Object&amp;rdquo; of Java, which is an ancestor of all other types.&lt;/p&gt;
+
+&lt;h2 id=&#34;example-3-matching-structure:709c56cceaa353d481f380974d67f3c0&#34;&gt;Example 3: matching structure&lt;/h2&gt;
+
+&lt;p&gt;I promised in the first paragraph that we will be able to &amp;ldquo;&lt;em&gt;decompose&lt;/em&gt; the object to be matched
+on the fly&amp;rdquo;.  How do we use this capability of Scala in our code?&lt;/p&gt;
+
+&lt;p&gt;To demonstrate this, at first we need some objects that have a structure.
+Here we&amp;rsquo;ll have a composite object, a &lt;em&gt;case class&lt;/em&gt; (we&amp;rsquo;ll learn more about case classes in another blog post)
+representing a tweet message, that has three parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;an identifier (&lt;em&gt;id: Long&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;an author (&lt;em&gt;author: User&lt;/em&gt;, that itself could be a complex type, now it only has a name)&lt;/li&gt;
+&lt;li&gt;a message (&lt;em&gt;msg: String&lt;/em&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Long&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;And now a function can match a tweet&amp;rsquo;s inners like in the following code snippet:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;processTweet&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tweet&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweet&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;match&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Invalid (negative) tweet id!&amp;quot;&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;adorster&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Welcome, &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;!&amp;quot;&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Just another tweet&amp;quot;&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The &amp;ldquo;if thisAndThat&amp;rdquo; parts on the left sides of the arrows are called &amp;ldquo;guards&amp;rdquo;, and I should have explained them in the previous example to keep this one simpler :) W.I.P.&lt;/p&gt;
+
+&lt;p&gt;Example codes with tests are available at &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/02_pattern_match_app&#34;&gt;my scala-examples github repo&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Enums in Scala</title>
