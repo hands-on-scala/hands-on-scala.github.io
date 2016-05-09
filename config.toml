@@ -7,9 +7,9 @@ publishdir = "/home/adri/hands-on-scala.github.io/"
 
 
 [params]
-
     name = "Adrienn Szabo"
-    description = "Let's learn Scala together!"
+    author = "Adrienn Szabo (@adorster)"
+    description = " Let's learn Scala together!"
 
     # Since this template is static, the contact form uses www.formspree.io as a
     # proxy. The form makes a POST request to their servers to send the actual
