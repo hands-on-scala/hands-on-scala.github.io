@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content=" Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="Adrienn Szabo (@adorster)">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>Testing our Scala code - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-05-13">May 13, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+        <a href="http://hands-on-scala.github.io/categories/testing">testing</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">Testing our Scala code</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="why-test-our-code:6473280be67b92290b8d1101a0ce93d9">Why test our code?</h1>
+
+<p>This is a more &lsquo;practical&rsquo; topic, and I&rsquo;m sure that many would argue
+that learning how to use a unit testing framework is not strictly necessary
+for newcomers. But according to my experience, getting into the
+habit of writing tests regularly quickly pays off.</p>
+
+<p>Why? It&rsquo;s nicely summarized <a href="http://blog.xebia.com/5-reasons-why-you-should-test-your-code/">here</a>, I&rsquo;m
+just listing here the main points:</p>
+
+<ol>
+<li>Regression Testing</li>
+<li>Improve The Implementation Via New Insights</li>
+<li>It Saves Time, Really</li>
+<li>Self-Updating Documentation</li>
+<li>It Is Fun</li>
+</ol>
+
+<h1 id="testing-frameworks-for-scala:6473280be67b92290b8d1101a0ce93d9">Testing frameworks for Scala</h1>
+
+<p>In Scala, you basically have two main-stream options if you want to write unit tests for your code:</p>
+
+<ul>
+<li><a href="http://www.scalatest.org">ScalaTest</a></li>
+<li><a href="https://etorreborre.github.io/specs2/">Specs2</a></li>
+</ul>
+
+<p>We&rsquo;ll explore the first one, the ScalaTest framework in this short post, through some basic examples.</p>
+
+<h2 id="a-simple-test-with-scalatest:6473280be67b92290b8d1101a0ce93d9">A simple test with ScalaTest</h2>
+
+<p>To use ScalaTest we need to add it as a dependency to our <em>build.sbt</em> file in the root of our
+sbt project. (Note: If you don&rsquo;t know how to set up a Scala project with SBT, you can find help <a href="http://hands-on-scala.github.io/post/setup/">here</a>)</p>
+
+<p>We&rsquo;ll need to extend our initial <em>build.sbt</em> with a new <em>libraryDepencencies</em> part.
+(<em>Note:</em> If you already had dependencies in the libraryDependencies section, then just add a new line
+to let SBT know that we want to use the ScalaTest framework. But be careful,
+all, but the last line within the <em>Seq</em> should end in a comma!)
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">name</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;my_tested_app&quot;</span>
+<span style="color: #f8f8f2">version</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;0.1&quot;</span>
+<span style="color: #f8f8f2">exportJars</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">true</span>
+<span style="color: #f8f8f2">scalaVersion</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;2.11.7&quot;</span>
+<span style="color: #f8f8f2">libraryDependencies</span> <span style="color: #f92672">++=</span> <span style="color: #f92672">{</span>
+  <span style="color: #a6e22e">Seq</span><span style="color: #f92672">(</span>
+    <span style="color: #e6db74">&quot;org.scalatest&quot;</span>       <span style="color: #f92672">%%</span>  <span style="color: #e6db74">&quot;scalatest&quot;</span> <span style="color: #f92672">%</span> <span style="color: #e6db74">&quot;2.2.6&quot;</span> <span style="color: #f92672">%</span> <span style="color: #e6db74">&quot;test&quot;</span>
+  <span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+
+In the above example, we tell SBT that we want to use the ScalaTest framework, version 2.6.6, so it
+will download all the necessary things at the first subsequent <em>&lsquo;sbt build&rsquo;</em> or <em>&lsquo;sbt run&rsquo;</em> or <em>&lsquo;sbt test&rsquo;</em> command.</p>
+
+<h3 id="where-do-we-put-our-test-codes:6473280be67b92290b8d1101a0ce93d9">Where do we put our test codes?</h3>
+
+<p>Usually another directory with the name <em>&lsquo;test&rsquo;</em> is created next to the <em>&lsquo;main&rsquo;</em> source folder
+within the project&rsquo;s <em>&lsquo;src&rsquo;</em> folder, that contains all the source codes. Inside these, a parallel directory
+structure is used to hold the <em>packages</em> which group together our scala files. (More about packages in a later post.)</p>
+
+<p><a href="https://github.com/ador/scala-examples/tree/master/02_pattern_match_app/src">See an example here.</a></p>
+
+<p>If you use this standard layout for your source codes, then SBT will automatically explore
+your tests, and you&rsquo;ll be able to run all of them simply via the <em>&lsquo;sbt test&rsquo;</em> command. But we jumped a bit ahead :)</p>
+
+<p>At first let&rsquo;s write a test. We need to create a new file within the <em>&lsquo;test&rsquo;</em> directory.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2">org.scalatest.FlatSpec</span>
+
+<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">MyTest</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">FlatSpec</span> <span style="color: #f92672">{</span>
+
+  <span style="color: #e6db74">&quot;This example test&quot;</span> <span style="color: #f8f8f2">should</span> <span style="color: #e6db74">&quot;pass&quot;</span> <span style="color: #f8f8f2">in</span> <span style="color: #f92672">{</span>
+    <span style="color: #f8f8f2">assert</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">1</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
+
+<p>Let&rsquo;s save it as <em>&lsquo;src/test/scala/MyFirstTest.scala&rsquo;</em> within your project folder.</p>
+
+<h3 id="running-our-tests:6473280be67b92290b8d1101a0ce93d9">Running our tests</h3>
+
+<p>And now let&rsquo;s see if it works: type into the console, while in the root of your SBT project:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sbt <span style="color: #f8f8f2">test</span>
+</pre></div>
+</p>
+
+<p>Of course, the above test will fail:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>...
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> *** <span style="color: #ae81ff">1</span> TEST FAILED ***
+<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> Failed tests:
+<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> 	MyTest
+<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> <span style="color: #f92672">(</span>test:test<span style="color: #f92672">)</span> sbt.TestsFailedException: Tests unsuccessful
+<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> Total time: <span style="color: #ae81ff">4</span> s, completed May 13, <span style="color: #ae81ff">2016</span> 6:00:22 PM
+</pre></div>
+</p>
+
+<p>Because&hellip; oh yes, 1+2 does not equal to 2. I just wanted to show a failing test at first. Now let&rsquo;s fix it, and maybe add another test:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2">org.scalatest.FlatSpec</span>
+
+<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">MyTest</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">FlatSpec</span> <span style="color: #f92672">{</span>
+
+  <span style="color: #e6db74">&quot;This example test&quot;</span> <span style="color: #f8f8f2">should</span> <span style="color: #e6db74">&quot;pass&quot;</span> <span style="color: #f8f8f2">in</span> <span style="color: #f92672">{</span>
+    <span style="color: #f8f8f2">assert</span><span style="color: #f92672">(</span><span style="color: #ae81ff">3</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">1</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+
+  <span style="color: #e6db74">&quot;This second example test&quot;</span> <span style="color: #f8f8f2">should</span> <span style="color: #e6db74">&quot;also pass&quot;</span> <span style="color: #f8f8f2">in</span> <span style="color: #f92672">{</span>
+    <span style="color: #f8f8f2">assert</span><span style="color: #f92672">(</span><span style="color: #ae81ff">3</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
+
+<p>After re-running <em>&lsquo;sbt test&rsquo;</em>:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> MyTest:
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> This example <span style="color: #f8f8f2">test</span>
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> - should pass
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> This second <span style="color: #f8f8f2">test</span>
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> - should also pass
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Run completed in <span style="color: #ae81ff">216</span> milliseconds.
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Total number of tests run: 2
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Suites: completed 1, aborted 0
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Tests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0
+<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> All tests passed.
+<span style="color: #f92672">[</span>success<span style="color: #f92672">]</span> Total time: <span style="color: #ae81ff">5</span> s, completed May 13, <span style="color: #ae81ff">2016</span> 6:08:34 PM
+</pre></div>
+</p>
+
+<p>This is it!</p>
+
+<p><a href="https://github.com/ador/scala-examples/blob/master/02_pattern_match_app/src/test/scala/pmatching/MatcherTest.scala">Another example</a>,
+related to the last example of <a href="http://hands-on-scala.github.io/post/patternmatch1/">the previous post</a>.</p>
+
+<p>Note <em>n +1</em> : Until I set up a comments section somehow here, feedback is welcome via <a href="https://twitter.com/adorster">Twitter</a> :)</p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+
