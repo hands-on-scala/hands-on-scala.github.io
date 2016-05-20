@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content=" Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="Adrienn Szabo (@adorster)">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>Our first Scala dojo - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-05-20">May 20, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+        <a href="http://hands-on-scala.github.io/categories/dojo">dojo</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">Our first Scala dojo</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="what-is-a-coding-dojo:6beeeeddb038fa751cb02fd699880cfe">What is a coding dojo?</h1>
+
+<p>In short, a coding dojo is an event where a group of programmers practice their craft in an organized way, focusing on a single coding problem.</p>
+
+<p>A dojo usually lasts a couple of hours, depending on the style and the task to be solved.
+For more details see <a href="http://codingdojo.org/cgi-bin/index.pl?WhatIsCodingDojo">CodingDojo.org</a> or
+<a href="http://code.joejag.com/2009/the-coding-dojo.html">Joe Wright&rsquo;s blog post about coding dojos</a>.</p>
+
+<p>We usually do a <em>Randori Kata</em> version, where the task is solved by a team of 4-6 people, who take 5-7 minute turns in pairs.</p>
+
+<p>The task and the programming language is chosen in advance by one of us, or even better by a pair of dojo organizers.
+The organizers prepare the event by:</p>
+
+<ul>
+<li>Determining the general goal of the dojo. It should be NOT that the team should finish the task, but learning or practicing something!
+(e.g.: following strict <a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a>,
+focusing on careful planning, or learning a new language feature).</li>
+<li>Selecting a specific programming task that fits well the above goal.</li>
+<li>Solving the task before the real dojo, to check the difficulty and to be able to help out during the real dojo.</li>
+<li>Possibly re-defining the task or giving additional hints to the task description if needed.
+<!--, somewhat tailored to the skills of the team mebers
+who signed up for the dojo.--></li>
+</ul>
+
+<h2 id="the-task:6beeeeddb038fa751cb02fd699880cfe">The task</h2>
+
+<p>For the very first Scala coding dojo, I chose a simple task, because many of us was in an early phase of learning Scala.
+The team had to implement a <em>grader</em> application, that assigns marks (from &lsquo;F&rsquo; to &lsquo;A&rsquo;) to an integer score.</p>
+
+<p>The full description is available on <a href="https://github.com/ador/scala-examples/tree/master/01_grader_app">GitHub</a>.</p>
+
+<h2 id="give-it-a-try:6beeeeddb038fa751cb02fd699880cfe">Give it a try!</h2>
+
+<p>Try to solve this problem! It&rsquo;s the most useful if you have some team-mates to practice <a href="https://en.wikipedia.org/wiki/Pair_programming">pair programming</a>
+as well, but it&rsquo;s not a requirement, you can do it by yourself.</p>
+
+<p><em>Note</em>: the GitHub repo with the task description also holds a solution, so be careful when looking around if you don&rsquo;t want to cheat! :)</p>
+
+<p>If you get stuck, it might help to read my
+previous posts about:</p>
+
+<ul>
+<li><a href="http://hands-on-scala.github.io/post/enums/">enumerations in Scala</a></li>
+<li><a href="http://hands-on-scala.github.io/post/testing1/">testing in Scala</a></li>
+<li><a href="http://hands-on-scala.github.io/post/patternmatch1/">pattern matching</a></li>
+</ul>
+
+<p>or just use good ol&rsquo; Google :)</p>
+
+<h2 id="the-team-s-solution:6beeeeddb038fa751cb02fd699880cfe">The team&rsquo;s solution</h2>
+
+<p>A solution can be found in the GitHub repo mentioned above.</p>
+
+<h2 id="what-we-learned:6beeeeddb038fa751cb02fd699880cfe">What we learned</h2>
+
+<p>It&rsquo;s really worth to take some time at the end of a dojo to review
+how it worked out, did we enjoy it, what we learned?</p>
+
+<p>It&rsquo;s probably different for each of us, but we always learn from each other.
+Sometimes it&rsquo;s just a new keystroke-combination of the
+IDE that we use for development. Other times it&rsquo;s a convenient feature of the programming language,
+or a new approach for the task.</p>
+
+<p>It also happens that we learn something more &lsquo;personal&rsquo;: that YX is really fun to work with, or that
+maybe YZ is afraid to go out to the whiteboard, but when working in pairs, (s)he opens up and has really brilliant ideas.</p>
+
+<p>In this specific case I learned how to measure code coverage in the Eclipse-based <a href="http://scala-ide.org/">Scala IDE</a>, and of course, how Enumerations
+can be used in Scala.</p>
+
+<p>Note <em>n +1</em> : Until I set up a comments section somehow here, feedback is welcome via <a href="https://twitter.com/adorster">Twitter</a> :)</p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

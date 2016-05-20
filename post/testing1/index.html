@@ -86,16 +86,16 @@ sbt project. (Note: If you don&rsquo;t know how to set up a Scala project with S
 (<em>Note:</em> If you already had dependencies in the libraryDependencies section, then just add a new line
 to let SBT know that we want to use the ScalaTest framework. But be careful,
 all, but the last line within the <em>Seq</em> should end in a comma!)
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">name</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;my_tested_app&quot;</span>
-<span style="color: #f8f8f2">version</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;0.1&quot;</span>
-<span style="color: #f8f8f2">exportJars</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">true</span>
-<span style="color: #f8f8f2">scalaVersion</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;2.11.7&quot;</span>
-<span style="color: #f8f8f2">libraryDependencies</span> <span style="color: #f92672">++=</span> <span style="color: #f92672">{</span>
-  <span style="color: #a6e22e">Seq</span><span style="color: #f92672">(</span>
-    <span style="color: #e6db74">&quot;org.scalatest&quot;</span>       <span style="color: #f92672">%%</span>  <span style="color: #e6db74">&quot;scalatest&quot;</span> <span style="color: #f92672">%</span> <span style="color: #e6db74">&quot;2.2.6&quot;</span> <span style="color: #f92672">%</span> <span style="color: #e6db74">&quot;test&quot;</span>
-  <span style="color: #f92672">)</span>
-<span style="color: #f92672">}</span>
-</pre></div>
+
+name := "my_tested_app"
+version := "0.1"
+exportJars := true
+scalaVersion := "2.11.7"
+libraryDependencies ++= {
+  Seq(
+    "org.scalatest"       %%  "scalatest" % "2.2.6" % "test"
+  )
+}
 
 In the above example, we tell SBT that we want to use the ScalaTest framework, version 2.6.6, so it
 will download all the necessary things at the first subsequent <em>&lsquo;sbt build&rsquo;</em> or <em>&lsquo;sbt run&rsquo;</em> or <em>&lsquo;sbt test&rsquo;</em> command.</p>
@@ -112,15 +112,15 @@ structure is used to hold the <em>packages</em> which group together our scala f
 your tests, and you&rsquo;ll be able to run all of them simply via the <em>&lsquo;sbt test&rsquo;</em> command. But we jumped a bit ahead :)</p>
 
 <p>At first let&rsquo;s write a test. We need to create a new file within the <em>&lsquo;test&rsquo;</em> directory.
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2">org.scalatest.FlatSpec</span>
 
-<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">MyTest</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">FlatSpec</span> <span style="color: #f92672">{</span>
+import org.scalatest.FlatSpec
 
-  <span style="color: #e6db74">&quot;This example test&quot;</span> <span style="color: #f8f8f2">should</span> <span style="color: #e6db74">&quot;pass&quot;</span> <span style="color: #f8f8f2">in</span> <span style="color: #f92672">{</span>
-    <span style="color: #f8f8f2">assert</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">1</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
-  <span style="color: #f92672">}</span>
-<span style="color: #f92672">}</span>
-</pre></div>
+class MyTest extends FlatSpec {
+
+  "This example test" should "pass" in {
+    assert(2 == 1 + 2)
+  }
+}
 </p>
 
 <p>Let&rsquo;s save it as <em>&lsquo;src/test/scala/MyFirstTest.scala&rsquo;</em> within your project folder.</p>
@@ -128,50 +128,50 @@ your tests, and you&rsquo;ll be able to run all of them simply via the <em>&lsqu
 <h3 id="running-our-tests:6473280be67b92290b8d1101a0ce93d9">Running our tests</h3>
 
 <p>And now let&rsquo;s see if it works: type into the console, while in the root of your SBT project:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sbt <span style="color: #f8f8f2">test</span>
-</pre></div>
+
+sbt test
 </p>
 
 <p>Of course, the above test will fail:</p>
 
-<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>...
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> *** <span style="color: #ae81ff">1</span> TEST FAILED ***
-<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> Failed tests:
-<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> 	MyTest
-<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> <span style="color: #f92672">(</span>test:test<span style="color: #f92672">)</span> sbt.TestsFailedException: Tests unsuccessful
-<span style="color: #f92672">[</span>error<span style="color: #f92672">]</span> Total time: <span style="color: #ae81ff">4</span> s, completed May 13, <span style="color: #ae81ff">2016</span> 6:00:22 PM
-</pre></div>
-</p>
+
+...
+[info] *** 1 TEST FAILED ***
+[error] Failed tests:
+[error] 	MyTest
+[error] (test:test) sbt.TestsFailedException: Tests unsuccessful
+[error] Total time: 4 s, completed May 13, 2016 6:00:22 PM
+
 
 <p>Because&hellip; oh yes, 1+2 does not equal to 2. I just wanted to show a failing test at first. Now let&rsquo;s fix it, and maybe add another test:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2">org.scalatest.FlatSpec</span>
 
-<span style="color: #66d9ef">class</span> <span style="color: #a6e22e">MyTest</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">FlatSpec</span> <span style="color: #f92672">{</span>
+import org.scalatest.FlatSpec
 
-  <span style="color: #e6db74">&quot;This example test&quot;</span> <span style="color: #f8f8f2">should</span> <span style="color: #e6db74">&quot;pass&quot;</span> <span style="color: #f8f8f2">in</span> <span style="color: #f92672">{</span>
-    <span style="color: #f8f8f2">assert</span><span style="color: #f92672">(</span><span style="color: #ae81ff">3</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">1</span> <span style="color: #f92672">+</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
-  <span style="color: #f92672">}</span>
+class MyTest extends FlatSpec {
 
-  <span style="color: #e6db74">&quot;This second example test&quot;</span> <span style="color: #f8f8f2">should</span> <span style="color: #e6db74">&quot;also pass&quot;</span> <span style="color: #f8f8f2">in</span> <span style="color: #f92672">{</span>
-    <span style="color: #f8f8f2">assert</span><span style="color: #f92672">(</span><span style="color: #ae81ff">3</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
-  <span style="color: #f92672">}</span>
-<span style="color: #f92672">}</span>
-</pre></div>
+  "This example test" should "pass" in {
+    assert(3 == 1 + 2)
+  }
+
+  "This second example test" should "also pass" in {
+    assert(3 > 2)
+  }
+}
 </p>
 
 <p>After re-running <em>&lsquo;sbt test&rsquo;</em>:
-<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> MyTest:
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> This example <span style="color: #f8f8f2">test</span>
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> - should pass
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> This second <span style="color: #f8f8f2">test</span>
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> - should also pass
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Run completed in <span style="color: #ae81ff">216</span> milliseconds.
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Total number of tests run: 2
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Suites: completed 1, aborted 0
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> Tests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0
-<span style="color: #f92672">[</span>info<span style="color: #f92672">]</span> All tests passed.
-<span style="color: #f92672">[</span>success<span style="color: #f92672">]</span> Total time: <span style="color: #ae81ff">5</span> s, completed May 13, <span style="color: #ae81ff">2016</span> 6:08:34 PM
-</pre></div>
+
+[info] MyTest:
+[info] This example test
+[info] - should pass
+[info] This second test
+[info] - should also pass
+[info] Run completed in 216 milliseconds.
+[info] Total number of tests run: 2
+[info] Suites: completed 1, aborted 0
+[info] Tests: succeeded 2, failed 0, canceled 0, ignored 0, pending 0
+[info] All tests passed.
+[success] Total time: 5 s, completed May 13, 2016 6:08:34 PM
 </p>
 
 <p>This is it!</p>

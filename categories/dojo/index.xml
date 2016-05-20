@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dojo on Hands-on Scala Blog</title>
+    <link>http://hands-on-scala.github.io/categories/dojo/</link>
+    <description>Recent content in Dojo on Hands-on Scala Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 May 2016 17:30:00 +0200</lastBuildDate>
+    <atom:link href="http://hands-on-scala.github.io/categories/dojo/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Our first Scala dojo</title>
+      <link>http://hands-on-scala.github.io/post/dojo1/</link>
+      <pubDate>Fri, 20 May 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/dojo1/</guid>
+      <description>
+
+&lt;h1 id=&#34;what-is-a-coding-dojo:6beeeeddb038fa751cb02fd699880cfe&#34;&gt;What is a coding dojo?&lt;/h1&gt;
+
+&lt;p&gt;In short, a coding dojo is an event where a group of programmers practice their craft in an organized way, focusing on a single coding problem.&lt;/p&gt;
+
+&lt;p&gt;A dojo usually lasts a couple of hours, depending on the style and the task to be solved.
+For more details see &lt;a href=&#34;http://codingdojo.org/cgi-bin/index.pl?WhatIsCodingDojo&#34;&gt;CodingDojo.org&lt;/a&gt; or
+&lt;a href=&#34;http://code.joejag.com/2009/the-coding-dojo.html&#34;&gt;Joe Wright&amp;rsquo;s blog post about coding dojos&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We usually do a &lt;em&gt;Randori Kata&lt;/em&gt; version, where the task is solved by a team of 4-6 people, who take 5-7 minute turns in pairs.&lt;/p&gt;
+
+&lt;p&gt;The task and the programming language is chosen in advance by one of us, or even better by a pair of dojo organizers.
+The organizers prepare the event by:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Determining the general goal of the dojo. It should be NOT that the team should finish the task, but learning or practicing something!
+(e.g.: following strict &lt;a href=&#34;https://en.wikipedia.org/wiki/Test-driven_development&#34;&gt;TDD&lt;/a&gt;,
+focusing on careful planning, or learning a new language feature).&lt;/li&gt;
+&lt;li&gt;Selecting a specific programming task that fits well the above goal.&lt;/li&gt;
+&lt;li&gt;Solving the task before the real dojo, to check the difficulty and to be able to help out during the real dojo.&lt;/li&gt;
+&lt;li&gt;Possibly re-defining the task or giving additional hints to the task description if needed.
+&lt;!--, somewhat tailored to the skills of the team mebers
+who signed up for the dojo.--&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;the-task:6beeeeddb038fa751cb02fd699880cfe&#34;&gt;The task&lt;/h2&gt;
+
+&lt;p&gt;For the very first Scala coding dojo, I chose a simple task, because many of us was in an early phase of learning Scala.
+The team had to implement a &lt;em&gt;grader&lt;/em&gt; application, that assigns marks (from &amp;lsquo;F&amp;rsquo; to &amp;lsquo;A&amp;rsquo;) to an integer score.&lt;/p&gt;
+
+&lt;p&gt;The full description is available on &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/01_grader_app&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;give-it-a-try:6beeeeddb038fa751cb02fd699880cfe&#34;&gt;Give it a try!&lt;/h2&gt;
+
+&lt;p&gt;Try to solve this problem! It&amp;rsquo;s the most useful if you have some team-mates to practice &lt;a href=&#34;https://en.wikipedia.org/wiki/Pair_programming&#34;&gt;pair programming&lt;/a&gt;
+as well, but it&amp;rsquo;s not a requirement, you can do it by yourself.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note&lt;/em&gt;: the GitHub repo with the task description also holds a solution, so be careful when looking around if you don&amp;rsquo;t want to cheat! :)&lt;/p&gt;
+
+&lt;p&gt;If you get stuck, it might help to read my
+previous posts about:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://hands-on-scala.github.io/post/enums/&#34;&gt;enumerations in Scala&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://hands-on-scala.github.io/post/testing1/&#34;&gt;testing in Scala&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://hands-on-scala.github.io/post/patternmatch1/&#34;&gt;pattern matching&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;or just use good ol&amp;rsquo; Google :)&lt;/p&gt;
+
+&lt;h2 id=&#34;the-team-s-solution:6beeeeddb038fa751cb02fd699880cfe&#34;&gt;The team&amp;rsquo;s solution&lt;/h2&gt;
+
+&lt;p&gt;A solution can be found in the GitHub repo mentioned above.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-we-learned:6beeeeddb038fa751cb02fd699880cfe&#34;&gt;What we learned&lt;/h2&gt;
+
+&lt;p&gt;It&amp;rsquo;s really worth to take some time at the end of a dojo to review
+how it worked out, did we enjoy it, what we learned?&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s probably different for each of us, but we always learn from each other.
+Sometimes it&amp;rsquo;s just a new keystroke-combination of the
+IDE that we use for development. Other times it&amp;rsquo;s a convenient feature of the programming language,
+or a new approach for the task.&lt;/p&gt;
+
+&lt;p&gt;It also happens that we learn something more &amp;lsquo;personal&amp;rsquo;: that YX is really fun to work with, or that
+maybe YZ is afraid to go out to the whiteboard, but when working in pairs, (s)he opens up and has really brilliant ideas.&lt;/p&gt;
+
+&lt;p&gt;In this specific case I learned how to measure code coverage in the Eclipse-based &lt;a href=&#34;http://scala-ide.org/&#34;&gt;Scala IDE&lt;/a&gt;, and of course, how Enumerations
+can be used in Scala.&lt;/p&gt;
+
+&lt;p&gt;Note &lt;em&gt;n +1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
