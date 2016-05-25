@@ -64,10 +64,10 @@ In Scala, you have to create an <em>object</em> for this, which
 needs to extend Scala&rsquo;s <em>Enumeration</em> trait (we&rsquo;ll learn more about objects
 and traits later).</p>
 
-
-object DayOfWeek extends Enumeration {
-  val Sun, Mon, Wed, Thu, Fri, Sat = Value
-}
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">DayOfWeek</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">Enumeration</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #a6e22e">Sun</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Mon</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Wed</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Thu</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Fri</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Sat</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">Value</span>
+<span style="color: #f92672">}</span>
+</pre></div>
 
 
 <p>As you can see, it&rsquo;s almost as easy as listing the possible values,
@@ -78,23 +78,23 @@ your shiny new enum will not work.</p>
 <p>After defining this new enum in our code
 we can start using days of week (after importing them!) as in the
 following example:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">import</span> <span style="color: #f8f8f2">DayOfWeek._</span>
 
-import DayOfWeek._
-
-override def main(args: Array[String]): Unit = {
-  println(Mon)
-}
+<span style="color: #66d9ef">override</span> <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">main</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">args</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Array</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">])</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Unit</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #a6e22e">Mon</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
 </p>
 
 <p>And this tiny program will print the string &ldquo;Mon&rdquo; to the screen. Try it!</p>
 
 <p>It&rsquo;s also easy to loop over all possible values of an enum:</p>
 
-
-override def main(args: Array[String]): Unit = {
-  DayOfWeek.values.foreach { day => println(day) }
-}
-
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">override</span> <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">main</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">args</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Array</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">])</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Unit</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #a6e22e">DayOfWeek</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">values</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">foreach</span> <span style="color: #f92672">{</span> <span style="color: #f8f8f2">day</span> <span style="color: #66d9ef">=&gt;</span> <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">day</span><span style="color: #f92672">)</span> <span style="color: #f92672">}</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
 
 <p>That&rsquo;s it!</p>
 

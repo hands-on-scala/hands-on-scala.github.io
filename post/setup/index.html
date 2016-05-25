@@ -58,11 +58,11 @@ of the famous
 <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">&ldquo;Hello World&rdquo; program</a>.
 The following little Scala program will ask for your name and then it&rsquo;ll print &ldquo;Hello, <You>!&rdquo; to the console.</p>
 
-
-object WordApp extends App {
-  val name = scala.io.StdIn.readLine("What's your name? \n")
-  println("Hello " + name + "!")
-}
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">WordApp</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name? \n&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;!&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
 
 
 <p>In case this is really your very first Scala program,
@@ -97,9 +97,9 @@ and give some hints to SBT about how it should do its work.</p>
 in a specific folder. So, let&rsquo;s go ahead and create them (I&rsquo;m assuming you have
 soma basic experience with the Linux command line):</p>
 
-
-mkdir -p src/main/scala
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>mkdir -p src/main/scala
 mkdir -p src/test/scala
+</pre></div>
 
 
 <p>Within these two directories we&rsquo;ll usually have somewhat parallel sub-directories
@@ -110,11 +110,11 @@ for simplicity.</p>
 &ldquo;App.scala&rdquo;. (You can use another name, but it wouldn&rsquo;t be a good idea to change
 the &ldquo;.scala&rdquo; extension.)
 And its contents, as above:
-
-object WordApp extends App {
-  val name = scala.io.StdIn.readLine("What's your name? \n")
-  println("Hello " + name + "!")
-}
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">WordApp</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name? \n&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;!&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
 
 So, just save this into a file &ldquo;src/main/scala/App.scala&rdquo;.</p>
 
@@ -127,23 +127,23 @@ and also contains a list of dependencies.</p>
 
 <p>And its contents:</p>
 
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">name</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;01_grader_app&quot;</span>
 
-name := "01_grader_app"
+<span style="color: #f8f8f2">version</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;0.1&quot;</span>
 
-version := "0.1"
+<span style="color: #f8f8f2">exportJars</span> <span style="color: #f92672">:=</span> <span style="color: #66d9ef">true</span>
 
-exportJars := true
-
-scalaVersion := "2.11.8"
-
+<span style="color: #f8f8f2">scalaVersion</span> <span style="color: #f92672">:=</span> <span style="color: #e6db74">&quot;2.11.8&quot;</span>
+</pre></div>
+</p>
 
 <p>Note the empty lines! Looks stupid, but they are actually necessary, if you are
 using an older SBT version, prior to 0.13.7.
 (<a href="http://stackoverflow.com/questions/21780787/why-does-sbt-version-%E2%89%A4-0-13-6-require-blank-lines-between-settings-in-sbt-fil">Here</a> is an explanation.)</p>
 
 <p>To check which version you have, run:
-
-sbt 'inspect sbtVersion'
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sbt <span style="color: #e6db74">&#39;inspect sbtVersion&#39;</span>
+</pre></div>
 </p>
 
 <p>With newer versions (from 0.13.7 up) you don&rsquo;t need the empty lines.</p>
@@ -153,8 +153,8 @@ sbt 'inspect sbtVersion'
 <h3 id="let-s-run-it-already:2cc0b07f42930e4520820be1fe66f913">Let&rsquo;s run it already!</h3>
 
 <p>Standing in the root of your project, just say:
-
-sbt run
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>sbt run
+</pre></div>
 </p>
 
 <p>I hope it works for all of you now! :)</p>
