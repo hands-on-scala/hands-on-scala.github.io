@@ -146,4 +146,4 @@ def processTweet(tweet: TweetMsg) = tweet match {
 
 Example codes with tests are available at [my scala-examples github repo](https://github.com/ador/scala-examples/tree/master/02_pattern_match_app).
 
-Note _n +1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)
+_Note n+1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)

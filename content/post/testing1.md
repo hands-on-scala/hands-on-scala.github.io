@@ -132,4 +132,4 @@ This is it!
 [Another example](https://github.com/ador/scala-examples/blob/master/02_pattern_match_app/src/test/scala/pmatching/MatcherTest.scala),
 related to the last example of [the previous post]({{< relref "patternmatch1.md" >}}).
 
-Note _n +1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)
+_Note n+1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)

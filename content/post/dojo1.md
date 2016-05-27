@@ -71,5 +71,5 @@ maybe YZ is afraid to go out to the whiteboard, but when working in pairs, (s)he
 In this specific case I learned how to measure code coverage in the Eclipse-based [Scala IDE](http://scala-ide.org/), and of course, how Enumerations
 can be used in Scala.
 
-Note _n +1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)
+_Note n+1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)
 
