@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://hands-on-scala.github.io/</loc>
-    <lastmod>2016-05-20T17:30:00+02:00</lastmod>
+    <lastmod>2016-05-27T17:30:00+02:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://hands-on-scala.github.io/post/lists/</loc>
+    <lastmod>2016-05-27T17:30:00+02:00</lastmod>
   </url>
   
   <url>

@@ -6,8 +6,108 @@
     <description>Recent content in Intro on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 May 2016 17:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 27 May 2016 17:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/categories/intro/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scala collections - part 1</title>
+      <link>http://hands-on-scala.github.io/post/lists/</link>
+      <pubDate>Fri, 27 May 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/lists/</guid>
+      <description>
+
+&lt;h1 id=&#34;basic-data-structures-in-scala-lists:d0d52187982e6552701534a118e51bf4&#34;&gt;Basic data structures in Scala: Lists&lt;/h1&gt;
+
+&lt;p&gt;In the following couple of posts we&amp;rsquo;ll learn about basic data structures,
+and how they can be used in Scala.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Lists&lt;/em&gt; are what their name suggests: they can keep a list of things. The order
+of its elements will be kept,
+and a list does not care if an element appears more than once in it.&lt;/p&gt;
+
+&lt;h2 id=&#34;creating-immutable-lists:d0d52187982e6552701534a118e51bf4&#34;&gt;Creating (immutable) lists&lt;/h2&gt;
+
+&lt;p&gt;As it can be rad in the &lt;a href=&#34;http://docs.scala-lang.org/overviews/collections/overview.html&#34;&gt;Scala collections overview&lt;/a&gt;,
+collections in Scala can either be mutable or immutable. The default is the
+immutable version, so when we say &amp;ldquo;List&amp;rdquo; or &amp;ldquo;scala.List&amp;rdquo; it will be traslated to &amp;ldquo;scala.collection.immutable.List&amp;rdquo;.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;myIntList&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;324&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;45&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;myStrList&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hello &amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Scala&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;!&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;myNumList&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0.727&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;61&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;myAnyList&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hi&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;42.9&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;38&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As you can see in the third line from above, Scala allows you to
+have a List that keeps thigs of different types.&lt;/p&gt;
+
+&lt;p&gt;So, the types from the above code snippet will be:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;myIntList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;myStrList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;myNumList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Double&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;myAnyList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Any&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;!--Actually, if you dont&#39;t specify the type of your list,
+then the Scala engine (interpreter or compiler) will  infer the type for you. It will search the closest
+common ancestor type of the elements of the list, and assign that as the type of the list. --&gt; 
+
+&lt;!-- We&#39;ll learn more about the Scala type hierarchy later. --&gt;
+
+&lt;p&gt;Another approach to creating lists is using the Lisp-style &lt;em&gt;cons&lt;/em&gt; operator, &amp;ldquo;::&amp;rdquo; that concatenates elements to a list,
+and at the end you need to close the list with a &amp;ldquo;Nil&amp;rdquo; value.
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;anotherIntList1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Nil&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;anotherIntList2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The above two lines will created equivalent lists, that have the same elements.&lt;/p&gt;
+
+&lt;h3 id=&#34;specifying-the-type-of-the-list:d0d52187982e6552701534a118e51bf4&#34;&gt;Specifying the type of the list&lt;/h3&gt;
+
+&lt;p&gt;If you would like to direcly specify the type of your list (restrict the type of the elements it will be able to hold), you can do it as well:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;myIntList1&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;myIntList2&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(-&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;4.54&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The creation of &amp;ldquo;myIntList2&amp;rdquo; will fail with a  &lt;em&gt;&amp;ldquo;type mismatch&amp;rdquo; error&lt;/em&gt;, because we tried to put a Double
+value into a List of integers, and it simply does not fit there.&lt;/p&gt;
+
+&lt;h2 id=&#34;concatenation-and-appending-elements:d0d52187982e6552701534a118e51bf4&#34;&gt;Concatenation and appending elements&lt;/h2&gt;
+
+&lt;p&gt;The lists we created above are &lt;em&gt;immutable&lt;/em&gt;, you can not change them.&lt;/p&gt;
+
+&lt;p&gt;If you want to extend a list, there are operations for that, but what
+will happen under the hood is that you will be given a completely new list with the extended contents and the original
+list will remain intact. This might be important when dealing with long lists and where efficiency is important.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;TODO: extend this section !&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;other-operations-on-lists:d0d52187982e6552701534a118e51bf4&#34;&gt;Other operations on Lists&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ll just show a handful of basic functions: how to get the &lt;em&gt;length&lt;/em&gt; of a list, that is, the number of its elements; and how to
+check if it contains an element, and at which position.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;TODO: extend this section !&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;More operations are listed &lt;a href=&#34;www.tutorialspoint.com/scala/scala_lists.htm&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-and-what-s-coming-next:d0d52187982e6552701534a118e51bf4&#34;&gt;Summary and what&amp;rsquo;s coming next&lt;/h2&gt;
+
+&lt;p&gt;In the next post we&amp;rsquo;ll cover tuples and sets.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re very impatient, check out &lt;a href=&#34;https://twitter.github.io/scala_school/collections.html&#34;&gt;collections in Twitter&amp;rsquo;s Scala School&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you are curious about the more advanced topic of the &lt;em&gt;performance&lt;/em&gt; characteristics of these types,
+&lt;a href=&#34;http://docs.scala-lang.org/overviews/collections/performance-characteristics.html&#34;&gt;see a summary here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Our first Scala dojo</title>
@@ -86,7 +186,7 @@ maybe YZ is afraid to go out to the whiteboard, but when working in pairs, (s)he
 &lt;p&gt;In this specific case I learned how to measure code coverage in the Eclipse-based &lt;a href=&#34;http://scala-ide.org/&#34;&gt;Scala IDE&lt;/a&gt;, and of course, how Enumerations
 can be used in Scala.&lt;/p&gt;
 
-&lt;p&gt;Note &lt;em&gt;n +1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
 </description>
     </item>
     
@@ -229,7 +329,7 @@ your tests, and you&amp;rsquo;ll be able to run all of them simply via the &lt;e
 &lt;p&gt;&lt;a href=&#34;https://github.com/ador/scala-examples/blob/master/02_pattern_match_app/src/test/scala/pmatching/MatcherTest.scala&#34;&gt;Another example&lt;/a&gt;,
 related to the last example of &lt;a href=&#34;http://hands-on-scala.github.io/post/patternmatch1/&#34;&gt;the previous post&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Note &lt;em&gt;n +1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
 </description>
     </item>
     
@@ -381,7 +481,7 @@ case class. We&amp;rsquo;ll write one, representing a tweet message, that has th
 
 &lt;p&gt;Example codes with tests are available at &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/02_pattern_match_app&#34;&gt;my scala-examples github repo&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Note &lt;em&gt;n +1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Until I set up a comments section somehow here, feedback is welcome via &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
 </description>
     </item>
     

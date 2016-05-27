@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content=" Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="Adrienn Szabo (@adorster)">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>Scala collections - part 1 - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-05-27">May 27, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">Scala collections - part 1</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="basic-data-structures-in-scala-lists:d0d52187982e6552701534a118e51bf4">Basic data structures in Scala: Lists</h1>
+
+<p>In the following couple of posts we&rsquo;ll learn about basic data structures,
+and how they can be used in Scala.</p>
+
+<p><em>Lists</em> are what their name suggests: they can keep a list of things. The order
+of its elements will be kept,
+and a list does not care if an element appears more than once in it.</p>
+
+<h2 id="creating-immutable-lists:d0d52187982e6552701534a118e51bf4">Creating (immutable) lists</h2>
+
+<p>As it can be rad in the <a href="http://docs.scala-lang.org/overviews/collections/overview.html">Scala collections overview</a>,
+collections in Scala can either be mutable or immutable. The default is the
+immutable version, so when we say &ldquo;List&rdquo; or &ldquo;scala.List&rdquo; it will be traslated to &ldquo;scala.collection.immutable.List&rdquo;.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myIntList</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">324</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">6</span><span style="color: #f92672">,</span> <span style="color: #f92672">-</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">0</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">45</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">0</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myStrList</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello &quot;</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;Scala&quot;</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;!&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myNumList</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">5</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">0.727</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">61</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myAnyList</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">7</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;Hi&quot;</span><span style="color: #f92672">,</span> <span style="color: #f92672">-</span><span style="color: #ae81ff">42.9</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">0</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">38</span><span style="color: #f92672">)</span>
+</pre></div>
+
+
+<p>As you can see in the third line from above, Scala allows you to
+have a List that keeps thigs of different types.</p>
+
+<p>So, the types from the above code snippet will be:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f8f8f2">myIntList</span><span style="color: #66d9ef">:</span>  <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Int</span><span style="color: #f92672">]</span>
+<span style="color: #f8f8f2">myStrList</span><span style="color: #66d9ef">:</span>  <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">]</span>
+<span style="color: #f8f8f2">myNumList</span><span style="color: #66d9ef">:</span>  <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Double</span><span style="color: #f92672">]</span>
+<span style="color: #f8f8f2">myAnyList</span><span style="color: #66d9ef">:</span>  <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Any</span><span style="color: #f92672">]</span>
+</pre></div>
+</p>
+
+<!--Actually, if you dont't specify the type of your list,
+then the Scala engine (interpreter or compiler) will  infer the type for you. It will search the closest
+common ancestor type of the elements of the list, and assign that as the type of the list. --> 
+
+<!-- We'll learn more about the Scala type hierarchy later. -->
+
+<p>Another approach to creating lists is using the Lisp-style <em>cons</em> operator, &ldquo;::&rdquo; that concatenates elements to a list,
+and at the end you need to close the list with a &ldquo;Nil&rdquo; value.
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">anotherIntList1</span> <span style="color: #66d9ef">=</span> <span style="color: #ae81ff">1</span> <span style="color: #f92672">::</span> <span style="color: #ae81ff">2</span> <span style="color: #f92672">::</span> <span style="color: #ae81ff">3</span> <span style="color: #f92672">::</span> <span style="color: #a6e22e">Nil</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">anotherIntList2</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">(</span><span style="color: #ae81ff">1</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">3</span><span style="color: #f92672">)</span>
+</pre></div>
+</p>
+
+<p>The above two lines will created equivalent lists, that have the same elements.</p>
+
+<h3 id="specifying-the-type-of-the-list:d0d52187982e6552701534a118e51bf4">Specifying the type of the list</h3>
+
+<p>If you would like to direcly specify the type of your list (restrict the type of the elements it will be able to hold), you can do it as well:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myIntList1</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Int</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">5</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">2</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myIntList2</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Int</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(-</span><span style="color: #ae81ff">6</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">4.54</span><span style="color: #f92672">)</span>
+</pre></div>
+</p>
+
+<p>The creation of &ldquo;myIntList2&rdquo; will fail with a  <em>&ldquo;type mismatch&rdquo; error</em>, because we tried to put a Double
+value into a List of integers, and it simply does not fit there.</p>
+
+<h2 id="concatenation-and-appending-elements:d0d52187982e6552701534a118e51bf4">Concatenation and appending elements</h2>
+
+<p>The lists we created above are <em>immutable</em>, you can not change them.</p>
+
+<p>If you want to extend a list, there are operations for that, but what
+will happen under the hood is that you will be given a completely new list with the extended contents and the original
+list will remain intact. This might be important when dealing with long lists and where efficiency is important.</p>
+
+<p><em>TODO: extend this section !</em></p>
+
+<h2 id="other-operations-on-lists:d0d52187982e6552701534a118e51bf4">Other operations on Lists</h2>
+
+<p>I&rsquo;ll just show a handful of basic functions: how to get the <em>length</em> of a list, that is, the number of its elements; and how to
+check if it contains an element, and at which position.</p>
+
+<p><em>TODO: extend this section !</em></p>
+
+<p>More operations are listed <a href="www.tutorialspoint.com/scala/scala_lists.htm">here</a>.</p>
+
+<h2 id="summary-and-what-s-coming-next:d0d52187982e6552701534a118e51bf4">Summary and what&rsquo;s coming next</h2>
+
+<p>In the next post we&rsquo;ll cover tuples and sets.</p>
+
+<p>If you&rsquo;re very impatient, check out <a href="https://twitter.github.io/scala_school/collections.html">collections in Twitter&rsquo;s Scala School</a></p>
+
+<p>If you are curious about the more advanced topic of the <em>performance</em> characteristics of these types,
+<a href="http://docs.scala-lang.org/overviews/collections/performance-characteristics.html">see a summary here</a>.</p>
+
+<p><em>Note n+1</em> : Until I set up a comments section somehow here, feedback is welcome via <a href="https://twitter.com/adorster">Twitter</a> :)</p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+
