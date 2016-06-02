@@ -15,9 +15,12 @@
 <body>
 
 <header>
-  <div class="container">
+  <div class="container clearfix">
     <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
     <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
   </div>
 </header>
 
@@ -79,11 +82,10 @@ have a List that keeps thigs of different types.</p>
 </pre></div>
 </p>
 
-<!--Actually, if you dont't specify the type of your list,
+<p>Note that if you dont&rsquo;t specify the type of your list,
 then the Scala engine (interpreter or compiler) will  infer the type for you. It will search the closest
-common ancestor type of the elements of the list, and assign that as the type of the list. --> 
-
-<!-- We'll learn more about the Scala type hierarchy later. -->
+common ancestor type of the elements of the list, and assign that as the type of the list.
+( We&rsquo;ll learn more about the Scala type hierarchy later.)</p>
 
 <p>Another approach to creating lists is using the Lisp-style <em>cons</em> operator, &ldquo;::&rdquo; that concatenates elements to a list,
 and at the end you need to close the list with a &ldquo;Nil&rdquo; value.
@@ -114,20 +116,100 @@ value into a List of integers, and it simply does not fit there.</p>
 will happen under the hood is that you will be given a completely new list with the extended contents and the original
 list will remain intact. This might be important when dealing with long lists and where efficiency is important.</p>
 
-<p><em>TODO: extend this section !</em></p>
+<p>We can concatenate two existing lists with the <em>concat</em> method of <em>List</em>, or with the triple cons operator:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">list1</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">1</span><span style="color: #f92672">,</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span><span style="color: #ae81ff">3</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">list2</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">4</span><span style="color: #f92672">,</span><span style="color: #ae81ff">5</span><span style="color: #f92672">,</span><span style="color: #ae81ff">6</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">all1</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">concat</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list1</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">list2</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">all2</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">list1</span><span style="color: #f92672">:::</span><span style="color: #f8f8f2">list2</span>   <span style="color: #75715e">// will be the same as &#39;all1&#39;</span>
+</pre></div>
+</p>
+
+<p>And this is how you mimic appending a new element at the end of an immutable list: you create a new list,
+which is a concatenation of the original and a new list with only one element:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">list3</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">1</span><span style="color: #f92672">,</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span><span style="color: #ae81ff">3</span><span style="color: #f92672">,</span><span style="color: #ae81ff">4</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">extendedList</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">list3</span><span style="color: #f92672">:::</span><span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">5</span><span style="color: #f92672">)</span>
+</pre></div>
+</p>
+
+<h2 id="basic-operations-on-lists:d0d52187982e6552701534a118e51bf4">Basic operations on Lists</h2>
+
+<p>I&rsquo;ll just show a handful of basic functions: how to get the <em>length</em> of a list, that is, the number of its elements; and how to
+check if it&rsquo;s empty, or if it contains an element, and at which position.</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">list4</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">1</span><span style="color: #f92672">,</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span><span style="color: #ae81ff">3</span><span style="color: #f92672">,</span><span style="color: #ae81ff">4</span><span style="color: #f92672">)</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">length</span><span style="color: #f92672">)</span>   <span style="color: #75715e">// prints &#39;4&#39;</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">isEmpty</span><span style="color: #f92672">)</span>  <span style="color: #75715e">// prints &#39;false&#39;</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">fromPosition</span> <span style="color: #66d9ef">=</span> <span style="color: #ae81ff">0</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">indexOf</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">fromPosition</span><span style="color: #f92672">))</span>   <span style="color: #75715e">// prints &#39;1&#39;</span>
+</pre></div>
+</p>
 
 <h2 id="other-operations-on-lists:d0d52187982e6552701534a118e51bf4">Other operations on Lists</h2>
 
-<p>I&rsquo;ll just show a handful of basic functions: how to get the <em>length</em> of a list, that is, the number of its elements; and how to
-check if it contains an element, and at which position.</p>
+<p>These built-in functions highlight some very useful capabilities of lists in Scala.
+I won&rsquo;t explain them one by one, because their names are quite descriptive; but lets&rsquo;s see the examples
+as part of a runnable App.
+I insert a bit longer code snippet, but I hope it&rsquo;s easy to follow.</p>
 
-<p><em>TODO: extend this section !</em></p>
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">ListExamples</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
 
-<p>More operations are listed <a href="www.tutorialspoint.com/scala/scala_lists.htm">here</a>.</p>
+  <span style="color: #66d9ef">case</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">name</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">String</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">case</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Long</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">User</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">msg</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">String</span><span style="color: #f92672">)</span>
+
+  <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Boolean</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">id</span> <span style="color: #f92672">&gt;</span> <span style="color: #ae81ff">0L</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+  
+  <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">printUserAndMsg</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Unit</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">user</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot; tweeted: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+  
+  <span style="color: #66d9ef">override</span> <span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">main</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">args</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Array</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">])</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Unit</span> <span style="color: #f92672">=</span> <span style="color: #f92672">{</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">user1</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;adri&quot;</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">user2</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;adorster&quot;</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">user3</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;stern&quot;</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">t1</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #ae81ff">94432L</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user1</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;hello data&quot;</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">t2</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #ae81ff">513454L</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user2</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;hello science&quot;</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">t3</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(-</span><span style="color: #ae81ff">68435L</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user3</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;hello data science&quot;</span><span style="color: #f92672">)</span>
+
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">tweetList1</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t1</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t2</span> <span style="color: #f92672">,</span><span style="color: #f8f8f2">t3</span><span style="color: #f92672">)</span> 
+
+    <span style="color: #75715e">// filter</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">filteredList</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">filter</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Filtered list is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">filteredList</span><span style="color: #f92672">)</span>  
+
+    <span style="color: #75715e">// forall</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">trueOfFalse1</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">forall</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;All id numbers positive? &quot;</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">trueOfFalse1</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">trueOfFalse2</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t1</span><span style="color: #f92672">,</span><span style="color: #f8f8f2">t2</span><span style="color: #f92672">).</span><span style="color: #f8f8f2">forall</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;All id numbers positive? &quot;</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">trueOfFalse2</span><span style="color: #f92672">)</span>
+    
+    <span style="color: #75715e">// foreach</span>
+    <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">foreach</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">printUserAndMsg</span><span style="color: #f92672">)</span>
+
+    <span style="color: #75715e">// intersect</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">tweetList2</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t3</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t2</span><span style="color: #f92672">)</span> 
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">intersectList</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">intersect</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">tweetList2</span><span style="color: #f92672">)</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Intersected list is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">intersectList</span><span style="color: #f92672">)</span>
+
+    <span style="color: #75715e">// distinct</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">tweetList3</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t3</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t2</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t2</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t3</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t1</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t3</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t2</span><span style="color: #f92672">)</span> 
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">distinctList</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tweetList3</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">distinct</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Distinct list is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">distinctList</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
+
+<p>More operations are listed <a href="http://www.tutorialspoint.com/scala/scala_lists.htm">here</a>.</p>
+
+<p>If you want  to plax with the code examples above, you can clone my git repo from <a href="https://github.com/ador/scala-examples/tree/master/03_lists">GitHub</a>.</p>
 
 <h2 id="summary-and-what-s-coming-next:d0d52187982e6552701534a118e51bf4">Summary and what&rsquo;s coming next</h2>
 
-<p>In the next post we&rsquo;ll cover tuples and sets.</p>
+<p>In the next post we&rsquo;ll cover tuples.</p>
 
 <p>If you&rsquo;re very impatient, check out <a href="https://twitter.github.io/scala_school/collections.html">collections in Twitter&rsquo;s Scala School</a></p>
 

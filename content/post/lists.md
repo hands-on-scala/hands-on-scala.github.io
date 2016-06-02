@@ -39,10 +39,10 @@ myAnyList:  List[Any]
 {{< / highlight >}}
 
 
-<!--Actually, if you dont't specify the type of your list,
+Note that if you dont't specify the type of your list,
 then the Scala engine (interpreter or compiler) will  infer the type for you. It will search the closest
-common ancestor type of the elements of the list, and assign that as the type of the list. --> 
-<!-- We'll learn more about the Scala type hierarchy later. -->
+common ancestor type of the elements of the list, and assign that as the type of the list.
+( We'll learn more about the Scala type hierarchy later.)
 
 
 Another approach to creating lists is using the Lisp-style _cons_ operator, "::" that concatenates elements to a list,
@@ -74,22 +74,102 @@ If you want to extend a list, there are operations for that, but what
 will happen under the hood is that you will be given a completely new list with the extended contents and the original
 list will remain intact. This might be important when dealing with long lists and where efficiency is important.
 
-_TODO: extend this section !_
+We can concatenate two existing lists with the _concat_ method of _List_, or with the triple cons operator:
 
+{{< highlight scala >}}
+val list1 = List(1,2,3)
+val list2 = List(4,5,6)
+val all1 = List.concat(list1, list2)
+val all2 = list1:::list2   // will be the same as 'all1'
+{{< / highlight >}}
+
+And this is how you mimic appending a new element at the end of an immutable list: you create a new list, 
+which is a concatenation of the original and a new list with only one element:
+
+{{< highlight scala >}}
+val list3 = List(1,2,3,4)
+val extendedList = list3:::List(5)
+{{< / highlight >}}
+
+## Basic operations on Lists
+
+I'll just show a handful of basic functions: how to get the _length_ of a list, that is, the number of its elements; and how to 
+check if it's empty, or if it contains an element, and at which position.
+
+{{< highlight scala >}}
+val list4 = List(1,2,3,4)
+println(list4.length)   // prints '4'
+println(list4.isEmpty)  // prints 'false'
+val fromPosition = 0
+println(list4.indexOf(2, fromPosition))   // prints '1'
+{{< / highlight >}}
 
 ## Other operations on Lists
 
-I'll just show a handful of basic functions: how to get the _length_ of a list, that is, the number of its elements; and how to 
-check if it contains an element, and at which position.
+These built-in functions highlight some very useful capabilities of lists in Scala. 
+I won't explain them one by one, because their names are quite descriptive; but lets's see the examples
+as part of a runnable App.
+I insert a bit longer code snippet, but I hope it's easy to follow.
 
-_TODO: extend this section !_
+{{< highlight scala >}}
+object ListExamples extends App {
 
-More operations are listed [here](www.tutorialspoint.com/scala/scala_lists.htm).
+  case class User(name: String)
+  case class TweetMsg(id: Long, user: User, msg: String)
+
+  def isIdPositive(tw: TweetMsg) : Boolean = {
+    return (tw.id > 0L)
+  }
+  
+  def printUserAndMsg(tw: TweetMsg) : Unit = {
+    println(tw.user + " tweeted: " + tw.msg)
+  }
+  
+  override def main(args: Array[String]): Unit = {
+    val user1 = new User("adri")
+    val user2 = new User("adorster")
+    val user3 = new User("stern")
+    val t1 = new TweetMsg(94432L, user1, "hello data")
+    val t2 = new TweetMsg(513454L, user2, "hello science")
+    val t3 = new TweetMsg(-68435L, user3, "hello data science")
+
+    val tweetList1: List[TweetMsg] = List(t1, t2 ,t3) 
+
+    // filter
+    val filteredList = tweetList1.filter(isIdPositive)
+    println("Filtered list is: " + filteredList)  
+
+    // forall
+    val trueOfFalse1 = tweetList1.forall(isIdPositive)
+    println("All id numbers positive? " +  trueOfFalse1)
+    val trueOfFalse2 = List(t1,t2).forall(isIdPositive)
+    println("All id numbers positive? " +  trueOfFalse2)
+    
+    // foreach
+    tweetList1.foreach(printUserAndMsg)
+
+    // intersect
+    val tweetList2: List[TweetMsg] = List(t3, t2) 
+    val intersectList = tweetList1.intersect(tweetList2)
+    println("Intersected list is: " + intersectList)
+
+    // distinct
+    val tweetList3: List[TweetMsg] = List(t3, t2, t2, t3, t1, t3, t2) 
+    val distinctList = tweetList3.distinct
+    println("Distinct list is: " + distinctList)
+  }
+}
+
+{{< / highlight >}}
+
+More operations are listed [here](http://www.tutorialspoint.com/scala/scala_lists.htm).
+
+If you want  to plax with the code examples above, you can clone my git repo from [GitHub](https://github.com/ador/scala-examples/tree/master/03_lists).
 
 
 ## Summary and what's coming next
 
-In the next post we'll cover tuples and sets.
+In the next post we'll cover tuples.
 
 If you're very impatient, check out [collections in Twitter's Scala School](https://twitter.github.io/scala_school/collections.html)
 
