@@ -40,7 +40,7 @@ immutable version, so when we say &amp;ldquo;List&amp;rdquo; or &amp;ldquo;scala
 
 
 &lt;p&gt;As you can see in the third line from above, Scala allows you to
-have a List that keeps thigs of different types.&lt;/p&gt;
+have a List that keeps things of different types.&lt;/p&gt;
 
 &lt;p&gt;So, the types from the above code snippet will be:
 &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;myIntList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt;  &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt;
@@ -173,7 +173,7 @@ I insert a bit longer code snippet, but I hope it&amp;rsquo;s easy to follow.&lt
 
 &lt;p&gt;More operations are listed &lt;a href=&#34;http://www.tutorialspoint.com/scala/scala_lists.htm&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;If you want  to plax with the code examples above, you can clone my git repo from &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/03_lists&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you want  to play with the code examples above, you can clone my git repo from &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/03_lists&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;summary-and-what-s-coming-next:d0d52187982e6552701534a118e51bf4&#34;&gt;Summary and what&amp;rsquo;s coming next&lt;/h2&gt;
 
