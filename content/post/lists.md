@@ -28,7 +28,7 @@ val myAnyList = List(7, "Hi", -42.9, 0, 38)
 {{< / highlight >}}
 
 As you can see in the third line from above, Scala allows you to 
-have a List that keeps thigs of different types. 
+have a List that keeps things of different types. 
 
 So, the types from the above code snippet will be:
 {{< highlight scala >}}
@@ -164,7 +164,7 @@ object ListExamples extends App {
 
 More operations are listed [here](http://www.tutorialspoint.com/scala/scala_lists.htm).
 
-If you want  to plax with the code examples above, you can clone my git repo from [GitHub](https://github.com/ador/scala-examples/tree/master/03_lists).
+If you want  to play with the code examples above, you can clone my git repo from [GitHub](https://github.com/ador/scala-examples/tree/master/03_lists).
 
 
 ## Summary and what's coming next
