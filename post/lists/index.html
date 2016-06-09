@@ -139,12 +139,18 @@ which is a concatenation of the original and a new list with only one element:</
 check if it&rsquo;s empty, or if it contains an element, and at which position.</p>
 
 <p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">list4</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #ae81ff">1</span><span style="color: #f92672">,</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span><span style="color: #ae81ff">3</span><span style="color: #f92672">,</span><span style="color: #ae81ff">4</span><span style="color: #f92672">)</span>
-<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">length</span><span style="color: #f92672">)</span>   <span style="color: #75715e">// prints &#39;4&#39;</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">length</span><span style="color: #f92672">)</span> <span style="color: #75715e">// prints &quot;4&quot;</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">(</span><span style="color: #ae81ff">0</span><span style="color: #f92672">))</span>     <span style="color: #75715e">// first element (at index 0): &quot;1&quot;</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">(</span><span style="color: #ae81ff">1</span><span style="color: #f92672">))</span>     <span style="color: #75715e">// second element (index 1): &quot;2&quot;</span>
 <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">isEmpty</span><span style="color: #f92672">)</span>  <span style="color: #75715e">// prints &#39;false&#39;</span>
 <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">fromPosition</span> <span style="color: #66d9ef">=</span> <span style="color: #ae81ff">0</span>
-<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">indexOf</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">fromPosition</span><span style="color: #f92672">))</span>   <span style="color: #75715e">// prints &#39;1&#39;</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">list4</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">indexOf</span><span style="color: #f92672">(</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">fromPosition</span><span style="color: #f92672">))</span>   <span style="color: #75715e">// prints &quot;1&quot;</span>
 </pre></div>
 </p>
+
+<p>Don&rsquo;t forget that you can refer to individual elements of a list by
+putting their index position in simple parantheses after the list&rsquo;s name,
+and element indices start from zero.</p>
 
 <h2 id="other-operations-on-lists:d0d52187982e6552701534a118e51bf4">Other operations on Lists</h2>
 
@@ -209,7 +215,7 @@ I insert a bit longer code snippet, but I hope it&rsquo;s easy to follow.</p>
 
 <h2 id="summary-and-what-s-coming-next:d0d52187982e6552701534a118e51bf4">Summary and what&rsquo;s coming next</h2>
 
-<p>In the next post we&rsquo;ll cover tuples.</p>
+<p>In the next post we&rsquo;ll cover Scala&rsquo;s <a href='http://hands-on-scala.github.io/post/tuples/'>tuples</a>.</p>
 
 <p>If you&rsquo;re very impatient, check out <a href="https://twitter.github.io/scala_school/collections.html">collections in Twitter&rsquo;s Scala School</a></p>
 
