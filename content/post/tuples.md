@@ -8,7 +8,22 @@ title = "Scala collections - part 2"
 # Basic data structures in Scala: Tuples
 
 In the previous post we learned about <a href='{{< relref "post/lists.md" >}}'>Lists in Scala</a>. Now I'll briefly cover _tuples_.
-They are similar to lists in some ways, there are also some key differences.
+
+You can think about a tuple as simple "wrapper" around a handful of things,
+it just keeps its elements together, at their own place.
+
+Tuples are similar to lists in some ways, there are also some key differences.
+
+## What are they good for?
+
+So why is it good that we can easily wrap a couple of things together? 
+
+Well, if you are a Java developer then you probably know how annoying
+it is when you have to create a custom new class just to be able to
+return more than one value that have been computed together within a method.
+
+Tuples provide a very ligth-weight tool to pass around a small group
+of values together.
 
 ## Creating tuples
 
@@ -56,7 +71,7 @@ But tuples are an exception: their elements are indexed from one. And the syntax
 
 _(TODO)_
 
-## What are they good for?
+
 
 _(TODO)_
 
