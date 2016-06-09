@@ -98,11 +98,17 @@ check if it's empty, or if it contains an element, and at which position.
 
 {{< highlight scala >}}
 val list4 = List(1,2,3,4)
-println(list4.length)   // prints '4'
+println(list4.length) // prints "4"
+println(list4(0))     // first element (at index 0): "1"
+println(list4(1))     // second element (index 1): "2"
 println(list4.isEmpty)  // prints 'false'
 val fromPosition = 0
-println(list4.indexOf(2, fromPosition))   // prints '1'
+println(list4.indexOf(2, fromPosition))   // prints "1"
 {{< / highlight >}}
+
+Don't forget that you can refer to individual elements of a list by 
+putting their index position in simple parantheses after the list's name, 
+and element indices start from zero.
 
 ## Other operations on Lists
 
@@ -169,7 +175,7 @@ If you want  to play with the code examples above, you can clone my git repo fro
 
 ## Summary and what's coming next
 
-In the next post we'll cover tuples.
+In the next post we'll cover Scala's <a href='{{< relref "post/tuples.md" >}}'>tuples</a>.
 
 If you're very impatient, check out [collections in Twitter's Scala School](https://twitter.github.io/scala_school/collections.html)
 
