@@ -16,7 +16,7 @@ and a list does not care if an element appears more than once in it.
 
 ## Creating (immutable) lists
 
-As it can be rad in the [Scala collections overview](http://docs.scala-lang.org/overviews/collections/overview.html),
+As it can be read in the [Scala collections overview](http://docs.scala-lang.org/overviews/collections/overview.html),
 collections in Scala can either be mutable or immutable. The default is the 
 immutable version, so when we say "List" or "scala.List" it will be traslated to "scala.collection.immutable.List". 
 
