@@ -1,6 +1,6 @@
 +++
 categories = ["intro"]
-date = "2016-06-07T17:30:00+02:00"
+date = "2016-06-08T17:30:00+02:00"
 title = "Scala collections - part 2"
 
 +++
@@ -13,6 +13,9 @@ You can think about a tuple as simple "wrapper" around a handful of things,
 it just keeps its elements together, at their own place.
 
 Tuples are similar to lists in some ways, but there are also some key differences.
+
+It is also worth noting that strictly speaking, a tuple is not a _Scala collection_, because
+it's not one of the classes that implement the necessary functionality to be called a real collection.
 
 ## What are they good for?
 
@@ -68,22 +71,61 @@ Trying to create a tuple with 23 or more elements will lead to an error. But 22 
 ### Third difference from Lists: indexing
 
 Lists (and usually all kinds of collections) index their elements starting from zero. 
-But tuples are an exception: their elements are indexed from one. And the syntax is also a bit wierd, so let's see examples:
+But tuples are different: their elements are indexed from one. 
+
+The syntax is also a bit weird, you need a dot plus an underscore between the tuple and the index.
+
+Some examples of referencing tuple elements:
 
 {{< highlight scala >}}
-val tupleTweet = ("johhnny", 531523L, "Hello, mum!")
+val tupleTweet = ("johhnny", 531523L, "Hello, Mom!")
 val username = tupleTweet._1
 val id = tupleTweet._2
-val message = tupleTweet._3
+println(username + ": " + tupleTweet._3 )
+// johhnny: Hello, Mom!
 {{< / highlight >}}
 
-## A 'real' example
+## Smart usage
+
+Let's say we have a function that returns three values in a tuple: 
+
+{{< highlight scala >}}
+def getTweetData(id: Long):(String, Int, String) = {
+  // should get data from database,
+  // instead a dummy solution
+  if (id == 5) {
+    return ("angie", 30, "It's my birthday!")
+  }
+  if (id == 7) {
+    return ("tony", 11, "Rainbows! :)")
+  }
+  return ("zoe", 13, "More rainbows! :)")
+}
+{{< / highlight >}}
+
+And then, where we call this function, we want to give the elements from the tuple separate value names.
+
+The first solution that we may think of is with using indices, but it's quite clumsy. Instead,
+we can simply list the desired variable names on the left side of the assingment operator, like in this example: 
+
+{{< highlight scala >}}
+val(name, age, msg) = getTweetData(8)
+println("Name is: " + name + ", age:" + age)
+{{< / highlight >}}
+
+Moreover, if you don't care about some values (for example, the age is not important), then you can use 
+a wildcard operator, an underscore (again) in its place:
+
+{{< highlight scala >}}
+val(name, _, msg) = getTweetData(8)
+println("Name is: " + name + ", message is: " + msg)
+{{< / highlight >}}
+
+Then you'll get only two new values after the assignment in the first line, instead of three.
 
 
-
-More examples on [TutorialsPoint](http://www.tutorialspoint.com/scala/scala_tuples.htm).
-
-
+You can find more examples on [TutorialsPoint](http://www.tutorialspoint.com/scala/scala_tuples.htm) 
+and in [Alvin Alexandes's blog](http://alvinalexander.com/scala/scala-tuple-examples-syntax).
 
 _Note n+1_ : Until I set up a comments section somehow here, feedback is welcome via [Twitter](https://twitter.com/adorster) :)
 

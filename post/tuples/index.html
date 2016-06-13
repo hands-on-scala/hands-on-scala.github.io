@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content=" Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="Adrienn Szabo (@adorster)">
+<meta name="generator" content="Hugo 0.15" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>Scala collections - part 2 - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-06-08">June 08, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">Scala collections - part 2</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="basic-data-structures-in-scala-tuples:ed70a7fca0aa43af9c02ad245a8d5581">Basic data structures in Scala: Tuples</h1>
+
+<p>In the previous post we learned about <a href='http://hands-on-scala.github.io/post/lists/'>Lists in Scala</a>. Now I&rsquo;ll briefly cover <em>tuples</em>.</p>
+
+<p>You can think about a tuple as simple &ldquo;wrapper&rdquo; around a handful of things,
+it just keeps its elements together, at their own place.</p>
+
+<p>Tuples are similar to lists in some ways, but there are also some key differences.</p>
+
+<p>It is also worth noting that strictly speaking, a tuple is not a <em>Scala collection</em>, because
+it&rsquo;s not one of the classes that implement the necessary functionality to be called a real collection.</p>
+
+<h2 id="what-are-they-good-for:ed70a7fca0aa43af9c02ad245a8d5581">What are they good for?</h2>
+
+<p>So why is it handy that we can wrap a couple of things together?</p>
+
+<p>Well, if you are a Java developer then you probably know how annoying
+it is when you have to create a custom new class just to be able to
+return more than one value that have been computed together within a method.</p>
+
+<p>Tuples provide a very ligth-weight tool to pass around a small group
+of values together.</p>
+
+<h2 id="creating-tuples:ed70a7fca0aa43af9c02ad245a8d5581">Creating tuples</h2>
+
+<p>Let&rsquo;s see two quick examples:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myFirstTuple</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">(-</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">8</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">13</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">result</span><span style="color: #66d9ef">:Double</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">42.0</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">mySecondTuple</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">result</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&#39;!&#39;</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;Scala&quot;</span><span style="color: #f92672">)</span>
+</pre></div>
+</p>
+
+<p>Creating a tuple is as easy as listing its elements, separated by commas,
+and wrap all this in parentheses.
+No special keyword is needed.</p>
+
+<p>As <em>Lists</em>, tuples also keep the order of their elements, and duplicates among the elements are allowed.</p>
+
+<p>Tuples are always <em>immutable</em>, there&rsquo;s no way to change their elements.</p>
+
+<h3 id="first-difference-from-list-types-of-elements:ed70a7fca0aa43af9c02ad245a8d5581">First difference from List: types of elements</h3>
+
+<p>As you may remember, Lists were used to hold elements of the same type. It might not be obvious,
+because of Scala&rsquo;s smart automatic type inference, but if you put all kinds of things into a List, like here:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">myList</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(-</span><span style="color: #ae81ff">2</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">48</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;hello&quot;</span><span style="color: #f92672">)</span>
+</pre></div>
+
+then the &ldquo;myList&rdquo; will be of type <em>List[Any]</em> (because <em>Any</em> is the &ldquo;mother-of-all&rdquo; type in Scala; as is <em>Object</em> in Java).
+So, from this point of view, this &ldquo;myList&rdquo; still contains elements of the same type!</p>
+
+<p>On the other hand, tuples were designed to hold different types of objects.
+The type description of &ldquo;mySecondTuple&rdquo; from the first example, will be:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #f92672">(</span><span style="color: #a6e22e">Double</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">String</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">Char</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">String</span><span style="color: #f92672">)</span>
+</pre></div>
+
+
+<h3 id="second-difference-from-lists-allowed-length:ed70a7fca0aa43af9c02ad245a8d5581">Second difference from Lists: allowed length</h3>
+
+<p>List could be of any length. But there is an upper limit for the number of elements in a tuple: it&rsquo;s 22. (Don&rsquo;t ask me why.)</p>
+
+<p>Trying to create a tuple with 23 or more elements will lead to an error. But 22 items is well enough.</p>
+
+<h3 id="third-difference-from-lists-indexing:ed70a7fca0aa43af9c02ad245a8d5581">Third difference from Lists: indexing</h3>
+
+<p>Lists (and usually all kinds of collections) index their elements starting from zero.
+But tuples are different: their elements are indexed from one.</p>
+
+<p>The syntax is also a bit weird, you need a dot plus an underscore between the tuple and the index.</p>
+
+<p>Some examples of referencing tuple elements:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">tupleTweet</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">(</span><span style="color: #e6db74">&quot;johhnny&quot;</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">531523L</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;Hello, Mom!&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">username</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tupleTweet</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">_1</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">id</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tupleTweet</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">_2</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">username</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">tupleTweet</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">_3</span> <span style="color: #f92672">)</span>
+<span style="color: #75715e">// johhnny: Hello, Mom!</span>
+</pre></div>
+</p>
+
+<h2 id="smart-usage:ed70a7fca0aa43af9c02ad245a8d5581">Smart usage</h2>
+
+<p>Let&rsquo;s say we have a function that returns three values in a tuple:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">getTweetData</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Long</span><span style="color: #f92672">)</span><span style="color: #66d9ef">:</span><span style="color: #f92672">(</span><span style="color: #66d9ef">String</span><span style="color: #f92672">,</span> <span style="color: #66d9ef">Int</span><span style="color: #f92672">,</span> <span style="color: #a6e22e">String</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #75715e">// should get data from database,</span>
+  <span style="color: #75715e">// instead a dummy solution</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">5</span><span style="color: #f92672">)</span> <span style="color: #f92672">{</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f92672">(</span><span style="color: #e6db74">&quot;angie&quot;</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">30</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;It&#39;s my birthday!&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span> <span style="color: #f92672">==</span> <span style="color: #ae81ff">7</span><span style="color: #f92672">)</span> <span style="color: #f92672">{</span>
+    <span style="color: #66d9ef">return</span> <span style="color: #f92672">(</span><span style="color: #e6db74">&quot;tony&quot;</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">11</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;Rainbows! :)&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f92672">}</span>
+  <span style="color: #66d9ef">return</span> <span style="color: #f92672">(</span><span style="color: #e6db74">&quot;zoe&quot;</span><span style="color: #f92672">,</span> <span style="color: #ae81ff">13</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;More rainbows! :)&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+</p>
+
+<p>And then, where we call this function, we want to give the elements from the tuple separate value names.</p>
+
+<p>The first solution that we may think of is with using indices, but it&rsquo;s quite clumsy. Instead,
+we can simply list the desired variable names on the left side of the assingment operator, like in this example:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">name</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">age</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">msg</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">getTweetData</span><span style="color: #f92672">(</span><span style="color: #ae81ff">8</span><span style="color: #f92672">)</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Name is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;, age:&quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">age</span><span style="color: #f92672">)</span>
+</pre></div>
+</p>
+
+<p>Moreover, if you don&rsquo;t care about some values (for example, the age is not important), then you can use
+a wildcard operator, an underscore (again) in its place:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">name</span><span style="color: #f92672">,</span> <span style="color: #66d9ef">_</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">msg</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">getTweetData</span><span style="color: #f92672">(</span><span style="color: #ae81ff">8</span><span style="color: #f92672">)</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Name is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">name</span> <span style="color: #f92672">+</span> <span style="color: #e6db74">&quot;, message is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">msg</span><span style="color: #f92672">)</span>
+</pre></div>
+</p>
+
+<p>Then you&rsquo;ll get only two new values after the assignment in the first line, instead of three.</p>
+
+<p>You can find more examples on <a href="http://www.tutorialspoint.com/scala/scala_tuples.htm">TutorialsPoint</a>
+and in <a href="http://alvinalexander.com/scala/scala-tuple-examples-syntax">Alvin Alexandes&rsquo;s blog</a>.</p>
+
+<p><em>Note n+1</em> : Until I set up a comments section somehow here, feedback is welcome via <a href="https://twitter.com/adorster">Twitter</a> :)</p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+
