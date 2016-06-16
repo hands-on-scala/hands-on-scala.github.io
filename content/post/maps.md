@@ -148,4 +148,5 @@ function on each element of a list, then you have to wait for a yet-to-come post
 read [this](http://www.brunton-spall.co.uk/post/2011/12/02/map-map-and-flatmap-in-scala/).
 
 
-_Note n+1_ : Feedback is welcome on [Twitter](https://twitter.com/adorster) :)
+_Note n+1_ : Feedback is welcome on [Twitter](https://twitter.com/adorster) 
+or on [GitHub](https://github.com/hands-on-scala/hands-on-scala.github.io/issues/2) :)
