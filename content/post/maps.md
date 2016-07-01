@@ -96,8 +96,6 @@ todoMap += (3 -> "publish")
 In the example above we created a MuMap, which was empty at first, but then we added three pairs
 using the "+=" operator and specifying the key-value pairs (those were separated by simple arrows: "->").
 
-I will use these shorter names (ImmuMap and MuMap) from now on to refer to immutable and mutable maps.
-
 
 ## Iterating over all elements of a Map
 
