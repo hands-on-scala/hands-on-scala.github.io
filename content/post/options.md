@@ -1,6 +1,6 @@
 +++
 categories = ["intro"]
-date = "2016-06-16T17:30:00+02:00"
+date = "2016-07-02T17:30:00+02:00"
 title = "Options in Scala"
 
 +++
