@@ -10,6 +10,151 @@
     <atom:link href="http://hands-on-scala.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Options in Scala</title>
+      <link>http://hands-on-scala.github.io/post/options/</link>
+      <pubDate>Thu, 16 Jun 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/options/</guid>
+      <description>
+
+&lt;h1 id=&#34;handling-missing-values-in-scala-options:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Handling missing values in Scala: Options&lt;/h1&gt;
+
+&lt;p&gt;Whenever we want to use a value that is not readily available yet &amp;ndash; for example, when we
+call a function to compute or fetch something &amp;ndash;
+we can not be sure if things go as were planned.
+What if the database connection is down? What if the user typed in an invalid string?&lt;/p&gt;
+
+&lt;p&gt;In the Java world, and in many other programming languages, the programmrs could
+throw an exception (or just pass further the
+&amp;lsquo;classic&amp;rsquo; NullPointerException) in these cases to signal that the requested value cold not
+be served.&lt;/p&gt;
+
+&lt;p&gt;But oftentimes,
+using exceptions for such cases is an overkill, and only adds noise to the code.
+It can even happen, that it is completely &amp;lsquo;normal&amp;rsquo; that a function can not return
+a proper value for some reason.&lt;/p&gt;
+
+&lt;h2 id=&#34;returning-something-or-nothing:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Returning something or nothing&lt;/h2&gt;
+
+&lt;p&gt;Scala has a built-in type to help us in the situation when we are not sure that
+we can return a value: the &lt;em&gt;Option[T]&lt;/em&gt; type. The &lt;em&gt;T&lt;/em&gt; parameter means that it takes a type
+inside it as well, and it will be type-safe to use.&lt;/p&gt;
+
+&lt;p&gt;You can think about an Option as a container that either holds a value of type &lt;em&gt;T&lt;/em&gt;, or not.
+If the Option is empty, it is called &lt;em&gt;None&lt;/em&gt;, and if it has a value inside, then it
+is an object of the class &lt;em&gt;Some[T]&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-use-options:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;How to use Options&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see a couple of examples of how we can use Options in Scala to represent optional values.&lt;/p&gt;
+
+&lt;h3 id=&#34;returning-an-option-from-our-function:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Returning an Option from our function&lt;/h3&gt;
+
+&lt;p&gt;The following &amp;ldquo;getUserById()&amp;rdquo; function returns an Option
+(about Maps, see
+&lt;a href=&#39;http://hands-on-scala.github.io/post/maps/&#39;&gt;
+the previous post&lt;/a&gt;):&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getUserMap&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Map&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;, &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;userMap&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Map&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;, &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Map&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;
+    &lt;span style=&#34;color: #ae81ff&#34;&gt;824&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Jane&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;
+    &lt;span style=&#34;color: #ae81ff&#34;&gt;2723&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Kate&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;
+    &lt;span style=&#34;color: #ae81ff&#34;&gt;535&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Zoe&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;
+    &lt;span style=&#34;color: #ae81ff&#34;&gt;8260&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Jonathan&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;userMap&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getUserById&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Option&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;users&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getUserMap&lt;/span&gt;
+  &lt;span style=&#34;color: #75715e&#34;&gt;//  Note: we could have just used &lt;/span&gt;
+  &lt;span style=&#34;color: #75715e&#34;&gt;//  Map&amp;#39;s buil-in get() method that returns an Option:&lt;/span&gt;
+  &lt;span style=&#34;color: #75715e&#34;&gt;// users.get(id) &lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;users&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;contains&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt; 
+    &lt;span style=&#34;color: #a6e22e&#34;&gt;Some&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;users&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt; 
+  &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+    &lt;span style=&#34;color: #a6e22e&#34;&gt;None&lt;/span&gt;
+  &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;535: &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getUserById&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;535&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;550: &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;getUserById&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;550&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The last two lines will print:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;535&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Some&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Zoe&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #960050; background-color: #1e0010&#34;&gt;538&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;None&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;So, the String value &amp;ldquo;Zoe&amp;rdquo; itself is wrapped in &amp;ldquo;Some()&amp;rdquo; in the first case, and we simply
+got a &amp;ldquo;None&amp;rdquo; result in the second case, when we used a non-existing id.&lt;/p&gt;
+
+&lt;h3 id=&#34;dealing-with-an-option:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Dealing with an Option&lt;/h3&gt;
+
+&lt;p&gt;What can we do if we receive an Option from somewhere?&lt;/p&gt;
+
+&lt;p&gt;Scala offers many possibilities to handle Options, here I present
+the two simplest ones.&lt;/p&gt;
+
+&lt;h4 id=&#34;unwrapping-an-option-and-defining-a-default-value:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Unwrapping an Option and defining a default value&lt;/h4&gt;
+
+&lt;p&gt;If you simply want to unwrap the inner value from a &lt;em&gt;Some&lt;/em&gt;, and
+default to something (of the same type as the wrapped value would be) in case of a &lt;em&gt;None&lt;/em&gt;, just use
+the &amp;ldquo;getOrElse()&amp;rdquo; function of &lt;em&gt;Option&lt;/em&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;maybeString1&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Option&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;None&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;maybeString1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;getOrElse&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;default value&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;maybeString2&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Option&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Some&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;maybeString2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;getOrElse&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;default value&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;This example will print &amp;ldquo;default value&amp;rdquo; at first, and then &amp;ldquo;Hello&amp;rdquo; to the screen.&lt;/p&gt;
+
+&lt;h4 id=&#34;using-pattern-matching:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Using pattern matching&lt;/h4&gt;
+
+&lt;p&gt;Usually it seems to be an overkill to use pattern matching to handle Options,
+but at least
+&lt;a href=&#39;http://hands-on-scala.github.io/post/patternmatch1/&#39;&gt;
+we have already covered it here&lt;/a&gt;. So let&amp;rsquo;s see how to do this:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;result&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Option&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;None&lt;/span&gt;
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;toReturn&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Int&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;result&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;match&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Some&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;num&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;num&lt;/span&gt; 
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;None&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;toReturn&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+In the above example, &amp;ldquo;toReturn&amp;rdquo; will always hold an Int value: if the Option did not
+have a proper Int value (if it is not a &lt;em&gt;Some[Int]&lt;/em&gt; but a &lt;em&gt;None&lt;/em&gt;),
+then the default value of 0 will be used.
+So in this exact case, &amp;ldquo;0&amp;rdquo; will be printed.&lt;/p&gt;
+
+&lt;h4 id=&#34;other-possibilities:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Other possibilities&lt;/h4&gt;
+
+&lt;p&gt;For more smart ideas on dealing with Options, see
+&lt;a href=&#34;http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html&#34;&gt;Daniel Westheide&amp;rsquo;s blog post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;summary-and-other-sources:e4e1609209f0cd02c1d50b647b7ad7b2&#34;&gt;Summary and other sources&lt;/h2&gt;
+
+&lt;p&gt;By using Options we, as developers of a certain functionality, can clearly signal that
+our function might return without a proper result.
+Scala also helps (and requires) the caller of such function
+to deal with the situation: for example, by defining a default value.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html&#34;&gt;Daniel&amp;rsquo;s post on Options&lt;/a&gt; goes into more details, it&amp;rsquo;s really worth reading.&lt;/p&gt;
+
+&lt;p&gt;Some runnable code examples are available &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/06_options&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Feedback is welcome on &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt;
+or on &lt;a href=&#34;https://github.com/hands-on-scala/hands-on-scala.github.io/issues/2&#34;&gt;GitHub&lt;/a&gt; :)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Scala collections - part 3</title>
       <link>http://hands-on-scala.github.io/post/maps/</link>
       <pubDate>Thu, 16 Jun 2016 17:30:00 +0200</pubDate>
@@ -105,8 +250,6 @@ After this import, a &amp;ldquo;Map&amp;rdquo; will mean a mutable map, insted o
 
 &lt;p&gt;In the example above we created a MuMap, which was empty at first, but then we added three pairs
 using the &amp;ldquo;+=&amp;rdquo; operator and specifying the key-value pairs (those were separated by simple arrows: &amp;ldquo;-&amp;gt;&amp;rdquo;).&lt;/p&gt;
-
-&lt;p&gt;I will use these shorter names (ImmuMap and MuMap) from now on to refer to immutable and mutable maps.&lt;/p&gt;
 
 &lt;h2 id=&#34;iterating-over-all-elements-of-a-map:4565879f8724d6874a5bcfe7b435e7b8&#34;&gt;Iterating over all elements of a Map&lt;/h2&gt;
 
@@ -256,12 +399,12 @@ But tuples are different: their elements are indexed from one.&lt;/p&gt;
   &lt;span style=&#34;color: #75715e&#34;&gt;// should get data from database,&lt;/span&gt;
   &lt;span style=&#34;color: #75715e&#34;&gt;// instead a dummy solution&lt;/span&gt;
   &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;angie&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;30&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;It&amp;#39;s my birthday!&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;angie&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;30&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;It&amp;#39;s my birthday!&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
   &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
   &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;7&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;tony&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;11&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Rainbows! :)&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;tony&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;11&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Rainbows! :)&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
   &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
-  &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;zoe&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;13&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;More rainbows! :)&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;zoe&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;13&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;More rainbows! :)&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
 &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
@@ -417,7 +560,7 @@ I insert a bit longer code snippet, but I hope it&amp;rsquo;s easy to follow.&lt
   &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Long&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
 
   &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;isIdPositive&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Boolean&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #ae81ff&#34;&gt;0L&lt;/span&gt;
   &lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
   
   &lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;printUserAndMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Unit&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;

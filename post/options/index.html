@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content=" Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="Adrienn Szabo (@adorster)">
+<meta name="generator" content="Hugo 0.16-DEV" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>Options in Scala - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-06-16">June 16, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">Options in Scala</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="handling-missing-values-in-scala-options:e4e1609209f0cd02c1d50b647b7ad7b2">Handling missing values in Scala: Options</h1>
+
+<p>Whenever we want to use a value that is not readily available yet &ndash; for example, when we
+call a function to compute or fetch something &ndash;
+we can not be sure if things go as were planned.
+What if the database connection is down? What if the user typed in an invalid string?</p>
+
+<p>In the Java world, and in many other programming languages, the programmrs could
+throw an exception (or just pass further the
+&lsquo;classic&rsquo; NullPointerException) in these cases to signal that the requested value cold not
+be served.</p>
+
+<p>But oftentimes,
+using exceptions for such cases is an overkill, and only adds noise to the code.
+It can even happen, that it is completely &lsquo;normal&rsquo; that a function can not return
+a proper value for some reason.</p>
+
+<h2 id="returning-something-or-nothing:e4e1609209f0cd02c1d50b647b7ad7b2">Returning something or nothing</h2>
+
+<p>Scala has a built-in type to help us in the situation when we are not sure that
+we can return a value: the <em>Option[T]</em> type. The <em>T</em> parameter means that it takes a type
+inside it as well, and it will be type-safe to use.</p>
+
+<p>You can think about an Option as a container that either holds a value of type <em>T</em>, or not.
+If the Option is empty, it is called <em>None</em>, and if it has a value inside, then it
+is an object of the class <em>Some[T]</em>.</p>
+
+<h2 id="how-to-use-options:e4e1609209f0cd02c1d50b647b7ad7b2">How to use Options</h2>
+
+<p>Let&rsquo;s see a couple of examples of how we can use Options in Scala to represent optional values.</p>
+
+<h3 id="returning-an-option-from-our-function:e4e1609209f0cd02c1d50b647b7ad7b2">Returning an Option from our function</h3>
+
+<p>The following &ldquo;getUserById()&rdquo; function returns an Option
+(about Maps, see
+<a href='http://hands-on-scala.github.io/post/maps/'>
+the previous post</a>):</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">getUserMap</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Map</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Int</span>, <span style="color: #66d9ef">String</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">userMap</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Map</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Int</span>, <span style="color: #66d9ef">String</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">Map</span><span style="color: #f92672">(</span>
+    <span style="color: #ae81ff">824</span> <span style="color: #f92672">-&gt;</span> <span style="color: #e6db74">&quot;Jane&quot;</span><span style="color: #f92672">,</span>
+    <span style="color: #ae81ff">2723</span> <span style="color: #f92672">-&gt;</span> <span style="color: #e6db74">&quot;Kate&quot;</span><span style="color: #f92672">,</span>
+    <span style="color: #ae81ff">535</span> <span style="color: #f92672">-&gt;</span> <span style="color: #e6db74">&quot;Zoe&quot;</span><span style="color: #f92672">,</span>
+    <span style="color: #ae81ff">8260</span> <span style="color: #f92672">-&gt;</span> <span style="color: #e6db74">&quot;Jonathan&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #f8f8f2">userMap</span>
+<span style="color: #f92672">}</span>
+
+<span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">getUserById</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Int</span><span style="color: #f92672">)</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Option</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">users</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">getUserMap</span>
+  <span style="color: #75715e">//  Note: we could have just used </span>
+  <span style="color: #75715e">//  Map&#39;s buil-in get() method that returns an Option:</span>
+  <span style="color: #75715e">// users.get(id) </span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">users</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">contains</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span><span style="color: #f92672">))</span> <span style="color: #f92672">{</span> 
+    <span style="color: #a6e22e">Some</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">users</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span><span style="color: #f92672">))</span> 
+  <span style="color: #f92672">}</span> <span style="color: #66d9ef">else</span> <span style="color: #f92672">{</span>
+    <span style="color: #a6e22e">None</span>
+  <span style="color: #f92672">}</span>
+<span style="color: #f92672">}</span>
+
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;535: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">getUserById</span><span style="color: #f92672">(</span><span style="color: #ae81ff">535</span><span style="color: #f92672">))</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;550: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">getUserById</span><span style="color: #f92672">(</span><span style="color: #ae81ff">550</span><span style="color: #f92672">))</span>
+</pre></div>
+
+
+<p>The last two lines will print:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #ae81ff">535</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Some</span><span style="color: #f92672">(</span><span style="color: #66d9ef">Zoe</span><span style="color: #f92672">)</span>
+<span style="color: #960050; background-color: #1e0010">538</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">None</span>
+</pre></div>
+</p>
+
+<p>So, the String value &ldquo;Zoe&rdquo; itself is wrapped in &ldquo;Some()&rdquo; in the first case, and we simply
+got a &ldquo;None&rdquo; result in the second case, when we used a non-existing id.</p>
+
+<h3 id="dealing-with-an-option:e4e1609209f0cd02c1d50b647b7ad7b2">Dealing with an Option</h3>
+
+<p>What can we do if we receive an Option from somewhere?</p>
+
+<p>Scala offers many possibilities to handle Options, here I present
+the two simplest ones.</p>
+
+<h4 id="unwrapping-an-option-and-defining-a-default-value:e4e1609209f0cd02c1d50b647b7ad7b2">Unwrapping an Option and defining a default value</h4>
+
+<p>If you simply want to unwrap the inner value from a <em>Some</em>, and
+default to something (of the same type as the wrapped value would be) in case of a <em>None</em>, just use
+the &ldquo;getOrElse()&rdquo; function of <em>Option</em>:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">maybeString1</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Option</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">None</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">maybeString1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">getOrElse</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;default value&quot;</span><span style="color: #f92672">))</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">maybeString2</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Option</span><span style="color: #f92672">[</span><span style="color: #66d9ef">String</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">Some</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Hello&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">maybeString2</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">getOrElse</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;default value&quot;</span><span style="color: #f92672">))</span>
+</pre></div>
+</p>
+
+<p>This example will print &ldquo;default value&rdquo; at first, and then &ldquo;Hello&rdquo; to the screen.</p>
+
+<h4 id="using-pattern-matching:e4e1609209f0cd02c1d50b647b7ad7b2">Using pattern matching</h4>
+
+<p>Usually it seems to be an overkill to use pattern matching to handle Options,
+but at least
+<a href='http://hands-on-scala.github.io/post/patternmatch1/'>
+we have already covered it here</a>. So let&rsquo;s see how to do this:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">result</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Option</span><span style="color: #f92672">[</span><span style="color: #66d9ef">Int</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">None</span>
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">toReturn</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Int</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">result</span> <span style="color: #66d9ef">match</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">case</span> <span style="color: #a6e22e">Some</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">num</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">=&gt;</span> <span style="color: #f8f8f2">num</span> 
+  <span style="color: #66d9ef">case</span> <span style="color: #a6e22e">None</span> <span style="color: #66d9ef">=&gt;</span> <span style="color: #ae81ff">0</span>
+<span style="color: #f92672">}</span>
+<span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">toReturn</span><span style="color: #f92672">)</span>
+</pre></div>
+
+In the above example, &ldquo;toReturn&rdquo; will always hold an Int value: if the Option did not
+have a proper Int value (if it is not a <em>Some[Int]</em> but a <em>None</em>),
+then the default value of 0 will be used.
+So in this exact case, &ldquo;0&rdquo; will be printed.</p>
+
+<h4 id="other-possibilities:e4e1609209f0cd02c1d50b647b7ad7b2">Other possibilities</h4>
+
+<p>For more smart ideas on dealing with Options, see
+<a href="http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html">Daniel Westheide&rsquo;s blog post</a>.</p>
+
+<h2 id="summary-and-other-sources:e4e1609209f0cd02c1d50b647b7ad7b2">Summary and other sources</h2>
+
+<p>By using Options we, as developers of a certain functionality, can clearly signal that
+our function might return without a proper result.
+Scala also helps (and requires) the caller of such function
+to deal with the situation: for example, by defining a default value.</p>
+
+<p><a href="http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html">Daniel&rsquo;s post on Options</a> goes into more details, it&rsquo;s really worth reading.</p>
+
+<p>Some runnable code examples are available <a href="https://github.com/ador/scala-examples/tree/master/06_options">here</a>.</p>
+
+<p><em>Note n+1</em> : Feedback is welcome on <a href="https://twitter.com/adorster">Twitter</a>
+or on <a href="https://github.com/hands-on-scala/hands-on-scala.github.io/issues/2">GitHub</a> :)</p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+
