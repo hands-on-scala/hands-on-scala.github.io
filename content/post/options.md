@@ -38,57 +38,107 @@ Let's see a couple of examples of how we can use Options in Scala to represent o
 
 ### Returning an Option from our function
 
+The following "getUserById()" function returns an Option 
+(about Maps, see 
+<a href='{{< relref "post/maps.md" >}}'>
+the previous post</a>):
+
 {{< highlight scala >}}
-val userMap = Map(
+def getUserMap: Map[Int, String] = {
+  val userMap: Map[Int, String] = Map(
     824 -> "Jane",
     2723 -> "Kate",
     535 -> "Zoe",
-    8260 -> "Jonathan"
-)
+    8260 -> "Jonathan")
+  userMap
+}
 
 def getUserById(id: Int): Option[String] = {
-  userMap.get(id)   // Map's buil-in get() returns an Option
+  val users = getUserMap
+  //  Note: we could have just used 
+  //  Map's buil-in get() method that returns an Option:
+  // users.get(id) 
+  if (users.contains(id)) { 
+    Some(users(id)) 
+  } else {
+    None
+  }
 }
 
 println("535: " + getUserById(535))
-println("538: " + getUserById(535))
+println("550: " + getUserById(550))
 {{< / highlight >}}
 
-As you might remember, 
-<a href='{{< relref "post/maps.md" >}}'>
-in our previous post, about Maps in Scala</a>,  
-the _get(key)_ function of a map will return an Option, which will hold the
- value corresponding to the key if the key is present in the Map. And what hppens in case of
-an invalid key? If we run the above code, we will see this result:
+
+The last two lines will print:
 
 {{< highlight scala >}}
-Some(Zoe)
-None
+535: Some(Zoe)
+538: None
 {{< / highlight >}}
 
-So, the String value itself is wrapped with "Some()" in the first case, and we simply
-got a "None" result in the second case, when we used a nonexisting id.
+So, the String value "Zoe" itself is wrapped in "Some()" in the first case, and we simply
+got a "None" result in the second case, when we used a non-existing id.
 
 ### Dealing with an Option
 
-What to do when we, as a caller, receive an Option?
-<!--case class TweetMsg(id: Long, user: User, msg: String,  hashtags: Option[List[String]])
-case class User(userId: Int, name: String, email: Option[String]) -->
+What can we do if we receive an Option from somewhere?
+
+Scala offers many possibilities to handle Options, here I present 
+the two simplest ones. 
+
+#### Unwrapping an Option and defining a default value
+
+If you simply want to unwrap the inner value from a _Some_, and 
+default to something (of the same type as the wrapped value would be) in case of a _None_, just use
+the "getOrElse()" function of _Option_: 
 
 {{< highlight scala >}}
-TODO
+val maybeString1: Option[String] = None
+println(maybeString1.getOrElse("default value"))
+val maybeString2: Option[String] = Some("Hello")
+println(maybeString2.getOrElse("default value"))
 {{< / highlight >}}
 
+This example will print "default value" at first, and then "Hello" to the screen.
+
+
+#### Using pattern matching
+
+Usually it seems to be an overkill to use pattern matching to handle Options,
+but at least 
+<a href='{{< relref "post/patternmatch1.md" >}}'>
+we have already covered it here</a>. So let's see how to do this:
+
+
+{{< highlight scala >}}
+val result: Option[Int] = None
+val toReturn: Int = result match {
+  case Some(num) => num 
+  case None => 0
+}
+println(toReturn)
+{{< / highlight >}}
+In the above example, "toReturn" will always hold an Int value: if the Option did not
+have a proper Int value (if it is not a _Some[Int]_ but a _None_), 
+then the default value of 0 will be used.
+So in this exact case, "0" will be printed.
+
+#### Other possibilities
+
+For more smart ideas on dealing with Options, see
+[Daniel Westheide's blog post](http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html).
 
 ## Summary and other sources
 
-By using Options we - as developers of a certain functionality - can clearly signal that
-a function might return with no real result, and Scala also helps the caller in these cases
-to deal with the situation: with pattern matching.
+By using Options we, as developers of a certain functionality, can clearly signal that
+our function might return without a proper result.
+Scala also helps (and requires) the caller of such function 
+to deal with the situation: for example, by defining a default value.
 
 [Daniel's post on Options](http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html) goes into more details, it's really worth reading.
 
-Some runnable code examples WILL BE are [here](https://github.com/ador/scala-examples/tree/master/06_options).
+Some runnable code examples are available [here](https://github.com/ador/scala-examples/tree/master/06_options).
 
 
 _Note n+1_ : Feedback is welcome on [Twitter](https://twitter.com/adorster) 
