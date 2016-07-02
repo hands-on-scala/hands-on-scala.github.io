@@ -94,12 +94,12 @@ def getTweetData(id: Long):(String, Int, String) = {
   // should get data from database,
   // instead a dummy solution
   if (id == 5) {
-    return ("angie", 30, "It's my birthday!")
+    ("angie", 30, "It's my birthday!")
   }
   if (id == 7) {
-    return ("tony", 11, "Rainbows! :)")
+    ("tony", 11, "Rainbows! :)")
   }
-  return ("zoe", 13, "More rainbows! :)")
+  ("zoe", 13, "More rainbows! :)")
 }
 {{< / highlight >}}
 

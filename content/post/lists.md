@@ -124,7 +124,7 @@ object ListExamples extends App {
   case class TweetMsg(id: Long, user: User, msg: String)
 
   def isIdPositive(tw: TweetMsg) : Boolean = {
-    return (tw.id > 0L)
+    tw.id > 0L
   }
   
   def printUserAndMsg(tw: TweetMsg) : Unit = {
