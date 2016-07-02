@@ -142,4 +142,4 @@ Some runnable code examples are available [here](https://github.com/ador/scala-e
 
 
 _Note n+1_ : Feedback is welcome on [Twitter](https://twitter.com/adorster) 
-or on [GitHub](https://github.com/hands-on-scala/hands-on-scala.github.io/issues/2) :)
+or on [GitHub](https://github.com/hands-on-scala/hands-on-scala.github.io/issues/3) :)
