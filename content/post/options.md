@@ -12,7 +12,7 @@ call a function to compute or fetch something --
 we can not be sure if things go as were planned.
 What if the database connection is down? What if the user typed in an invalid string?
 
-In the Java world, and in many other programming languages, the programmrs could 
+In the Java world, and in many other programming languages, the programmers could 
 throw an exception (or just pass further the 
 'classic' NullPointerException) in these cases to signal that the requested value cold not 
 be served.
