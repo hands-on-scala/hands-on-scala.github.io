@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>About on Hands-on Scala Blog</title>
+    <link>http://hands-on-scala.github.io/categories/about/</link>
+    <description>Recent content in About on Hands-on Scala Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 Jul 2016 15:43:37 +0200</lastBuildDate>
+    <atom:link href="http://hands-on-scala.github.io/categories/about/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About</title>
+      <link>http://hands-on-scala.github.io/about/</link>
+      <pubDate>Fri, 15 Jul 2016 15:43:37 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/about/</guid>
+      <description>
+
+&lt;h2 id=&#34;hi:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;Hi :)&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;m something between a software developer and a researcher.&lt;/p&gt;
+
+&lt;p&gt;I like dealing with a lot of data, especially with biology-related data.&lt;/p&gt;
+
+&lt;p&gt;I work at a research institute in Hungary, called &lt;a href=&#34;http://www.sztaki.hu/en&#34;&gt;SZTAKI&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my free time I like reading, wandering around in forests, and climbing trees.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re interested in my interests, maybe folow me on &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; or &lt;a href=&#34;https://github.com/ador&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can also drop me an email, my address is &amp;ldquo;-ador-&amp;rdquo; at &amp;ldquo;proton-mail&amp;rdquo; plus &amp;ldquo;.ch&amp;rdquo;, but leave out all the dashes :)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
