@@ -17,7 +17,7 @@
       <guid>http://hands-on-scala.github.io/post/enums/</guid>
       <description>
 
-&lt;h1 id=&#34;enumerations-what-are-they-for:1ef00569cd8c4dbcb2b9bfd22661e936&#34;&gt;Enumerations - what are they for?&lt;/h1&gt;
+&lt;h1 id=&#34;enumerations-in-scala:1ef00569cd8c4dbcb2b9bfd22661e936&#34;&gt;Enumerations in Scala&lt;/h1&gt;
 
 &lt;p&gt;Generally in programming, enumerations (a.k.a. enums)
 are light-weight means to create a very simple model within our code, for

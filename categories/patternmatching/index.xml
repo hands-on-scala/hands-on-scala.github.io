@@ -17,15 +17,16 @@
       <guid>http://hands-on-scala.github.io/post/patternmatch1/</guid>
       <description>
 
-&lt;h1 id=&#34;why-should-we-care-about-pattern-matching:709c56cceaa353d481f380974d67f3c0&#34;&gt;Why should we care about pattern matching?&lt;/h1&gt;
+&lt;h1 id=&#34;introduction-to-pattern-matching-in-scala:709c56cceaa353d481f380974d67f3c0&#34;&gt;Introduction to pattern matching in Scala&lt;/h1&gt;
 
 &lt;p&gt;Pattern matching is a quite commonly used &amp;ldquo;programming pattern&amp;rdquo; in functional languages, because it
 fits nicely into the &amp;ldquo;functional way of thinking&amp;rdquo;, and it is quite powerful and handy as a tool.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s somewhat similar to a sequence of &lt;em&gt;if / else&lt;/em&gt; statements or to the &lt;em&gt;switch&lt;/em&gt; statement
 of Java or C, but it is much more powerful, because it lets you form more complex
-conditions for matching, even for the inside of an object.
-In some cases
+conditions for matching, even for the inside of an object.&lt;/p&gt;
+
+&lt;p&gt;In some cases
 &lt;!-- (when dealing with objects of _case classes_ for example; we&#39;ll learn about them a bit later in more detail) --&gt;
 Scala can automatically &lt;em&gt;decompose&lt;/em&gt; an object that you want to match and look inside it to check
 if its structure matches your expectations.&lt;/p&gt;
