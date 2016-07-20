@@ -14,6 +14,8 @@ _Lists_ are what their name suggests: they can keep a list of things. The order
 of its elements will be kept,
 and a list does not care if an element appears more than once in it.
 
+<!--more-->
+
 ## Creating (immutable) lists
 
 As it can be read in the [Scala collections overview](http://docs.scala-lang.org/overviews/collections/overview.html),

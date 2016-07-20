@@ -5,7 +5,7 @@ title = "Enums in Scala"
 
 +++
 
-# Enumerations - what are they for?
+# Enumerations in Scala
 
 Generally in programming, enumerations (a.k.a. enums)
 are light-weight means to create a very simple model within our code, for
@@ -13,6 +13,8 @@ representing a custom type with a limited set of possible values with readable
 names.
 This description might sound a bit too abstract, so 
 let's see an example instead.
+
+<!--more-->
 
 ## Example: days of week
 

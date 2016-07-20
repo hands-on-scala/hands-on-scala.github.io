@@ -12,6 +12,8 @@ that learning how to use a unit testing framework is not strictly necessary
 for newcomers. But according to my experience, getting into the
 habit of writing tests regularly quickly pays off.
 
+<!--more-->
+
 Why? It's nicely summarized [here](http://blog.xebia.com/5-reasons-why-you-should-test-your-code/), I'm
 just listing here the main points:
 

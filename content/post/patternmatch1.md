@@ -5,14 +5,17 @@ title = "Basic pattern matching in Scala"
 
 +++
 
-# Why should we care about pattern matching?
+# Introduction to pattern matching in Scala
 
 Pattern matching is a quite commonly used "programming pattern" in functional languages, because it 
 fits nicely into the "functional way of thinking", and it is quite powerful and handy as a tool.
 
+<!--more-->
+
 It's somewhat similar to a sequence of _if / else_ statements or to the _switch_ statement
 of Java or C, but it is much more powerful, because it lets you form more complex 
 conditions for matching, even for the inside of an object. 
+
 In some cases
 <!-- (when dealing with objects of _case classes_ for example; we'll learn about them a bit later in more detail) -->
 Scala can automatically _decompose_ an object that you want to match and look inside it to check

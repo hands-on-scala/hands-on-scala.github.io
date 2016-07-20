@@ -15,6 +15,8 @@ Maps are a bit more complex than what we've seen before. They come handy
 when you need to store associated pairs of data, or when 
 you need to easily look up a value corresponding to another value (which we will call the _key_).
 
+<!--more-->
+
 It does matter (as with Lists) what kind of objects you want to store as _keys_ and as _values_.
 You can pick a type for each.
 

@@ -13,6 +13,7 @@ that you'd like to learn. Because, hey, it's object-oriented and functional at t
 I'll show you something very basic at first: a bit more "personal" version
 of the famous 
 ["Hello World" program](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program).
+<!--more-->
 The following little Scala program will ask for your name and then it'll print "Hello, <You>!" to the console.
 
 {{< highlight scala >}}

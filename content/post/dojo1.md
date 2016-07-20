@@ -10,6 +10,7 @@ title = "Our first Scala dojo"
 In short, a coding dojo is an event where a group of programmers practice their craft in an organized way, focusing on a single coding problem.
 
 A dojo usually lasts a couple of hours, depending on the style and the task to be solved.
+<!--more-->
 For more details see [CodingDojo.org](http://codingdojo.org/cgi-bin/index.pl?WhatIsCodingDojo) or
 [Joe Wright's blog post about coding dojos](http://code.joejag.com/2009/the-coding-dojo.html).
 

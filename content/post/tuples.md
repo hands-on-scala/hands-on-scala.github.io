@@ -12,6 +12,8 @@ In the previous post we learned about <a href='{{< relref "post/lists.md" >}}'>L
 You can think about a tuple as simple "wrapper" around a handful of things,
 it just keeps its elements together, at their own place.
 
+<!--more-->
+
 Tuples are similar to lists in some ways, but there are also some key differences.
 
 It is also worth noting that strictly speaking, a tuple is not a _Scala collection_, because
