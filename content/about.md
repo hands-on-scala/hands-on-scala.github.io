@@ -6,7 +6,7 @@ categories = ["about"]
 
 ## Hi :)
 
-I'm something between a software engineer and a researcher.
+My name is Adrienn Szabó. I'm something between a software engineer and a researcher.
 
 I like dealing with a lot of data, especially with biology-related data.  
 I work at a research institute in Hungary, called [SZTAKI](http://www.sztaki.hu/en).
