@@ -8,8 +8,8 @@ categories = ["about"]
 
 My name is Adrienn Szabó. I'm something between a software engineer and a researcher.
 
-I like dealing with a lot of data, especially with biology-related data.  
-I work at a research institute in Hungary, called [SZTAKI](http://www.sztaki.hu/en).
+I like dealing with a lot of data, especially with biology-related or social media-related data.  
+I work at a CS research institute in Hungary, called [MTA SZTAKI](http://www.sztaki.mta.hu/en).
 
 In my free time I like reading, wandering around in forests, and climbing trees.
 
