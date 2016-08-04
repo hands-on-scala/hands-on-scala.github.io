@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content=" Let&#39;s learn Scala together!">
+<meta name="keywords" content="">
+<meta name="author" content="Adrienn Szabo (@adorster)">
+<meta name="generator" content="Hugo 0.16-DEV" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="http://hands-on-scala.github.io/index.xml" type="application/rss+xml" title="Hands-on Scala Blog">
+<title>For &#43; yield = for comprehension - Hands-on Scala Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="http://hands-on-scala.github.io/">[Hands-on Scala Blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2016-07-15">July 15, 2016</time></span>
+
+
+    <span class="key">in</span>
+    <span class="val">
+
+        <a href="http://hands-on-scala.github.io/categories/intro">intro</a>
+
+    </span>
+
+
+  </div>
+  <h1 class="headline" itemprop="headline">For &#43; yield = for comprehension</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="for-loops-and-for-comprehensions-in-scala:bb8788d70813691f2251548c47e6f5ba">For loops and for comprehensions in Scala</h1>
+
+<p>Looping over a collection of items and transforming the individual elements
+within is quite a common task. So it seems natural that Scala offers a nice
+way to solve this.</p>
+
+<p>If you know some other, more &ldquo;traditional&rdquo;, imperative programming languages,
+then you might have some assumptions about a thing that&rsquo;s name
+begins with &ldquo;for&rdquo;.
+These can be useful to understand Scala&rsquo;s <em>for</em> capabilities, but you might
+be surprised at how powerful Scala&rsquo;s solution is.</p>
+
+<h2 id="some-simple-examples:bb8788d70813691f2251548c47e6f5ba">Some simple examples</h2>
+
+<p>As a warm-up, let&rsquo;s see a couple of short examples.</p>
+
+<p>They will use the Twitter-related case classes that were introduced
+in a previous post,
+<a href='http://hands-on-scala.github.io/post/lists/'>Lists in Scala</a>.</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>  <span style="color: #66d9ef">case</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">name</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">String</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">case</span> <span style="color: #66d9ef">class</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">id</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">Long</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">User</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">msg</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">String</span><span style="color: #f92672">)</span>
+</pre></div>
+
+
+<h3 id="a-for-loop-for-printing:bb8788d70813691f2251548c47e6f5ba">A for loop for printing</h3>
+
+<p>At first let&rsquo;s just create a list of three <em>TweetMsg</em> objects and print
+their message strings to the screen within a <em>for-loop</em>:</p>
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">def</span> <span style="color: #f8f8f2">createTweetList</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #f92672">{</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">user1</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;ador&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">user2</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">User</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;szeli&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">t1</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #ae81ff">9243012L</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user1</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;scala program&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">t2</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #ae81ff">9534594L</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user2</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;ice cream&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">t3</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">new</span> <span style="color: #a6e22e">TweetMsg</span><span style="color: #f92672">(</span><span style="color: #ae81ff">9811235L</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">user1</span><span style="color: #f92672">,</span> <span style="color: #e6db74">&quot;playing with scala&quot;</span><span style="color: #f92672">)</span>
+  <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">tweetList</span><span style="color: #66d9ef">:</span> <span style="color: #66d9ef">List</span><span style="color: #f92672">[</span><span style="color: #66d9ef">TweetMsg</span><span style="color: #f92672">]</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t1</span><span style="color: #f92672">,</span> <span style="color: #f8f8f2">t2</span> <span style="color: #f92672">,</span><span style="color: #f8f8f2">t3</span><span style="color: #f92672">)</span>
+  <span style="color: #f8f8f2">tweetList</span>
+<span style="color: #f92672">}</span>
+
+<span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">tweets</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">createTweetList</span>
+
+<span style="color: #66d9ef">for</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">tweets</span><span style="color: #f92672">)</span> <span style="color: #f92672">{</span>
+  <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span>
+</pre></div>
+
+
+<p>The last three lines contain the code to loop over all the tweet objects of the
+list that we created previously. It&rsquo;s really just the <em>for</em> keyword, plus a
+so-called <em>generator expression</em>, that &ldquo;pushes&rdquo; the collections&rsquo;s elements
+with the &lsquo;&lt;-&rsquo; arrow into a temporary value (called <em>tw</em> in our example),
+that can be used within the loop&rsquo;s body (that is, within the curly braces)
+to do something with it (we just printed the message part).</p>
+
+<p>This first example, strictly speaking, is just a <em>for loop</em>,
+not really a <em>for comprehension</em> yet.
+To write a real comprehension, we&rsquo;ll need the <em>yield</em> keyword.</p>
+
+<h3 id="a-real-for-comprehension:bb8788d70813691f2251548c47e6f5ba">A real for-comprehension</h3>
+
+<p>In the previous example we looped over a list and printed something, based on
+each element of the list.</p>
+
+<p>Now we&rsquo;ll write a single line of code where we <em>transform</em> the incoming list of
+<em>TweetMsg</em> objects into a new list of <em>String</em> objects by selecting
+only the message part from the tweets.</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">strMsgs</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">for</span> <span style="color: #f92672">(</span><span style="color: #f8f8f2">tw</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">tweets</span><span style="color: #f92672">)</span> <span style="color: #66d9ef">yield</span> <span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span>
+</pre></div>
+</p>
+
+<p>Simple, huh? :)</p>
+
+<p>One big advantage of this approach (<em>transforming</em> the data instead of
+doing some &ldquo;side effects&rdquo;, like printing) is that we stay close to
+the functional programming paradgim, and this can have nice benefits
+in many cases.</p>
+
+<h2 id="advanced-features:bb8788d70813691f2251548c47e6f5ba">Advanced features</h2>
+
+<h3 id="filtering:bb8788d70813691f2251548c47e6f5ba">Filtering</h3>
+
+<p>In the next example we go one step further: we filter the resulting String list
+to only contain messages that include the word &ldquo;scala&rdquo;. We can do this
+with the so-called <em>guards</em>, that are simply booelan expressions, added
+to the for comprehension like here:</p>
+
+<p><div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">filteredMessageList</span> <span style="color: #66d9ef">=</span> <span style="color: #66d9ef">for</span> <span style="color: #f92672">{</span>
+  <span style="color: #f8f8f2">tw</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">tweets</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">contains</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;scala&quot;</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span> <span style="color: #66d9ef">yield</span> <span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span>
+</pre></div>
+</p>
+
+<!-- _Note:_ It's not necessary but good to know, that under the hood, 
+the Scala compiler will translate the for loops and comprehensions into 
+a series of _flatMap()_, _map()_ and _filter()_ calls to achieve the 
+intended result. So the for structure is just a "syntactic sugar"
+over these functions. We'll learn about each a bit later :)
+-->
+
+<h3 id="looping-over-more-collections:bb8788d70813691f2251548c47e6f5ba">Looping over more collections</h3>
+
+<p>Instead of ugly nested loops, Scala&rsquo;s for comprehensions allow us to process
+elements from more than one collection simply by adding more
+generator expressions to the <em>for</em> (before the guard(s)).</p>
+
+<p>For example, let&rsquo;s say that we have a list of words (Strings in a list
+called <em>words</em>) and we want to filter our
+long list of tweets (called <em>tweets</em>) so that only those
+tweet messages remain that include any of the pre-defined words:
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">for</span> <span style="color: #f92672">{</span>
+  <span style="color: #f8f8f2">tw</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">tweets</span>
+  <span style="color: #f8f8f2">word</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">words</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">contains</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">word</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span> <span style="color: #66d9ef">yield</span> <span style="color: #f8f8f2">tw</span>
+</pre></div>
+</p>
+
+<!-- TODO : maybe in another post, this is a bit more complicated,
+to find a simple and meaningful example with tweets
+
+### Using for with Options
+
+I can't go into details here about what Scala requires from a type in order
+to be able to apply for comprehensions to its objects, but the good news is:
+for comprehensions work on all the usual collection types (List, Set, Vector,
+etc.) and also on Option! Why is this useful?, you may ask. 
+
+Well, let's imagine that we need to fetch some data from a database.
+Or, to keep our example simle, let's just use a Map. 
+
+If you have read 
+<a href='http://hands-on-scala.github.io/post/maps/'>
+this post about Maps</a>, then you already know that with Maps, we can not be 
+sure that it contains something for a given key or not, so what we receive if 
+we call a _get(key)_ method on a Map then the result will be an _Option_: 
+either a _Some(value)_ or a _None_.
+
+Scala helps us to deal with the situation when we can't know beforehand 
+if we will have a _Some_ or a _None_ to deal with. 
+
+Let's see:
+
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">for</span> <span style="color: #f92672">{</span>
+  <span style="color: #f8f8f2">tw</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">tweets</span>
+  <span style="color: #f8f8f2">word</span> <span style="color: #66d9ef">&lt;-</span> <span style="color: #f8f8f2">words</span>
+  <span style="color: #66d9ef">if</span> <span style="color: #f8f8f2">tw</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">msg</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">contains</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">word</span><span style="color: #f92672">)</span>
+<span style="color: #f92672">}</span> <span style="color: #66d9ef">yield</span> <span style="color: #f8f8f2">tw</span>
+</pre></div>
+
+ -->  
+
+<h2 id="summary-and-other-sources:bb8788d70813691f2251548c47e6f5ba">Summary and other sources</h2>
+
+<p>The nice thing about Scala&rsquo;s <em>for comprehension</em> is that
+you don&rsquo;t need to understand all the details
+(you don&rsquo;t have to know what the <em>for</em> is being transformed to under the hood;
+btw. it&rsquo;s a series of <em>map</em>, <em>flatMap</em> and <em>filter</em> calls) to efficiently
+use the power of it.</p>
+
+<!--"The for-expression is similar to loops in imerative languages,
+except that it builds a list of the results of all iterations"
+(martin ordersky's scala course on coursera) -->
+
+<p>Code examples are available
+<a href="https://github.com/ador/scala-examples/tree/master/07_for_yield">here</a>.</p>
+
+<p><em>Note n+1</em> : Feedback is welcome on <a href="https://twitter.com/adorster">Twitter</a>
+or on <a href="https://github.com/hands-on-scala/hands-on-scala.github.io/issues/4">GitHub</a> :)
+<!-- TODO create issue --></p>
+
+  </section>
+</article>
+
+</main>
+
+
+</div>
+
+<footer>
+  <div class="container">
+    <span class="copyright">&copy; 2016  Hands-on Scala Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+

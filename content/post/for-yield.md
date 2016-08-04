@@ -80,11 +80,18 @@ val strMsgs = for (tw <- tweets) yield tw.msg
 
 Simple, huh? :)
 
+One big advantage of this approach (_transforming_ the data instead of
+doing some "side effects", like printing) is that we stay close to 
+the functional programming paradgim, and this can have nice benefits 
+in many cases.
+
+## Advanced features
+
 ### Filtering
 
 In the next example we go one step further: we filter the resulting String list
 to only contain messages that include the word "scala". We can do this 
-with the so-called "guards", that are simply booelan expressions, added
+with the so-called _guards_, that are simply booelan expressions, added
 to the for comprehension like here:
 
 {{< highlight scala >}}
@@ -102,34 +109,78 @@ intended result. So the for structure is just a "syntactic sugar"
 over these functions. We'll learn about each a bit later :)
 -->
 
+
+
+### Looping over more collections
+
+Instead of ugly nested loops, Scala's for comprehensions allow us to process
+elements from more than one collection simply by adding more
+generator expressions to the _for_ (before the guard(s)).
+
+For example, let's say that we have a list of words (Strings in a list
+called _words_) and we want to filter our
+long list of tweets (called _tweets_) so that only those 
+tweet messages remain that include any of the pre-defined words:
+{{< highlight scala >}}
+for {
+  tw <- tweets
+  word <- words
+  if tw.msg.contains(word)
+} yield tw
+{{< / highlight >}}
+
+
+<!-- TODO : maybe in another post, this is a bit more complicated,
+to find a simple and meaningful example with tweets
+
 ### Using for with Options
 
-I can't go to details here about what Scala requires from a type in order
+I can't go into details here about what Scala requires from a type in order
 to be able to apply for comprehensions to its objects, but the good news is:
-for comprehensions work on all the usual collection types (List, Sets, Vectors,
-etc.) and also on Options! Why is this useful?, you may ask. Let's see:
+for comprehensions work on all the usual collection types (List, Set, Vector,
+etc.) and also on Option! Why is this useful?, you may ask. 
 
+Well, let's imagine that we need to fetch some data from a database.
+Or, to keep our example simle, let's just use a Map. 
 
-### Instead of nested loops
+If you have read 
+<a href='{{< relref "post/maps.md" >}}'>
+this post about Maps</a>, then you already know that with Maps, we can not be 
+sure that it contains something for a given key or not, so what we receive if 
+we call a _get(key)_ method on a Map then the result will be an _Option_: 
+either a _Some(value)_ or a _None_.
+
+Scala helps us to deal with the situation when we can't know beforehand 
+if we will have a _Some_ or a _None_ to deal with. 
+
+Let's see:
+
+{{< highlight scala >}}
+
+for {
+  tw <- tweets
+  word <- words
+  if tw.msg.contains(word)
+} yield tw
+{{< / highlight >}}
+ -->  
 
 
 ## Summary and other sources
 
+The nice thing about Scala's _for comprehension_ is that 
+you don't need to understand all the details 
+(you don't have to know what the _for_ is being transformed to under the hood; 
+btw. it's a series of _map_, _flatMap_ and _filter_ calls) to efficiently 
+use the power of it.
 
-TODO 
-
-use the power of _for comprehensions_.
-
-"The for-expression is similar to loops in imerative languages,
+<!--"The for-expression is similar to loops in imerative languages,
 except that it builds a list of the results of all iterations"
-
-(martin ordersky's scala course on coursera)
-
-// side effects(imp ) vs building a new list! (scala)
+(martin ordersky's scala course on coursera) -->
 
 
-Code examples 
-are available [here](https://github.com/ador/scala-examples/tree/master/07_for_yield).
+Code examples are available
+[here](https://github.com/ador/scala-examples/tree/master/07_for_yield).
 
 
 _Note n+1_ : Feedback is welcome on [Twitter](https://twitter.com/adorster) 

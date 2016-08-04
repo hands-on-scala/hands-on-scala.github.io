@@ -6,8 +6,191 @@
     <description>Recent content in Posts on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 02 Jul 2016 17:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jul 2016 17:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>For &#43; yield = for comprehension</title>
+      <link>http://hands-on-scala.github.io/post/for-yield/</link>
+      <pubDate>Fri, 15 Jul 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/for-yield/</guid>
+      <description>
+
+&lt;h1 id=&#34;for-loops-and-for-comprehensions-in-scala:bb8788d70813691f2251548c47e6f5ba&#34;&gt;For loops and for comprehensions in Scala&lt;/h1&gt;
+
+&lt;p&gt;Looping over a collection of items and transforming the individual elements
+within is quite a common task. So it seems natural that Scala offers a nice
+way to solve this.&lt;/p&gt;
+
+&lt;p&gt;If you know some other, more &amp;ldquo;traditional&amp;rdquo;, imperative programming languages,
+then you might have some assumptions about a thing that&amp;rsquo;s name
+begins with &amp;ldquo;for&amp;rdquo;.
+These can be useful to understand Scala&amp;rsquo;s &lt;em&gt;for&lt;/em&gt; capabilities, but you might
+be surprised at how powerful Scala&amp;rsquo;s solution is.&lt;/p&gt;
+
+&lt;h2 id=&#34;some-simple-examples:bb8788d70813691f2251548c47e6f5ba&#34;&gt;Some simple examples&lt;/h2&gt;
+
+&lt;p&gt;As a warm-up, let&amp;rsquo;s see a couple of short examples.&lt;/p&gt;
+
+&lt;p&gt;They will use the Twitter-related case classes that were introduced
+in a previous post,
+&lt;a href=&#39;http://hands-on-scala.github.io/post/lists/&#39;&gt;Lists in Scala&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;id&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Long&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;String&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3 id=&#34;a-for-loop-for-printing:bb8788d70813691f2251548c47e6f5ba&#34;&gt;A for loop for printing&lt;/h3&gt;
+
+&lt;p&gt;At first let&amp;rsquo;s just create a list of three &lt;em&gt;TweetMsg&lt;/em&gt; objects and print
+their message strings to the screen within a &lt;em&gt;for-loop&lt;/em&gt;:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;createTweetList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;ador&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;szeli&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;9243012L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;scala program&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;9534594L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;ice cream&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t3&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;9811235L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;playing with scala&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t2&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t3&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweets&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;createTweetList&lt;/span&gt;
+
+&lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweets&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The last three lines contain the code to loop over all the tweet objects of the
+list that we created previously. It&amp;rsquo;s really just the &lt;em&gt;for&lt;/em&gt; keyword, plus a
+so-called &lt;em&gt;generator expression&lt;/em&gt;, that &amp;ldquo;pushes&amp;rdquo; the collections&amp;rsquo;s elements
+with the &amp;lsquo;&amp;lt;-&amp;rsquo; arrow into a temporary value (called &lt;em&gt;tw&lt;/em&gt; in our example),
+that can be used within the loop&amp;rsquo;s body (that is, within the curly braces)
+to do something with it (we just printed the message part).&lt;/p&gt;
+
+&lt;p&gt;This first example, strictly speaking, is just a &lt;em&gt;for loop&lt;/em&gt;,
+not really a &lt;em&gt;for comprehension&lt;/em&gt; yet.
+To write a real comprehension, we&amp;rsquo;ll need the &lt;em&gt;yield&lt;/em&gt; keyword.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-real-for-comprehension:bb8788d70813691f2251548c47e6f5ba&#34;&gt;A real for-comprehension&lt;/h3&gt;
+
+&lt;p&gt;In the previous example we looped over a list and printed something, based on
+each element of the list.&lt;/p&gt;
+
+&lt;p&gt;Now we&amp;rsquo;ll write a single line of code where we &lt;em&gt;transform&lt;/em&gt; the incoming list of
+&lt;em&gt;TweetMsg&lt;/em&gt; objects into a new list of &lt;em&gt;String&lt;/em&gt; objects by selecting
+only the message part from the tweets.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;strMsgs&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweets&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;yield&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;Simple, huh? :)&lt;/p&gt;
+
+&lt;p&gt;One big advantage of this approach (&lt;em&gt;transforming&lt;/em&gt; the data instead of
+doing some &amp;ldquo;side effects&amp;rdquo;, like printing) is that we stay close to
+the functional programming paradgim, and this can have nice benefits
+in many cases.&lt;/p&gt;
+
+&lt;h2 id=&#34;advanced-features:bb8788d70813691f2251548c47e6f5ba&#34;&gt;Advanced features&lt;/h2&gt;
+
+&lt;h3 id=&#34;filtering:bb8788d70813691f2251548c47e6f5ba&#34;&gt;Filtering&lt;/h3&gt;
+
+&lt;p&gt;In the next example we go one step further: we filter the resulting String list
+to only contain messages that include the word &amp;ldquo;scala&amp;rdquo;. We can do this
+with the so-called &lt;em&gt;guards&lt;/em&gt;, that are simply booelan expressions, added
+to the for comprehension like here:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;filteredMessageList&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweets&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;contains&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;scala&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;yield&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;!-- _Note:_ It&#39;s not necessary but good to know, that under the hood, 
+the Scala compiler will translate the for loops and comprehensions into 
+a series of _flatMap()_, _map()_ and _filter()_ calls to achieve the 
+intended result. So the for structure is just a &#34;syntactic sugar&#34;
+over these functions. We&#39;ll learn about each a bit later :)
+--&gt;
+
+&lt;h3 id=&#34;looping-over-more-collections:bb8788d70813691f2251548c47e6f5ba&#34;&gt;Looping over more collections&lt;/h3&gt;
+
+&lt;p&gt;Instead of ugly nested loops, Scala&amp;rsquo;s for comprehensions allow us to process
+elements from more than one collection simply by adding more
+generator expressions to the &lt;em&gt;for&lt;/em&gt; (before the guard(s)).&lt;/p&gt;
+
+&lt;p&gt;For example, let&amp;rsquo;s say that we have a list of words (Strings in a list
+called &lt;em&gt;words&lt;/em&gt;) and we want to filter our
+long list of tweets (called &lt;em&gt;tweets&lt;/em&gt;) so that only those
+tweet messages remain that include any of the pre-defined words:
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweets&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;word&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;words&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;contains&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;word&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;yield&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;!-- TODO : maybe in another post, this is a bit more complicated,
+to find a simple and meaningful example with tweets
+
+### Using for with Options
+
+I can&#39;t go into details here about what Scala requires from a type in order
+to be able to apply for comprehensions to its objects, but the good news is:
+for comprehensions work on all the usual collection types (List, Set, Vector,
+etc.) and also on Option! Why is this useful?, you may ask. 
+
+Well, let&#39;s imagine that we need to fetch some data from a database.
+Or, to keep our example simle, let&#39;s just use a Map. 
+
+If you have read 
+&lt;a href=&#39;http://hands-on-scala.github.io/post/maps/&#39;&gt;
+this post about Maps&lt;/a&gt;, then you already know that with Maps, we can not be 
+sure that it contains something for a given key or not, so what we receive if 
+we call a _get(key)_ method on a Map then the result will be an _Option_: 
+either a _Some(value)_ or a _None_.
+
+Scala helps us to deal with the situation when we can&#39;t know beforehand 
+if we will have a _Some_ or a _None_ to deal with. 
+
+Let&#39;s see:
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweets&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;word&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;words&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;msg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;contains&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;word&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;yield&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tw&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+ --&gt;  
+
+&lt;h2 id=&#34;summary-and-other-sources:bb8788d70813691f2251548c47e6f5ba&#34;&gt;Summary and other sources&lt;/h2&gt;
+
+&lt;p&gt;The nice thing about Scala&amp;rsquo;s &lt;em&gt;for comprehension&lt;/em&gt; is that
+you don&amp;rsquo;t need to understand all the details
+(you don&amp;rsquo;t have to know what the &lt;em&gt;for&lt;/em&gt; is being transformed to under the hood;
+btw. it&amp;rsquo;s a series of &lt;em&gt;map&lt;/em&gt;, &lt;em&gt;flatMap&lt;/em&gt; and &lt;em&gt;filter&lt;/em&gt; calls) to efficiently
+use the power of it.&lt;/p&gt;
+
+&lt;!--&#34;The for-expression is similar to loops in imerative languages,
+except that it builds a list of the results of all iterations&#34;
+(martin ordersky&#39;s scala course on coursera) --&gt;
+
+&lt;p&gt;Code examples are available
+&lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/07_for_yield&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Feedback is welcome on &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt;
+or on &lt;a href=&#34;https://github.com/hands-on-scala/hands-on-scala.github.io/issues/4&#34;&gt;GitHub&lt;/a&gt; :)
+&lt;!-- TODO create issue --&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Options in Scala</title>
