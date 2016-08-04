@@ -6,13 +6,13 @@
     <description>Recent content on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 Jul 2016 17:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 03 Aug 2016 17:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>For &#43; yield = for comprehension</title>
       <link>http://hands-on-scala.github.io/post/for-yield/</link>
-      <pubDate>Fri, 15 Jul 2016 17:30:00 +0200</pubDate>
+      <pubDate>Wed, 03 Aug 2016 17:30:00 +0200</pubDate>
       
       <guid>http://hands-on-scala.github.io/post/for-yield/</guid>
       <description>

@@ -1,6 +1,6 @@
 +++
 categories = ["intro"]
-date = "2016-07-15T17:30:00+02:00"
+date = "2016-08-03T17:30:00+02:00"
 title = "For + yield = for comprehension"
 +++
 
