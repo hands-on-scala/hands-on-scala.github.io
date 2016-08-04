@@ -1,26 +1,29 @@
 +++
 categories = ["intro"]
 date = "2016-07-15T17:30:00+02:00"
-title = "For + yield = for-comprehension"
-
+title = "For + yield = for comprehension"
 +++
 
-# For-comprehensions in Scala
+# For loops and for comprehensions in Scala
 
-Looping over a collection of items and transforming the individual elements within 
-is quite a common task. So it seems natural that Scala offers a nice way to solve this.
+Looping over a collection of items and transforming the individual elements 
+within is quite a common task. So it seems natural that Scala offers a nice
+way to solve this.
 
 <!--more-->
 
-If you know some other, more "traditional", imperative programming languages, then you might have some 
-assumptions about a thing that's name begins with "for". These can be useful to understand Scala's _for_ capabilities,
-but you might be surprised at how powerful Scala's solution is.
+If you know some other, more "traditional", imperative programming languages,
+then you might have some assumptions about a thing that's name
+begins with "for". 
+These can be useful to understand Scala's _for_ capabilities, but you might
+be surprised at how powerful Scala's solution is.
 
 ## Some simple examples 
 
 As a warm-up, let's see a couple of short examples. 
 
-They will use the Twitter-related case classes that were introduced in a previous post,
+They will use the Twitter-related case classes that were introduced
+in a previous post,
 <a href='{{< relref "post/lists.md" >}}'>Lists in Scala</a>.
 
 {{< highlight scala >}}
@@ -30,8 +33,8 @@ They will use the Twitter-related case classes that were introduced in a previou
 
 ### A for loop for printing
 
-At first let's just create a list of three _TweetMsg_ objects and print their message strings to the screen 
-within a _for-loop_:
+At first let's just create a list of three _TweetMsg_ objects and print
+their message strings to the screen within a _for-loop_:
 
 {{< highlight scala >}}
 def createTweetList: List[TweetMsg] = {
@@ -51,38 +54,90 @@ for (tw <- tweets) {
 }
 {{< / highlight >}}
 
-The last three lines contain the code to loop over all the tweet objects of the list that we created previously.
-It's really just the _for_ keyword, plus a so-called _generator expression_, that "pushes" the collections's elements with the '<-' arrow into a temporary
-value (called _tw_ in our example),
-that can be used within the loop's body (that is, within the curly braces) to do something with it (we just printed the message part).
+The last three lines contain the code to loop over all the tweet objects of the
+list that we created previously. It's really just the _for_ keyword, plus a
+so-called _generator expression_, that "pushes" the collections's elements
+with the '<-' arrow into a temporary value (called _tw_ in our example),
+that can be used within the loop's body (that is, within the curly braces)
+to do something with it (we just printed the message part).
 
-This first example, strictly speaking, is just a _for loop_, not really a _for comprehension_ yet. To write a real comprehension, we'll need the _yield_ keyword.
+This first example, strictly speaking, is just a _for loop_,
+not really a _for comprehension_ yet. 
+To write a real comprehension, we'll need the _yield_ keyword.
 
 ### A real for-comprehension
 
-In the previous example we looped over the list and printed something, based on each element of the list. 
+In the previous example we looped over a list and printed something, based on
+each element of the list.
+
+Now we'll write a single line of code where we _transform_ the incoming list of 
+_TweetMsg_ objects into a new list of _String_ objects by selecting
+only the message part from the tweets.
+
+{{< highlight scala >}}
+val strMsgs = for (tw <- tweets) yield tw.msg
+{{< / highlight >}}
+
+Simple, huh? :)
 
 ### Filtering
 
-TODO
+In the next example we go one step further: we filter the resulting String list
+to only contain messages that include the word "scala". We can do this 
+with the so-called "guards", that are simply booelan expressions, added
+to the for comprehension like here:
+
+{{< highlight scala >}}
+val filteredMessageList = for {
+  tw <- tweets
+  if tw.msg.contains("scala")
+} yield tw.msg
+{{< / highlight >}}
+
+
+<!-- _Note:_ It's not necessary but good to know, that under the hood, 
+the Scala compiler will translate the for loops and comprehensions into 
+a series of _flatMap()_, _map()_ and _filter()_ calls to achieve the 
+intended result. So the for structure is just a "syntactic sugar"
+over these functions. We'll learn about each a bit later :)
+-->
+
+### Using for with Options
+
+I can't go to details here about what Scala requires from a type in order
+to be able to apply for comprehensions to its objects, but the good news is:
+for comprehensions work on all the usual collection types (List, Sets, Vectors,
+etc.) and also on Options! Why is this useful?, you may ask. Let's see:
+
+
+### Instead of nested loops
+
 
 ## Summary and other sources
 
-Under the hood, the _for_ comprehensions get translated by the Scala compiler to a series of _map_,
-_flatmap_ and _filter_ function calls. But the point is, that you don't have to understand all of these
-details to use the power of _for comprehensions_.
 
-"The for-expression is similar to loops in imerative languages, except that it builds a list of the results of all iterations"
+TODO 
+
+use the power of _for comprehensions_.
+
+"The for-expression is similar to loops in imerative languages,
+except that it builds a list of the results of all iterations"
 
 (martin ordersky's scala course on coursera)
 
 // side effects(imp ) vs building a new list! (scala)
 
 
-
-Some runnable code examples are available [here](https://github.com/ador/scala-examples/tree/master/07_for_yield).
+Code examples 
+are available [here](https://github.com/ador/scala-examples/tree/master/07_for_yield).
 
 
 _Note n+1_ : Feedback is welcome on [Twitter](https://twitter.com/adorster) 
 or on [GitHub](https://github.com/hands-on-scala/hands-on-scala.github.io/issues/4) :)
 <!-- TODO create issue -->
+
+
+
+
+
+
