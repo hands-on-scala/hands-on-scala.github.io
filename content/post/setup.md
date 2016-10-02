@@ -8,13 +8,14 @@ title = "Short intro to Scala"
 # Welcome!
 
 You're probably here because you've heard that Scala is a cool programming language
-that you'd like to learn. Because, hey, it's object-oriented and functional at the same time!
+and you'd like to learn more about it. Because, hey, it's object-oriented and functional at the same time!
 
 I'll show you something very basic at first: a bit more "personal" version
 of the famous 
 ["Hello World" program](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program).
 <!--more-->
-The following little Scala program will ask for your name and then it'll print "Hello, <You>!" to the console.
+The following little Scala program will ask for your name and 
+then it'll print "Hello, &lt;Your name&gt;!" to the console.
 
 {{< highlight scala >}}
 object WordApp extends App {
@@ -43,7 +44,7 @@ Check the latest install documentation here:
 ### Creating the "Hello" project
 It won't be as painful as it might seem at first :)
 
-It's really just two steps writing the source files to an appropriate location,
+It's really just two steps: writing the source files to an appropriate location,
 and give some hints to SBT about how it should do its work.
 
 #### The source tree
