@@ -35,7 +35,7 @@ We'll explore the first one, the ScalaTest framework in this short post, through
 ## A simple test with ScalaTest
 
 To use ScalaTest we need to add it as a dependency to our _build.sbt_ file in the root of our 
-sbt project. (Note: If you don't know how to set up a Scala project with SBT, you can find help [here]({{< relref "setup.md" >}}))
+sbt project. (_Note:_ If you don't know how to set up a Scala project with SBT, you can find help [here]({{< relref "setup.md" >}}))
 
 We'll need to extend our initial _build.sbt_ with a new _libraryDepencencies_ part.
 (_Note:_ If you already had dependencies in the libraryDependencies section, then just add a new line

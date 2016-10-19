@@ -5,7 +5,7 @@
 <meta name="description" content=" Let&#39;s learn Scala together!">
 <meta name="keywords" content="">
 <meta name="author" content="Adrienn Szabo (@adorster)">
-<meta name="generator" content="Hugo 0.16-DEV" />
+<meta name="generator" content="Hugo 0.15" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://hands-on-scala.github.io/css/style.css" type="text/css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
@@ -54,13 +54,14 @@
 <h1 id="welcome:2cc0b07f42930e4520820be1fe66f913">Welcome!</h1>
 
 <p>You&rsquo;re probably here because you&rsquo;ve heard that Scala is a cool programming language
-that you&rsquo;d like to learn. Because, hey, it&rsquo;s object-oriented and functional at the same time!</p>
+and you&rsquo;d like to learn more about it. Because, hey, it&rsquo;s object-oriented and functional at the same time!</p>
 
 <p>I&rsquo;ll show you something very basic at first: a bit more &ldquo;personal&rdquo; version
 of the famous
 <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program">&ldquo;Hello World&rdquo; program</a>.</p>
 
-<p>The following little Scala program will ask for your name and then it&rsquo;ll print &ldquo;Hello, <You>!&rdquo; to the console.</p>
+<p>The following little Scala program will ask for your name and
+then it&rsquo;ll print &ldquo;Hello, &lt;Your name&gt;!&rdquo; to the console.</p>
 
 <div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span><span style="color: #66d9ef">object</span> <span style="color: #a6e22e">WordApp</span> <span style="color: #66d9ef">extends</span> <span style="color: #a6e22e">App</span> <span style="color: #f92672">{</span>
   <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">name</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">scala</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">io</span><span style="color: #f92672">.</span><span style="color: #a6e22e">StdIn</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">readLine</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;What&#39;s your name? \n&quot;</span><span style="color: #f92672">)</span>
@@ -92,7 +93,7 @@ If you are not familiar with build tools, then consult the Internet :)</p>
 
 <p>It won&rsquo;t be as painful as it might seem at first :)</p>
 
-<p>It&rsquo;s really just two steps writing the source files to an appropriate location,
+<p>It&rsquo;s really just two steps: writing the source files to an appropriate location,
 and give some hints to SBT about how it should do its work.</p>
 
 <h4 id="the-source-tree:2cc0b07f42930e4520820be1fe66f913">The source tree</h4>

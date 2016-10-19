@@ -1279,13 +1279,14 @@ following example:
 &lt;h1 id=&#34;welcome:2cc0b07f42930e4520820be1fe66f913&#34;&gt;Welcome!&lt;/h1&gt;
 
 &lt;p&gt;You&amp;rsquo;re probably here because you&amp;rsquo;ve heard that Scala is a cool programming language
-that you&amp;rsquo;d like to learn. Because, hey, it&amp;rsquo;s object-oriented and functional at the same time!&lt;/p&gt;
+and you&amp;rsquo;d like to learn more about it. Because, hey, it&amp;rsquo;s object-oriented and functional at the same time!&lt;/p&gt;
 
 &lt;p&gt;I&amp;rsquo;ll show you something very basic at first: a bit more &amp;ldquo;personal&amp;rdquo; version
 of the famous
 &lt;a href=&#34;https://en.wikipedia.org/wiki/%22Hello,_World!%22_program&#34;&gt;&amp;ldquo;Hello World&amp;rdquo; program&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;The following little Scala program will ask for your name and then it&amp;rsquo;ll print &amp;ldquo;Hello, &lt;You&gt;!&amp;rdquo; to the console.&lt;/p&gt;
+&lt;p&gt;The following little Scala program will ask for your name and
+then it&amp;rsquo;ll print &amp;ldquo;Hello, &amp;lt;Your name&amp;gt;!&amp;rdquo; to the console.&lt;/p&gt;
 
 &lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;object&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;WordApp&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;extends&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;App&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
   &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;scala&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;io&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #a6e22e&#34;&gt;StdIn&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;readLine&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;What&amp;#39;s your name? \n&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
@@ -1317,7 +1318,7 @@ If you are not familiar with build tools, then consult the Internet :)&lt;/p&gt;
 
 &lt;p&gt;It won&amp;rsquo;t be as painful as it might seem at first :)&lt;/p&gt;
 
-&lt;p&gt;It&amp;rsquo;s really just two steps writing the source files to an appropriate location,
+&lt;p&gt;It&amp;rsquo;s really just two steps: writing the source files to an appropriate location,
 and give some hints to SBT about how it should do its work.&lt;/p&gt;
 
 &lt;h4 id=&#34;the-source-tree:2cc0b07f42930e4520820be1fe66f913&#34;&gt;The source tree&lt;/h4&gt;

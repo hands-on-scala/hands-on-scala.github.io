@@ -102,6 +102,14 @@ val filteredMessageList = for {
 {{< / highlight >}}
 
 
+There is another change from the previous example, as you might have noticed. 
+We use curly braces here to enclose the _generator_ part of the structure.
+The [Scala style guide](http://docs.scala-lang.org/style/control-structures.html)
+recommends to use simple parentheses when you have only one generator 
+(or when you don't _yield_ anything), 
+and curly braces, plus having multiple lines for readability in cases of using more
+generators and guards.
+
 <!-- _Note:_ It's not necessary but good to know, that under the hood, 
 the Scala compiler will translate the for loops and comprehensions into 
 a series of _flatMap()_, _map()_ and _filter()_ calls to achieve the 
@@ -176,7 +184,7 @@ use the power of it.
 
 <!--"The for-expression is similar to loops in imerative languages,
 except that it builds a list of the results of all iterations"
-(martin ordersky's scala course on coursera) -->
+(Martin Ordersky's Scala course on coursera) -->
 
 
 Code examples are available

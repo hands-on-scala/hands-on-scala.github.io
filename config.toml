@@ -2,7 +2,7 @@ baseurl = "http://hands-on-scala.github.io/"
 languageCode = "en-us"
 title = "Hands-on Scala Blog"
 canonifyurls = true
-theme = "sorpris"
+theme = "hugo-sorpris-theme"
 publishdir = "/home/adri/hub/hands-on-scala.github.io/"
 
 

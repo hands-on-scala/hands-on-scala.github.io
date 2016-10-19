@@ -43,9 +43,9 @@ object MatchTest1 extends App {
 Fairly simple, isn't it? Just use the _match_ keyword after the name of the
 thing you'll want to match, and list your cases within curly braces.
 The match expression in our case will return the value that appears on the right side of the '=>' arrow, corresponding
-to the first matching case. So the order of the _case_s will matter if there is some overlap among the left sides of the arrows!
+to the first matching case. So the order of the cases will matter if there is some overlap among the left sides of the arrows!
 
-One importatnt thing to note is the last case where an underscore is used: this is Scala's notation
+One important thing to note is the last case where an underscore is used: this is Scala's notation
 for "match anything". Without this line, we would get a "scala.MatchError" because we called 
 the _matchTest()_ function with the value 3, which is not covered by the other _case_ branches.
 
@@ -115,7 +115,7 @@ if its structure matches our expectations.
 
 How does it work in Scala, and what are the prerequisites?
 
-The answer is: _case classes_! My next blog post will cover them in more detail.
+The answer is: _case classes_! In one of my following posts I will cover them in more detail.
 For now let's think about a case class as a composite object with some 
 auto-magic: automatically generated constructors and getters, for example.
 
@@ -126,7 +126,7 @@ So, for an example of automatic decomposition, at first we need a
 case class. We'll write one, representing a tweet message, that has three parts:
 
 - an identifier (_id: Long_)
-- an author (_author: User_, that itself could be a complex case class, now it only contains one String, a name)
+- an author (_user: User_, that itself could be a complex case class, now it only contains one String, a name)
 - a message (_msg: String_)
 
 Defining these new types (_User_ and _TweetMsg_) in Scala takes only two fairly short lines:

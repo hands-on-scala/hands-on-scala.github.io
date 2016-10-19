@@ -12,7 +12,7 @@ and how they can be used in Scala.
 
 _Lists_ are what their name suggests: they can keep a list of things. The order
 of its elements will be kept,
-and a list does not care if an element appears more than once in it.
+and a list does not care if an element appears more than once in it (which means it will not remove duplicates).
 
 <!--more-->
 
@@ -54,7 +54,7 @@ val anotherIntList1 = 1 :: 2 :: 3 :: Nil
 val anotherIntList2 = (1, 2, 3)
 {{< / highlight >}}
 
-The above two lines will created equivalent lists, that have the same elements.
+The above two lines will create equivalent lists, that have the same elements.
 
 ### Specifying the type of the list
 
@@ -73,8 +73,8 @@ value into a List of integers, and it simply does not fit there.
 The lists we created above are _immutable_, you can not change them.
 
 If you want to extend a list, there are operations for that, but what 
-will happen under the hood is that you will be given a completely new list with the extended contents and the original
-list will remain intact. This might be important when dealing with long lists and where efficiency is important.
+will happen under the hood in both cases is that you will be given a completely new list with the extended contents and the original
+list will remain intact. This is good to know when dealing with long lists and where efficiency is important.
 
 We can concatenate two existing lists with the _concat_ method of _List_, or with the triple cons operator:
 
@@ -148,10 +148,10 @@ object ListExamples extends App {
     println("Filtered list is: " + filteredList)  
 
     // forall
-    val trueOfFalse1 = tweetList1.forall(isIdPositive)
-    println("All id numbers positive? " +  trueOfFalse1)
-    val trueOfFalse2 = List(t1,t2).forall(isIdPositive)
-    println("All id numbers positive? " +  trueOfFalse2)
+    val trueOrFalse1 = tweetList1.forall(isIdPositive)
+    println("All id numbers positive? " +  trueOrFalse1)
+    val trueOrFalse2 = List(t1,t2).forall(isIdPositive)
+    println("All id numbers positive? " +  trueOrFalse2)
     
     // foreach
     tweetList1.foreach(printUserAndMsg)

@@ -66,7 +66,7 @@ The type description of "mySecondTuple" from the first example, will be:
 
 ### Second difference from Lists: allowed length
 
-List could be of any length. But there is an upper limit for the number of elements in a tuple: it's 22. (Don't ask me why.)
+List can be of any length. But there is an upper limit for the number of elements in a tuple: it's 22. (Don't ask me why.)
 
 Trying to create a tuple with 23 or more elements will lead to an error. But 22 items is well enough.
 
