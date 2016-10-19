@@ -112,6 +112,14 @@ to the for comprehension like here:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
+&lt;p&gt;There is another change from the previous example, as you might have noticed.
+We use curly braces here to enclose the &lt;em&gt;generator&lt;/em&gt; part of the structure.
+The &lt;a href=&#34;http://docs.scala-lang.org/style/control-structures.html&#34;&gt;Scala style guide&lt;/a&gt;
+recommends to use simple parentheses when you have only one generator
+(or when you don&amp;rsquo;t &lt;em&gt;yield&lt;/em&gt; anything),
+and curly braces, plus having multiple lines for readability in cases of using more
+generators and guards.&lt;/p&gt;
+
 &lt;!-- _Note:_ It&#39;s not necessary but good to know, that under the hood, 
 the Scala compiler will translate the for loops and comprehensions into 
 a series of _flatMap()_, _map()_ and _filter()_ calls to achieve the 
@@ -181,7 +189,7 @@ use the power of it.&lt;/p&gt;
 
 &lt;!--&#34;The for-expression is similar to loops in imerative languages,
 except that it builds a list of the results of all iterations&#34;
-(martin ordersky&#39;s scala course on coursera) --&gt;
+(Martin Ordersky&#39;s Scala course on coursera) --&gt;
 
 &lt;p&gt;Code examples are available
 &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/07_for_yield&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
@@ -577,7 +585,7 @@ The type description of &amp;ldquo;mySecondTuple&amp;rdquo; from the first examp
 
 &lt;h3 id=&#34;second-difference-from-lists-allowed-length:ed70a7fca0aa43af9c02ad245a8d5581&#34;&gt;Second difference from Lists: allowed length&lt;/h3&gt;
 
-&lt;p&gt;List could be of any length. But there is an upper limit for the number of elements in a tuple: it&amp;rsquo;s 22. (Don&amp;rsquo;t ask me why.)&lt;/p&gt;
+&lt;p&gt;List can be of any length. But there is an upper limit for the number of elements in a tuple: it&amp;rsquo;s 22. (Don&amp;rsquo;t ask me why.)&lt;/p&gt;
 
 &lt;p&gt;Trying to create a tuple with 23 or more elements will lead to an error. But 22 items is well enough.&lt;/p&gt;
 
@@ -658,7 +666,7 @@ and how they can be used in Scala.&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Lists&lt;/em&gt; are what their name suggests: they can keep a list of things. The order
 of its elements will be kept,
-and a list does not care if an element appears more than once in it.&lt;/p&gt;
+and a list does not care if an element appears more than once in it (which means it will not remove duplicates).&lt;/p&gt;
 
 &lt;h2 id=&#34;creating-immutable-lists:d0d52187982e6552701534a118e51bf4&#34;&gt;Creating (immutable) lists&lt;/h2&gt;
 
@@ -696,7 +704,7 @@ and at the end you need to close the list with a &amp;ldquo;Nil&amp;rdquo; value
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/p&gt;
 
-&lt;p&gt;The above two lines will created equivalent lists, that have the same elements.&lt;/p&gt;
+&lt;p&gt;The above two lines will create equivalent lists, that have the same elements.&lt;/p&gt;
 
 &lt;h3 id=&#34;specifying-the-type-of-the-list:d0d52187982e6552701534a118e51bf4&#34;&gt;Specifying the type of the list&lt;/h3&gt;
 
@@ -715,8 +723,8 @@ value into a List of integers, and it simply does not fit there.&lt;/p&gt;
 &lt;p&gt;The lists we created above are &lt;em&gt;immutable&lt;/em&gt;, you can not change them.&lt;/p&gt;
 
 &lt;p&gt;If you want to extend a list, there are operations for that, but what
-will happen under the hood is that you will be given a completely new list with the extended contents and the original
-list will remain intact. This might be important when dealing with long lists and where efficiency is important.&lt;/p&gt;
+will happen under the hood in both cases is that you will be given a completely new list with the extended contents and the original
+list will remain intact. This is good to know when dealing with long lists and where efficiency is important.&lt;/p&gt;
 
 &lt;p&gt;We can concatenate two existing lists with the &lt;em&gt;concat&lt;/em&gt; method of &lt;em&gt;List&lt;/em&gt;, or with the triple cons operator:&lt;/p&gt;
 
@@ -789,10 +797,10 @@ I insert a bit longer code snippet, but I hope it&amp;rsquo;s easy to follow.&lt
     &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Filtered list is: &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;filteredList&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;  
 
     &lt;span style=&#34;color: #75715e&#34;&gt;// forall&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOfFalse1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;forall&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;isIdPositive&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;All id numbers positive? &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOfFalse1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOfFalse2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;forall&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;isIdPositive&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
-    &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;All id numbers positive? &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOfFalse2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOrFalse1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;forall&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;isIdPositive&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;All id numbers positive? &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOrFalse1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOrFalse2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;).&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;forall&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;isIdPositive&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+    &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;All id numbers positive? &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color: #f8f8f2&#34;&gt;trueOrFalse2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
     
     &lt;span style=&#34;color: #75715e&#34;&gt;// foreach&lt;/span&gt;
     &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;foreach&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;printUserAndMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
@@ -950,7 +958,7 @@ just listing here the main points:&lt;/p&gt;
 &lt;h2 id=&#34;a-simple-test-with-scalatest:6473280be67b92290b8d1101a0ce93d9&#34;&gt;A simple test with ScalaTest&lt;/h2&gt;
 
 &lt;p&gt;To use ScalaTest we need to add it as a dependency to our &lt;em&gt;build.sbt&lt;/em&gt; file in the root of our
-sbt project. (Note: If you don&amp;rsquo;t know how to set up a Scala project with SBT, you can find help &lt;a href=&#34;http://hands-on-scala.github.io/post/setup/&#34;&gt;here&lt;/a&gt;)&lt;/p&gt;
+sbt project. (&lt;em&gt;Note:&lt;/em&gt; If you don&amp;rsquo;t know how to set up a Scala project with SBT, you can find help &lt;a href=&#34;http://hands-on-scala.github.io/post/setup/&#34;&gt;here&lt;/a&gt;)&lt;/p&gt;
 
 &lt;p&gt;We&amp;rsquo;ll need to extend our initial &lt;em&gt;build.sbt&lt;/em&gt; with a new &lt;em&gt;libraryDepencencies&lt;/em&gt; part.
 (&lt;em&gt;Note:&lt;/em&gt; If you already had dependencies in the libraryDependencies section, then just add a new line
@@ -1097,9 +1105,9 @@ to manually disassemble the object into its parts.--&gt;
 Fairly simple, isn&amp;rsquo;t it? Just use the &lt;em&gt;match&lt;/em&gt; keyword after the name of the
 thing you&amp;rsquo;ll want to match, and list your cases within curly braces.
 The match expression in our case will return the value that appears on the right side of the &amp;lsquo;=&amp;gt;&amp;rsquo; arrow, corresponding
-to the first matching case. So the order of the _case_s will matter if there is some overlap among the left sides of the arrows!&lt;/p&gt;
+to the first matching case. So the order of the cases will matter if there is some overlap among the left sides of the arrows!&lt;/p&gt;
 
-&lt;p&gt;One importatnt thing to note is the last case where an underscore is used: this is Scala&amp;rsquo;s notation
+&lt;p&gt;One important thing to note is the last case where an underscore is used: this is Scala&amp;rsquo;s notation
 for &amp;ldquo;match anything&amp;rdquo;. Without this line, we would get a &amp;ldquo;scala.MatchError&amp;rdquo; because we called
 the &lt;em&gt;matchTest()&lt;/em&gt; function with the value 3, which is not covered by the other &lt;em&gt;case&lt;/em&gt; branches.&lt;/p&gt;
 
@@ -1167,7 +1175,7 @@ if its structure matches our expectations.&lt;/p&gt;
 
 &lt;p&gt;How does it work in Scala, and what are the prerequisites?&lt;/p&gt;
 
-&lt;p&gt;The answer is: &lt;em&gt;case classes&lt;/em&gt;! My next blog post will cover them in more detail.
+&lt;p&gt;The answer is: &lt;em&gt;case classes&lt;/em&gt;! In one of my following posts I will cover them in more detail.
 For now let&amp;rsquo;s think about a case class as a composite object with some
 auto-magic: automatically generated constructors and getters, for example.&lt;/p&gt;
 
@@ -1179,7 +1187,7 @@ case class. We&amp;rsquo;ll write one, representing a tweet message, that has th
 
 &lt;ul&gt;
 &lt;li&gt;an identifier (&lt;em&gt;id: Long&lt;/em&gt;)&lt;/li&gt;
-&lt;li&gt;an author (&lt;em&gt;author: User&lt;/em&gt;, that itself could be a complex case class, now it only contains one String, a name)&lt;/li&gt;
+&lt;li&gt;an author (&lt;em&gt;user: User&lt;/em&gt;, that itself could be a complex case class, now it only contains one String, a name)&lt;/li&gt;
 &lt;li&gt;a message (&lt;em&gt;msg: String&lt;/em&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 

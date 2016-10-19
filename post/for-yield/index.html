@@ -144,6 +144,14 @@ to the for comprehension like here:</p>
 </pre></div>
 </p>
 
+<p>There is another change from the previous example, as you might have noticed.
+We use curly braces here to enclose the <em>generator</em> part of the structure.
+The <a href="http://docs.scala-lang.org/style/control-structures.html">Scala style guide</a>
+recommends to use simple parentheses when you have only one generator
+(or when you don&rsquo;t <em>yield</em> anything),
+and curly braces, plus having multiple lines for readability in cases of using more
+generators and guards.</p>
+
 <!-- _Note:_ It's not necessary but good to know, that under the hood, 
 the Scala compiler will translate the for loops and comprehensions into 
 a series of _flatMap()_, _map()_ and _filter()_ calls to achieve the 
@@ -213,7 +221,7 @@ use the power of it.</p>
 
 <!--"The for-expression is similar to loops in imerative languages,
 except that it builds a list of the results of all iterations"
-(martin ordersky's scala course on coursera) -->
+(Martin Ordersky's Scala course on coursera) -->
 
 <p>Code examples are available
 <a href="https://github.com/ador/scala-examples/tree/master/07_for_yield">here</a>.</p>

@@ -49,7 +49,7 @@ just listing here the main points:&lt;/p&gt;
 &lt;h2 id=&#34;a-simple-test-with-scalatest:6473280be67b92290b8d1101a0ce93d9&#34;&gt;A simple test with ScalaTest&lt;/h2&gt;
 
 &lt;p&gt;To use ScalaTest we need to add it as a dependency to our &lt;em&gt;build.sbt&lt;/em&gt; file in the root of our
-sbt project. (Note: If you don&amp;rsquo;t know how to set up a Scala project with SBT, you can find help &lt;a href=&#34;http://hands-on-scala.github.io/post/setup/&#34;&gt;here&lt;/a&gt;)&lt;/p&gt;
+sbt project. (&lt;em&gt;Note:&lt;/em&gt; If you don&amp;rsquo;t know how to set up a Scala project with SBT, you can find help &lt;a href=&#34;http://hands-on-scala.github.io/post/setup/&#34;&gt;here&lt;/a&gt;)&lt;/p&gt;
 
 &lt;p&gt;We&amp;rsquo;ll need to extend our initial &lt;em&gt;build.sbt&lt;/em&gt; with a new &lt;em&gt;libraryDepencencies&lt;/em&gt; part.
 (&lt;em&gt;Note:&lt;/em&gt; If you already had dependencies in the libraryDependencies section, then just add a new line

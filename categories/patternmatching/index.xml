@@ -53,9 +53,9 @@ to manually disassemble the object into its parts.--&gt;
 Fairly simple, isn&amp;rsquo;t it? Just use the &lt;em&gt;match&lt;/em&gt; keyword after the name of the
 thing you&amp;rsquo;ll want to match, and list your cases within curly braces.
 The match expression in our case will return the value that appears on the right side of the &amp;lsquo;=&amp;gt;&amp;rsquo; arrow, corresponding
-to the first matching case. So the order of the _case_s will matter if there is some overlap among the left sides of the arrows!&lt;/p&gt;
+to the first matching case. So the order of the cases will matter if there is some overlap among the left sides of the arrows!&lt;/p&gt;
 
-&lt;p&gt;One importatnt thing to note is the last case where an underscore is used: this is Scala&amp;rsquo;s notation
+&lt;p&gt;One important thing to note is the last case where an underscore is used: this is Scala&amp;rsquo;s notation
 for &amp;ldquo;match anything&amp;rdquo;. Without this line, we would get a &amp;ldquo;scala.MatchError&amp;rdquo; because we called
 the &lt;em&gt;matchTest()&lt;/em&gt; function with the value 3, which is not covered by the other &lt;em&gt;case&lt;/em&gt; branches.&lt;/p&gt;
 
@@ -123,7 +123,7 @@ if its structure matches our expectations.&lt;/p&gt;
 
 &lt;p&gt;How does it work in Scala, and what are the prerequisites?&lt;/p&gt;
 
-&lt;p&gt;The answer is: &lt;em&gt;case classes&lt;/em&gt;! My next blog post will cover them in more detail.
+&lt;p&gt;The answer is: &lt;em&gt;case classes&lt;/em&gt;! In one of my following posts I will cover them in more detail.
 For now let&amp;rsquo;s think about a case class as a composite object with some
 auto-magic: automatically generated constructors and getters, for example.&lt;/p&gt;
 
@@ -135,7 +135,7 @@ case class. We&amp;rsquo;ll write one, representing a tweet message, that has th
 
 &lt;ul&gt;
 &lt;li&gt;an identifier (&lt;em&gt;id: Long&lt;/em&gt;)&lt;/li&gt;
-&lt;li&gt;an author (&lt;em&gt;author: User&lt;/em&gt;, that itself could be a complex case class, now it only contains one String, a name)&lt;/li&gt;
+&lt;li&gt;an author (&lt;em&gt;user: User&lt;/em&gt;, that itself could be a complex case class, now it only contains one String, a name)&lt;/li&gt;
 &lt;li&gt;a message (&lt;em&gt;msg: String&lt;/em&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 

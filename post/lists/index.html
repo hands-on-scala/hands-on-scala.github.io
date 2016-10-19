@@ -56,7 +56,7 @@ and how they can be used in Scala.</p>
 
 <p><em>Lists</em> are what their name suggests: they can keep a list of things. The order
 of its elements will be kept,
-and a list does not care if an element appears more than once in it.</p>
+and a list does not care if an element appears more than once in it (which means it will not remove duplicates).</p>
 
 <h2 id="creating-immutable-lists:d0d52187982e6552701534a118e51bf4">Creating (immutable) lists</h2>
 
@@ -94,7 +94,7 @@ and at the end you need to close the list with a &ldquo;Nil&rdquo; value.
 </pre></div>
 </p>
 
-<p>The above two lines will created equivalent lists, that have the same elements.</p>
+<p>The above two lines will create equivalent lists, that have the same elements.</p>
 
 <h3 id="specifying-the-type-of-the-list:d0d52187982e6552701534a118e51bf4">Specifying the type of the list</h3>
 
@@ -113,8 +113,8 @@ value into a List of integers, and it simply does not fit there.</p>
 <p>The lists we created above are <em>immutable</em>, you can not change them.</p>
 
 <p>If you want to extend a list, there are operations for that, but what
-will happen under the hood is that you will be given a completely new list with the extended contents and the original
-list will remain intact. This might be important when dealing with long lists and where efficiency is important.</p>
+will happen under the hood in both cases is that you will be given a completely new list with the extended contents and the original
+list will remain intact. This is good to know when dealing with long lists and where efficiency is important.</p>
 
 <p>We can concatenate two existing lists with the <em>concat</em> method of <em>List</em>, or with the triple cons operator:</p>
 
@@ -187,10 +187,10 @@ I insert a bit longer code snippet, but I hope it&rsquo;s easy to follow.</p>
     <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;Filtered list is: &quot;</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">filteredList</span><span style="color: #f92672">)</span>  
 
     <span style="color: #75715e">// forall</span>
-    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">trueOfFalse1</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">forall</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
-    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;All id numbers positive? &quot;</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">trueOfFalse1</span><span style="color: #f92672">)</span>
-    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">trueOfFalse2</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t1</span><span style="color: #f92672">,</span><span style="color: #f8f8f2">t2</span><span style="color: #f92672">).</span><span style="color: #f8f8f2">forall</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
-    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;All id numbers positive? &quot;</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">trueOfFalse2</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">trueOrFalse1</span> <span style="color: #66d9ef">=</span> <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">forall</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;All id numbers positive? &quot;</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">trueOrFalse1</span><span style="color: #f92672">)</span>
+    <span style="color: #66d9ef">val</span> <span style="color: #f8f8f2">trueOrFalse2</span> <span style="color: #66d9ef">=</span> <span style="color: #a6e22e">List</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">t1</span><span style="color: #f92672">,</span><span style="color: #f8f8f2">t2</span><span style="color: #f92672">).</span><span style="color: #f8f8f2">forall</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">isIdPositive</span><span style="color: #f92672">)</span>
+    <span style="color: #f8f8f2">println</span><span style="color: #f92672">(</span><span style="color: #e6db74">&quot;All id numbers positive? &quot;</span> <span style="color: #f92672">+</span>  <span style="color: #f8f8f2">trueOrFalse2</span><span style="color: #f92672">)</span>
     
     <span style="color: #75715e">// foreach</span>
     <span style="color: #f8f8f2">tweetList1</span><span style="color: #f92672">.</span><span style="color: #f8f8f2">foreach</span><span style="color: #f92672">(</span><span style="color: #f8f8f2">printUserAndMsg</span><span style="color: #f92672">)</span>
