@@ -8,7 +8,7 @@ title = "Options in Scala"
 # Handling missing values in Scala: Options
 
 Whenever we want to use a value that is not readily available yet -- for example, when we 
-call a function to compute or fetch something --
+call a function to compute or fetch something over the network --
 we can not be sure if things go as were planned.
 What if the database connection is down? What if the user typed in an invalid string?
 
