@@ -6,8 +6,127 @@
     <description>Recent content in Patternmatching on Hands-on Scala Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 06 May 2016 17:30:00 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 24 Oct 2016 17:30:00 +0200</lastBuildDate>
     <atom:link href="http://hands-on-scala.github.io/categories/patternmatching/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Futures in Scala</title>
+      <link>http://hands-on-scala.github.io/post/futures/</link>
+      <pubDate>Mon, 24 Oct 2016 17:30:00 +0200</pubDate>
+      
+      <guid>http://hands-on-scala.github.io/post/futures/</guid>
+      <description>
+
+&lt;h1 id=&#34;not-yet-available-values-in-scala-futures:714b08a072e7e33d95da488a1a9509a0&#34;&gt;Not-yet-available values in Scala: Futures!&lt;/h1&gt;
+
+&lt;p&gt;Whenever we want to use a value that is not readily available yet &amp;ndash; for example, when we
+call a function to compute or fetch something over the network &amp;ndash;
+we can not be sure if things go as were planned.
+What if the database connection is down? What if the user typed in an invalid string?&lt;/p&gt;
+
+&lt;p&gt;In the Java world, and in many other programming languages, the programmers could
+throw an exception (or just pass further the
+&amp;lsquo;classic&amp;rsquo; NullPointerException) in these cases to signal that the requested value cold not
+be served.&lt;/p&gt;
+
+&lt;p&gt;Maybe you have recognised: the above two introductory paragraphs are the
+same as those of &lt;a href=&#39;http://hands-on-scala.github.io/post/options/&#39;&gt;
+my post on Options&lt;/a&gt;, word by word. The reason is: these two types can be used
+to handle similar use cases. But of course,  there are important differences as well.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-does-a-future-know:714b08a072e7e33d95da488a1a9509a0&#34;&gt;What does a Future know&lt;/h2&gt;
+
+&lt;p&gt;Futures make it really easy to write multi-threaded applications.
+We (usually) don&amp;rsquo;t have to worry about threads, just pass around Futures to avoid
+blocking of computations.&lt;/p&gt;
+
+&lt;p&gt;A Future can either be &lt;em&gt;completed&lt;/em&gt; or &lt;em&gt;not completed&lt;/em&gt;. And after it became completed, it will
+remain completed forever (there is no way to revert it to be not completed again).&lt;/p&gt;
+
+&lt;p&gt;When a Future is compleded then it has two possible states: the computation was
+either &lt;em&gt;succesfully completed&lt;/em&gt; or it &lt;em&gt;failed&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Scala aids us in dealing with these cases in a readable and concise way.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-use-scala-s-futures:714b08a072e7e33d95da488a1a9509a0&#34;&gt;How to use Scala&amp;rsquo;s Futures&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see a couple of examples of how we can use Futures in Scala to represent values that
+are not computed yet.&lt;/p&gt;
+
+&lt;h3 id=&#34;returning-a-future:714b08a072e7e33d95da488a1a9509a0&#34;&gt;Returning a Future&lt;/h3&gt;
+
+&lt;p&gt;If your code computes something that takes a while, or is not sure to succeed,
+just return a value of type &lt;em&gt;scala.util.Future&lt;/em&gt;, that wraps the actual value type that
+you intend to return to the caller:&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;fetchTweetList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;Future&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Future&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;ador&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;User&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;szeli&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #a6e22e&#34;&gt;Thread&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;400&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;    &lt;span style=&#34;color: #75715e&#34;&gt;// milliseconds&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t1&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;9243012L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;scala program&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #a6e22e&#34;&gt;Thread&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;600&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t2&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;9534594L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user2&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;ice cream&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #a6e22e&#34;&gt;Thread&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;sleep&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;500&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t3&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #ae81ff&#34;&gt;9811235L&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;user1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;playing with scala&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;val&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color: #66d9ef&#34;&gt;TweetMsg&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;List&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t1&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;t2&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;t3&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In the example above, the &lt;em&gt;fetchTweetList&lt;/em&gt; function will take a fairly long time
+(I inserted some &lt;em&gt;Thread.sleep&lt;/em&gt;-s to simulate a long-running fetch over the network).&lt;/p&gt;
+
+&lt;p&gt;The list of tweets to be returned at the end is wrapped in a &lt;em&gt;Future{ }&lt;/em&gt; block.
+This makes the code that calls this function to get a Future object as a return value very quickly, so
+that the subsequent computation steps (lines of code) will not be blocked from running.
+Essentially a fork happens in the execution of the code whenever a Future is involved.&lt;/p&gt;
+
+&lt;p&gt;Imports and a context for this code snippet can be
+found &lt;a href=&#34;https://github.com/ador/scala-examples/blob/master/08_futures/src/main/scala/futures/FutureExamples.scala&#34;&gt;here&lt;/a&gt;.
+If you run the scala App (just say &amp;ldquo;sbt run&amp;rdquo;) then you can check the order of lines that are printed to the console.&lt;/p&gt;
+
+&lt;h3 id=&#34;dealing-with-a-future-object:714b08a072e7e33d95da488a1a9509a0&#34;&gt;Dealing with a Future object&lt;/h3&gt;
+
+&lt;p&gt;What can we do if we receive a Future from a function? How do we deal with these forks of execution?&lt;/p&gt;
+
+&lt;p&gt;The simplest solution is to provide a &amp;ldquo;callback function&amp;rdquo; that
+will be called to process the outcome of the computation after the Future became completed:&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;highlight&#34; style=&#34;background: #272822&#34;&gt;&lt;pre style=&#34;line-height: 125%&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;fetchTweetList&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;onComplete&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;{&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Success&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;got my tweets, &amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;tweetList&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;length&lt;/span&gt; &lt;span style=&#34;color: #f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot; of them&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #a6e22e&#34;&gt;Failure&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #f8f8f2&#34;&gt;ex&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #f8f8f2&#34;&gt;println&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;Something bad happened&amp;quot;&lt;/span&gt;&lt;span style=&#34;color: #f92672&#34;&gt;)&lt;/span&gt;
+  &lt;span style=&#34;color: #66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color: #66d9ef&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span style=&#34;color: #e6db74&#34;&gt;&amp;quot;??&amp;quot;&lt;/span&gt; &lt;span style=&#34;color: #75715e&#34;&gt;// we will never get here&lt;/span&gt;
+&lt;span style=&#34;color: #f92672&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;The code between the curly brackets will be run only after the &lt;em&gt;fetchTweetList&lt;/em&gt; function has finished running (in a separate thread)
+and returned its computed Future.
+We are using Scala&amp;rsquo;s
+&lt;a href=&#39;http://hands-on-scala.github.io/post/patternmatch1/&#39;&gt;pattern matching&lt;/a&gt; to
+un-wrap the result of the computation.&lt;/p&gt;
+
+&lt;p&gt;We will explore other ways to deal with Future object in some subsequent blog posts. Stay tuned!&lt;/p&gt;
+
+&lt;h2 id=&#34;there-is-more:714b08a072e7e33d95da488a1a9509a0&#34;&gt;There is more!&lt;/h2&gt;
+
+&lt;p&gt;This was a very short intro only, there is much more to learn about Scala&amp;rsquo;s Future.
+I will write at least two more posts on this topic.&lt;/p&gt;
+
+&lt;p&gt;Until I have time to write the next part, I recommend reading these:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Futures_and_promises&#34;&gt;Wiki page on Futures and Promises in general&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html&#34;&gt;Daniel&amp;rsquo;s post on Scala Futures&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.scala-lang.org/overviews/core/futures.html&#34;&gt;The official documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some runnable code examples are available (and will be extended) &lt;a href=&#34;https://github.com/ador/scala-examples/tree/master/08_futures&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note n+1&lt;/em&gt; : Feedback is welcome on &lt;a href=&#34;https://twitter.com/adorster&#34;&gt;Twitter&lt;/a&gt; :)&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Basic pattern matching in Scala</title>
