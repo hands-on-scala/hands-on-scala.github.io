@@ -1,5 +1,5 @@
 +++
-categories = ["intro", "enums"]
+categories = ["intro"]
 date = "2016-04-29T17:30:00+02:00"
 title = "Enums in Scala"
 

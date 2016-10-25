@@ -1,11 +1,11 @@
 +++
-categories = ["intro"]
-date = "2016-07-02T17:30:00+02:00"
+categories = ["intro", "patternmatching"]
+date = "2016-10-24T17:30:00+02:00"
 title = "Futures in Scala"
 
 +++
 
-# Not-yet-available values in Scala: Future!
+# Not-yet-available values in Scala: Futures!
 
 Whenever we want to use a value that is not readily available yet -- for example, when we 
 call a function to compute or fetch something over the network --
@@ -22,7 +22,7 @@ be served.
 Maybe you have recognised: the above two introductory paragraphs are the 
 same as those of <a href='{{< relref "post/options.md" >}}'>
 my post on Options</a>, word by word. The reason is: these two types can be used
-to handle similar use cases. But there are differences as well.
+to handle similar use cases. But of course,  there are important differences as well.
 
 
 ## What does a Future know
@@ -31,13 +31,13 @@ Futures make it really easy to write multi-threaded applications.
 We (usually) don't have to worry about threads, just pass around Futures to avoid
 blocking of computations.
 
-A Future can either be _completed_ or _not completed_. And when after it became completed, it will 
+A Future can either be _completed_ or _not completed_. And after it became completed, it will 
 remain completed forever (there is no way to revert it to be not completed again).
 
 When a Future is compleded then it has two possible states: the computation was 
 either _succesfully completed_ or it _failed_. 
 
-Scala aids us in dealing with these cases in a readabnle and concise way.
+Scala aids us in dealing with these cases in a readable and concise way.
 
 ## How to use Scala's Futures
 
@@ -65,36 +65,51 @@ def fetchTweetList: Future[List[TweetMsg]] = Future {
 }
 {{< / highlight >}}
 
-Imports and a context for this code snippet can be found [here](https://github.com/ador/scala-examples/blob/master/08_futures/src/main/scala/futures/FutureExamples.scala).
+In the example above, the _fetchTweetList_ function will take a fairly long time
+(I inserted some _Thread.sleep_-s to simulate a long-running fetch over the network).
+
+The list of tweets to be returned at the end is wrapped in a _Future{ }_ block.
+This makes the code that calls this function to get a Future object as a return value very quickly, so
+that the subsequent computation steps (lines of code) will not be blocked from running.
+Essentially a fork happens in the execution of the code whenever a Future is involved.
+
+Imports and a context for this code snippet can be 
+found [here](https://github.com/ador/scala-examples/blob/master/08_futures/src/main/scala/futures/FutureExamples.scala). 
+If you run the scala App (just say "sbt run") then you can check the order of lines that are printed to the console.
 
 ### Dealing with a Future object
 
-What can we do if we receive a Future from somewhere?
+What can we do if we receive a Future from a function? How do we deal with these forks of execution?
 
-For example, we can process the outcome of the computation asynchronously by
-specifying a "callback function" like in the following example:
+The simplest solution is to provide a "callback function" that 
+will be called to process the outcome of the computation after the Future became completed:
 
 {{< highlight scala >}}
 fetchTweetList.onComplete {
   case Success(tweetList) => println("got my tweets, " + tweetList.length + " of them")
   case Failure(ex) => println("Something bad happened")
-  case _ => "??"
+  case _ => "??" // we will never get here
 }
 {{< / highlight >}}
 
-The code between the curly brackets will be run only after the "fetchTweetList" function has returned its computed Future.
+The code between the curly brackets will be run only after the _fetchTweetList_ function has finished running (in a separate thread) 
+and returned its computed Future.
 We are using Scala's 
 <a href='{{< relref "post/patternmatch1.md" >}}'>pattern matching</a> to
 un-wrap the result of the computation.
 
+We will explore other ways to deal with Future object in some subsequent blog posts. Stay tuned!
 
 ## There is more!
 
-This was a very short intro only, I will write at least one or two more posts on the topic of Futures.
+This was a very short intro only, there is much more to learn about Scala's Future. 
+I will write at least two more posts on this topic. 
 
-Until then, some pages thet are worth reading:
+Until I have time to write the next part, I recommend reading these:
+
 - [Wiki page on Futures and Promises in general](https://en.wikipedia.org/wiki/Futures_and_promises)
-- [Daniel's post on Futures](http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html)
+- [Daniel's post on Scala Futures](http://danielwestheide.com/blog/2013/01/09/the-neophytes-guide-to-scala-part-8-welcome-to-the-future.html)
+- [The official documentation](http://docs.scala-lang.org/overviews/core/futures.html)
 
 Some runnable code examples are available (and will be extended) [here](https://github.com/ador/scala-examples/tree/master/08_futures).
 
